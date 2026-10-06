@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HR Portal | Payroll</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+
+<body>
+
+
+<!-- SIDEBAR -->
+<aside class="offcanvas-lg offcanvas-start sidebar d-flex flex-column" tabindex="-1" id="sidebar" aria-label="HR Sidebar">
+    <div class="sidebar-brand d-flex align-items-center justify-content-between">
+        <img src="assets/logo-white.png" alt="logo">
+        <button type="button" class="btn-close btn-close-white d-lg-none" data-bs-dismiss="offcanvas" data-bs-target="#sidebar" aria-label="Close"></button>
+    </div>
+
+    <nav class="sidebar-nav flex-grow-1">
+    <span class="nav-label">Main Menu</span>
+
+    <a href="dashboard.html" class="nav-link">
+        <i class="fa-solid fa-gauge-high"></i><span>Dashboard</span>
+    </a>
+    <a href="employees.html" class="nav-link">
+        <i class="fa-solid fa-users"></i><span>Employees</span>
+        <span class="nav-badge ms-auto">248</span>
+    </a>
+    <a href="attendence.html" class="nav-link">
+        <i class="fa-solid fa-calendar-check"></i><span>Attendance</span>
+    </a>
+    <a href="paroll.html" class="nav-link active">
+        <i class="fa-solid fa-money-bill-wave"></i><span>Payroll</span>
+    </a>
+    <a href="leave.html" class="nav-link">
+        <i class="fa-solid fa-plane-departure"></i><span>Leave</span>
+        <span class="nav-badge warn ms-auto">5</span>
+    </a>
+    <a href="recruitment.html" class="nav-link">
+        <i class="fa-solid fa-briefcase"></i><span>Recruitment</span>
+    </a>
+
+    <span class="nav-label">Management</span>
+    <a href="performance.html" class="nav-link">
+        <i class="fa-solid fa-chart-line"></i><span>Performance</span>
+    </a>
+    <a href="holidays.html" class="nav-link">
+        <i class="fa-solid fa-umbrella-beach"></i><span>Holidays</span>
+    </a>
+    <a href="inbox.html" class="nav-link">
+        <i class="fa-solid fa-inbox"></i><span>Inbox</span>
+        <span class="nav-badge ms-auto">3</span>
+    </a>
+    <a href="assest.html" class="nav-link">
+        <i class="fa-solid fa-folder-open"></i><span>Assets </span>
+    </a>
+
+</nav>
+</aside>
+
+<!-- MAIN  -->
+<main class="main-area d-flex flex-column min-vh-100">
+
+    <!-- TOPBAR    -->
+    <header class="topbar sticky-top d-flex align-items-center">
+        <button class="btn btn-link text-dark text-decoration-none fs-4 p-0 me-3 d-lg-none" type="button"
+                data-bs-toggle="offcanvas" data-bs-target="#sidebar" aria-controls="sidebar">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+
+        <h4 class="fw-bolder mb-0 page-title">Payroll</h4>
+
+        <div class="topbar-search position-relative d-none d-md-block">
+            <i class="fa-solid fa-magnifying-glass position-absolute top-50 translate-middle-y"></i>
+            <input type="text" class="form-control rounded-pill" placeholder="Search employees, departments...">
+        </div>
+
+        <div class="d-flex align-items-center gap-3 ms-auto">
+
+            <!-- Notifications -->
+            <div class="dropdown">
+                <button class="btn notif-btn rounded-circle position-relative" type="button"
+                        data-bs-toggle="dropdown" data-bs-display="static" data-bs-auto-close="outside" aria-expanded="false">
+                    <i class="fa-regular fa-bell"></i>
+                    <span class="position-absolute badge rounded-pill bg-danger notif-badge">3</span>
+                </button>
+
+                <div class="dropdown-menu notif-menu">
+                    <div class="drop-head d-flex justify-content-between align-items-center">
+                        <span>Notifications</span>
+                        <button type="button" id="markRead">Mark all read</button>
+                    </div>
+                    <div class="drop-item unread">
+                        <i class="fa-solid fa-user-plus chip chip-blue"></i>
+                        <div><span>New registration request</span><small class="d-block">Ravi Kumar registered · 5m ago</small></div>
+                    </div>
+                    <div class="drop-item unread">
+                        <i class="fa-solid fa-plane-departure chip chip-amber"></i>
+                        <div><span>Leave request pending</span><small class="d-block">Emma Wilson · 1h ago</small></div>
+                    </div>
+                    <div class="drop-item unread">
+                        <i class="fa-solid fa-file-invoice-dollar chip chip-red"></i>
+                        <div><span>Payroll generated</span><small class="d-block">October payslips ready · 3h ago</small></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Profile -->
+            <div class="dropdown">
+                <button class="btn profile-btn rounded-pill d-flex align-items-center gap-2" type="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                    <img id="topbarUserAvatar" src="" class="rounded-circle" width="34" height="34" alt="user">
+                    <span class="text-start d-none d-sm-block">
+                        <span class="d-block fw-bold small" id="topbarUserName"></span>
+                    </span>
+                    <i class="fa-solid fa-chevron-down text-muted small"></i>
+                </button>
+
+                <ul class="dropdown-menu dropdown-menu-end shadow border-0 p-2" style="min-width:230px;">
+                    <li class="d-flex align-items-center gap-2 p-2">
+                        <img id="profileMenuAvatar" src="" class="rounded-circle" width="42" height="42" alt="user">
+                        <div><strong class="d-block small" id="profileMenuName"></strong><small class="text-muted">HR Manager</small></div>
+                    </li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item rounded d-flex align-items-center gap-2 py-2" href="#"><i class="fa-regular fa-user text-primary" style="width:18px;"></i> My Profile</a></li>
+                    <li><a class="dropdown-item rounded d-flex align-items-center gap-2 py-2" href="#"><i class="fa-solid fa-gear text-primary" style="width:18px;"></i> Settings</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item text-danger rounded d-flex align-items-center gap-2 py-2 logout-link" href="index.html"><i class="fa-solid fa-arrow-right-from-bracket" style="width:18px;"></i> Logout</a></li>
+                </ul>
+            </div>
+
+        </div>
+    </header>
+
+    
+<!-- CONTENT -->
+
+<section class="flex-grow-1 p-3 p-lg-4">
+
+
+    <div class="d-flex flex-column flex-md-row align-items-start align-items-md-center justify-content-between gap-2 mb-3">
+        <div class="d-flex align-items-center gap-2">
+            <div class="pc-head-ic"><i class="fa-solid fa-coins"></i></div>
+            <div>
+                <h6 class="fw-bolder mb-0" style="font-size:.95rem;">Payroll Command Center</h6>
+                <small class="text-secondary" style="font-size:.74rem;">November 2026 cycle · 248 employees · closes in 12 days</small>
+            </div>
+        </div>
+        <span class="badge rounded-pill bg-warning-subtle text-dark fw-semibold px-3 py-2" style="font-size:.66rem;">
+            <i class="fa-solid fa-hourglass-half me-1"></i>Approval Pending
+        </span>
+    </div>
+
+  
+    <div class="row g-3">
+
+        <!-- NET — hero -->
+        <div class="col-12 col-md-6 col-xl-3">
+            <div class="pr-glass pr-green">
+                <div class="d-flex justify-content-between align-items-start">
+                    <small class="pr-glabel">Net Payout</small>
+                    <span class="pr-gicon"><i class="fa-solid fa-money-bill-wave"></i></span>
+                </div>
+                <div class="pr-gnum">$48,220</div>
+                <small class="pr-gsub">248 employees · Nov 30 payout</small>
+                <div class="d-flex align-items-end gap-1 mt-3" style="height:30px;">
+                    <div class="flex-fill rounded-top" style="height:40%; background:#cfe7b4;"></div>
+                    <div class="flex-fill rounded-top" style="height:55%; background:#cfe7b4;"></div>
+                    <div class="flex-fill rounded-top" style="height:45%; background:#cfe7b4;"></div>
+                    <div class="flex-fill rounded-top" style="height:70%; background:#a5d67c;"></div>
+                    <div class="flex-fill rounded-top" style="height:100%; background:#7dc443;"></div>
+                </div>
+                <small class="pr-gsub d-block mt-1" style="font-size:.6rem;">Jul → Nov trend</small>
+            </div>
+        </div>
+
+        <!-- Gross -->
+        <div class="col-6 col-xl-3">
+            <div class="pr-glass">
+                <div class="d-flex justify-content-between align-items-start">
+                    <small class="pr-glabel">Gross</small>
+                    <span class="pr-gicon"><i class="fa-solid fa-sack-dollar"></i></span>
+                </div>
+                <div class="pr-gnum">$52,400</div>
+                <small class="pr-gsub">before deductions</small>
+                <div class="mt-3 pt-2 border-top d-flex justify-content-between" style="font-size:.68rem;">
+                    <span class="text-secondary">Basic + HRA</span>
+                    <strong class="text-dark">$48,900</strong>
+                </div>
+            </div>
+        </div>
+
+        <!-- Deductions -->
+        <div class="col-6 col-xl-3">
+            <div class="pr-glass">
+                <div class="d-flex justify-content-between align-items-start">
+                    <small class="pr-glabel">Deductions</small>
+                    <span class="pr-gicon pr-ic-red"><i class="fa-solid fa-file-invoice-dollar"></i></span>
+                </div>
+                <div class="pr-gnum">$4,180</div>
+                <small class="pr-gsub">tax · insurance · loans</small>
+                <div class="mt-3 pt-2 border-top d-flex justify-content-between" style="font-size:.68rem;">
+                    <span class="text-secondary">Avg / employee</span>
+                    <strong class="text-dark">$16.85</strong>
+                </div>
+            </div>
+        </div>
+
+        <!-- Overtime -->
+        <div class="col-6 col-xl-3">
+            <div class="pr-glass">
+                <div class="d-flex justify-content-between align-items-start">
+                    <small class="pr-glabel">Overtime</small>
+                    <span class="pr-gicon pr-ic-blue"><i class="fa-solid fa-clock"></i></span>
+                </div>
+                <div class="pr-gnum">$1,240</div>
+                <small class="pr-gsub">14 employees · 45h+</small>
+                <div class="mt-3 pt-2 border-top d-flex justify-content-between" style="font-size:.68rem;">
+                    <span class="text-secondary">vs October</span>
+                    <strong style="color:#c07d12;">+8% ⚠</strong>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="pr-insight mt-3 d-flex flex-wrap align-items-center justify-content-between gap-2">
+        <div class="d-flex align-items-center gap-2">
+            <span class="ins-ic"><i class="fa-solid fa-wand-magic-sparkles"></i></span>
+            <div>
+                <strong class="d-block text-dark" style="font-size:.8rem;">Smart Insight</strong>
+                <small class="text-secondary" style="font-size:.72rem;">Overtime is 8% higher than October — 14 employees crossed 45h. Review before approval.</small>
+            </div>
+        </div>
+        <a href="#" class="btn btn-sm btn-light border rounded-pill px-3 fw-semibold" style="font-size:.7rem;">
+            Review OT <i class="fa-solid fa-arrow-right ms-1"></i>
+        </a>
+    </div>
+
+
+    <div class="row g-3 mt-3">
+
+        <!-- Payslip -->
+        <div class="col-lg-5">
+            <div class="card border-0 shadow-sm rounded-4 h-100">
+                <div class="card-header bg-white border-bottom py-3 px-3 d-flex justify-content-between align-items-center">
+                    <strong style="font-size:.85rem;">Payslip Preview</strong>
+                    <span class="badge rounded-pill bg-success-subtle text-success" style="font-size:.6rem;">October · #1024</span>
+                </div>
+                <div class="card-body p-3 p-lg-4">
+                    <div class="slip">
+                        <div class="slip-top">
+                            <img src="assets/logo-black.png" class="slip-logo" alt="" onerror="this.style.display='none'">
+                            <div class="text-end">
+                                <small style="font-size:.6rem; color:rgba(255,255,255,.75);">PAYSLIP</small>
+                                <div style="font-size:.72rem;">Oct 2026</div>
+                            </div>
+                        </div>
+                        <img src="https://i.pravatar.cc/140?u=36" class="slip-av" alt="">
+                        <div class="text-center mb-3">
+                            <strong style="font-size:.9rem;">Falguni Nayyar</strong>
+                            <small class="d-block text-secondary" style="font-size:.7rem;">HR Head · HR001</small>
+                        </div>
+                        <div class="slip-row"><span>Basic</span><strong>$4,200</strong></div>
+                        <div class="slip-row"><span>HRA</span><strong>$1,100</strong></div>
+                        <div class="slip-row"><span>Bonus</span><strong>$350</strong></div>
+                        <div class="slip-row slip-ded"><span>Tax</span><strong>-$620</strong></div>
+                        <div class="slip-row slip-ded"><span>Insurance</span><strong>-$180</strong></div>
+                        <div class="slip-total"><span>NET PAY</span><strong>$4,850</strong></div>
+                        <div class="slip-barcode"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Run Status -->
+        <div class="col-lg-7">
+            <div class="card border-0 shadow-sm rounded-4 h-100">
+                <div class="card-body p-3 p-lg-4">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <strong style="font-size:.86rem;">Payroll Run Progress</strong>
+                        <span class="badge rounded-pill bg-warning-subtle text-dark" style="font-size:.6rem;">Step 3 of 5</span>
+                    </div>
+
+                    <div class="pr-steps">
+                        <div class="pr-step done">
+                            <span class="pr-ic"><i class="fa-solid fa-check"></i></span>
+                            <div class="flex-grow-1"><strong>Generated</strong><small class="d-block text-secondary">Nov 15 · Auto from attendance</small></div>
+                        </div>
+                        <div class="pr-step done">
+                            <span class="pr-ic"><i class="fa-solid fa-check"></i></span>
+                            <div class="flex-grow-1"><strong>Reviewed</strong><small class="d-block text-secondary">Nov 18 · By you</small></div>
+                        </div>
+                        <div class="pr-step now">
+                            <span class="pr-ic"><i class="fa-solid fa-check-to-slot"></i></span>
+                            <div class="flex-grow-1"><strong>Approval</strong><small class="d-block text-secondary">Pending · action needed today</small></div>
+                        </div>
+                        <div class="pr-step">
+                            <span class="pr-ic"><i class="fa-solid fa-building-columns"></i></span>
+                            <div class="flex-grow-1"><strong>Bank Transfer</strong><small class="d-block text-secondary">Scheduled Nov 28</small></div>
+                        </div>
+                        <div class="pr-step">
+                            <span class="pr-ic"><i class="fa-solid fa-envelope-open-text"></i></span>
+                            <div class="flex-grow-1"><strong>Payslips Sent</strong><small class="d-block text-secondary">Auto · Nov 29</small></div>
+                        </div>
+                    </div>
+
+                    <div class="alert d-flex align-items-center gap-2 mt-4 mb-0 py-2 px-3 rounded-3" style="background:#fdf3e3; border:1px solid #f6e3b9; font-size:.74rem;">
+                        <i class="fa-solid fa-triangle-exclamation" style="color:#c07d12;"></i>
+                        <span class="text-dark">2 employees have pending loan deductions</span>
+                        <a href="#" class="fw-bold ms-auto text-decoration-none" style="font-size:.7rem; color:#c07d12;">Fix</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--  ROW 3  -->
+    <div class="card border-0 shadow-sm rounded-4 mt-3 overflow-hidden">
+        <div class="card-header bg-white border-bottom py-3 px-3 d-flex flex-wrap justify-content-between align-items-center gap-2">
+            <strong style="font-size:.86rem;">Team Payroll Breakdown</strong>
+            <div class="d-flex gap-2">
+                <select class="form-select form-select-sm rounded-pill" style="width:auto; font-size:.74rem;">
+                    <option>All Departments</option>
+                    <option>Engineering</option>
+                    <option>Sales</option>
+                </select>
+                <button class="btn btn-sm btn-light border" style="font-size:.72rem;"><i class="fa-solid fa-download me-1"></i>Export</button>
+            </div>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead>
+                    <tr style="font-size:.62rem; text-transform:uppercase; letter-spacing:.8px; color:#94a496;">
+                        <th class="ps-3">Employee</th>
+                        <th class="d-none d-md-table-cell">Basic</th>
+                        <th class="d-none d-lg-table-cell">Allowances</th>
+                        <th class="d-none d-lg-table-cell">Deductions</th>
+                        <th>Net Pay</th>
+                        <th class="text-end pe-3">Payslip</th>
+                    </tr>
+                </thead>
+                <tbody style="font-size:.8rem;">
+                    <!-- rows (5 employees same as before) -->
+                    <tr>
+                        <td class="ps-3"><div class="d-flex align-items-center gap-2"><img src="https://i.pravatar.cc/140?u=12" class="rounded-circle" width="32" height="32" alt=""><div class="fw-bold text-dark">Aditya Verma</div></div></td>
+                        <td class="d-none d-md-table-cell text-secondary">$5,200</td>
+                        <td class="d-none d-lg-table-cell text-secondary">$1,450</td>
+                        <td class="d-none d-lg-table-cell text-danger">-$520</td>
+                        <td><strong class="text-dark">$6,130</strong></td>
+                        <td class="text-end pe-3"><button class="btn btn-sm btn-light border rounded-pill px-2" style="font-size:.64rem;"><i class="fa-regular fa-eye me-1"></i>View</button></td>
+                    </tr>
+                    <tr>
+                        <td class="ps-3"><div class="d-flex align-items-center gap-2"><img src="https://i.pravatar.cc/140?u=36" class="rounded-circle" width="32" height="32" alt=""><div class="fw-bold text-dark">Falguni Nayyar</div></div></td>
+                        <td class="d-none d-md-table-cell text-secondary">$4,200</td>
+                        <td class="d-none d-lg-table-cell text-secondary">$1,450</td>
+                        <td class="d-none d-lg-table-cell text-danger">-$800</td>
+                        <td><strong class="text-dark">$4,850</strong></td>
+                        <td class="text-end pe-3"><button class="btn btn-sm btn-light border rounded-pill px-2" style="font-size:.64rem;"><i class="fa-regular fa-eye me-1"></i>View</button></td>
+                    </tr>
+                    <tr>
+                        <td class="ps-3"><div class="d-flex align-items-center gap-2"><img src="https://i.pravatar.cc/140?u=54" class="rounded-circle" width="32" height="32" alt=""><div class="fw-bold text-dark">Vikram Singh</div></div></td>
+                        <td class="d-none d-md-table-cell text-secondary">$4,800</td>
+                        <td class="d-none d-lg-table-cell text-secondary">$1,200</td>
+                        <td class="d-none d-lg-table-cell text-danger">-$610</td>
+                        <td><strong class="text-dark">$5,390</strong></td>
+                        <td class="text-end pe-3"><button class="btn btn-sm btn-light border rounded-pill px-2" style="font-size:.64rem;"><i class="fa-regular fa-eye me-1"></i>View</button></td>
+                    </tr>
+                    <tr>
+                        <td class="ps-3"><div class="d-flex align-items-center gap-2"><img src="https://i.pravatar.cc/140?u=22" class="rounded-circle" width="32" height="32" alt=""><div class="fw-bold text-dark">Kirti Patel</div></div></td>
+                        <td class="d-none d-md-table-cell text-secondary">$3,600</td>
+                        <td class="d-none d-lg-table-cell text-secondary">$900</td>
+                        <td class="d-none d-lg-table-cell text-danger">-$430</td>
+                        <td><strong class="text-dark">$4,070</strong></td>
+                        <td class="text-end pe-3"><button class="btn btn-sm btn-light border rounded-pill px-2" style="font-size:.64rem;"><i class="fa-regular fa-eye me-1"></i>View</button></td>
+                    </tr>
+                    <tr>
+                        <td class="ps-3"><div class="d-flex align-items-center gap-2"><img src="https://i.pravatar.cc/140?u=32" class="rounded-circle" width="32" height="32" alt=""><div class="fw-bold text-dark">Georgie Leal</div></div></td>
+                        <td class="d-none d-md-table-cell text-secondary">$3,900</td>
+                        <td class="d-none d-lg-table-cell text-secondary">$950</td>
+                        <td class="d-none d-lg-table-cell text-danger">-$485</td>
+                        <td><strong class="text-dark">$4,365</strong></td>
+                        <td class="text-end pe-3"><button class="btn btn-sm btn-light border rounded-pill px-2" style="font-size:.64rem;"><i class="fa-regular fa-eye me-1"></i>View</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="d-flex justify-content-between align-items-center px-3 py-2 border-top bg-light" style="font-size:.72rem;">
+            <span class="text-secondary">Showing 5 of 248</span>
+            <ul class="pagination pagination-sm mb-0">
+                <li class="page-item disabled"><span class="page-link"><i class="fa-solid fa-chevron-left"></i></span></li>
+                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#"><i class="fa-solid fa-chevron-right"></i></a></li>
+            </ul>
+        </div>
+    </div>
+
+</section>
+
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+(function () {
+    "use strict";
+
+    // ---- Auth guard (login check) ----
+    var user = (localStorage.getItem("loggedInUser") || "").trim();
+    if (!user) { location.href = "index.html"; return; }
+
+    var $ = function (id) { return document.getElementById(id); };
+
+    // ---- User info ----
+    var av = "https://ui-avatars.com/api/?name=" + encodeURIComponent(user) + "&background=7dc443&color=fff&bold=true";
+    $("topbarUserName").textContent = user;
+    $("profileMenuName").textContent = user;
+    $("topbarUserAvatar").src = av;
+    $("profileMenuAvatar").src = av;
+
+    // ---- Logout / mark read ----
+    document.querySelector(".logout-link").addEventListener("click", function () {
+        localStorage.removeItem("loggedInUser");
+    });
+    $("markRead").addEventListener("click", function () {
+        document.querySelectorAll(".drop-item.unread").forEach(function (el) { el.classList.remove("unread"); });
+        document.querySelector(".notif-badge").style.display = "none";
+    });
+
+
+})();
+</script>
+
+</body>
+</html>

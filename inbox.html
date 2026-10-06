@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HR Portal | Inbox</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="dashboard.css">
+<link rel="stylesheet" href="inbox.css">
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+<aside class="offcanvas-lg offcanvas-start sidebar d-flex flex-column" tabindex="-1" id="sidebar" aria-label="HR Sidebar">
+    <div class="sidebar-brand d-flex align-items-center justify-content-between">
+        <img src="assets/logo-white.png" alt="logo">
+        <button type="button" class="btn-close btn-close-white d-lg-none" data-bs-dismiss="offcanvas" data-bs-target="#sidebar" aria-label="Close"></button>
+    </div>
+    <nav class="sidebar-nav flex-grow-1">
+        <span class="nav-label">Main Menu</span>
+        <a href="dashboard.html" class="nav-link"><i class="fa-solid fa-gauge-high"></i><span>Dashboard</span></a>
+        <a href="employees.html" class="nav-link"><i class="fa-solid fa-users"></i><span>Employees</span><span class="nav-badge ms-auto">248</span></a>
+        <a href="attendence.html" class="nav-link"><i class="fa-solid fa-calendar-check"></i><span>Attendance</span></a>
+        <a href="paroll.html" class="nav-link"><i class="fa-solid fa-money-bill-wave"></i><span>Payroll</span></a>
+        <a href="leave.html" class="nav-link"><i class="fa-solid fa-plane-departure"></i><span>Leave</span><span class="nav-badge warn ms-auto">5</span></a>
+        <a href="recruitment.html" class="nav-link"><i class="fa-solid fa-briefcase"></i><span>Recruitment</span></a>
+        <span class="nav-label">Management</span>
+        <a href="performance.html" class="nav-link"><i class="fa-solid fa-chart-line"></i><span>Performance</span></a>
+        <a href="holidays.html" class="nav-link"><i class="fa-solid fa-umbrella-beach"></i><span>Holidays</span></a>
+        <a href="inbox.html" class="nav-link active"><i class="fa-solid fa-inbox"></i><span>Inbox</span><span class="nav-badge ms-auto">3</span></a>
+    <a href="assest.html" class="nav-link">
+        <i class="fa-solid fa-folder-open"></i><span>Assets </span>
+    </a>
+    </nav>
+</aside>
+
+<!-- MAIN -->
+<main class="main-area d-flex flex-column min-vh-100">
+
+    <!-- TOPBAR -->
+    <header class="topbar sticky-top d-flex align-items-center">
+        <button class="btn btn-link text-dark text-decoration-none fs-4 p-0 me-3 d-lg-none" type="button"
+                data-bs-toggle="offcanvas" data-bs-target="#sidebar" aria-controls="sidebar">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+        <h4 class="fw-bolder mb-0 page-title">Inbox</h4>
+        <div class="topbar-search position-relative d-none d-md-block">
+            <i class="fa-solid fa-magnifying-glass position-absolute top-50 translate-middle-y"></i>
+            <input type="text" class="form-control rounded-pill" placeholder="Search employees, departments...">
+        </div>
+        <div class="d-flex align-items-center gap-3 ms-auto">
+            <div class="dropdown">
+                <button class="btn notif-btn rounded-circle position-relative" type="button"
+                        data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
+                    <i class="fa-regular fa-bell"></i>
+                    <span class="position-absolute badge rounded-pill bg-danger notif-badge">3</span>
+                </button>
+                <div class="dropdown-menu notif-menu">
+                    <div class="drop-head d-flex justify-content-between align-items-center">
+                        <span>Notifications</span>
+                        <button type="button" id="markRead">Mark all read</button>
+                    </div>
+                    <div class="drop-item unread">
+                        <i class="fa-solid fa-user-plus chip chip-blue"></i>
+                        <div><span>New registration request</span><small class="d-block">Ravi Kumar · 5m ago</small></div>
+                    </div>
+                    <div class="drop-item unread">
+                        <i class="fa-solid fa-plane-departure chip chip-amber"></i>
+                        <div><span>Leave request pending</span><small class="d-block">Emma Wilson · 1h ago</small></div>
+                    </div>
+                    <div class="drop-item unread">
+                        <i class="fa-solid fa-file-invoice-dollar chip chip-red"></i>
+                        <div><span>Payroll generated</span><small class="d-block">October payslips · 3h ago</small></div>
+                    </div>
+                </div>
+            </div>
+            <div class="dropdown">
+                <button class="btn profile-btn rounded-pill d-flex align-items-center gap-2" type="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                    <img id="topbarUserAvatar" src="" class="rounded-circle" width="34" height="34" alt="user">
+                    <span class="text-start d-none d-sm-block">
+                        <span class="d-block fw-bold small" id="topbarUserName"></span>
+                    </span>
+                    <i class="fa-solid fa-chevron-down text-muted small"></i>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end shadow border-0 p-2" style="min-width:230px;">
+                    <li class="d-flex align-items-center gap-2 p-2">
+                        <img id="profileMenuAvatar" src="" class="rounded-circle" width="42" height="42" alt="user">
+                        <div><strong class="d-block small" id="profileMenuName"></strong><small class="text-muted">HR Manager</small></div>
+                    </li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item rounded d-flex align-items-center gap-2 py-2" href="#"><i class="fa-regular fa-user text-primary" style="width:18px;"></i> My Profile</a></li>
+                    <li><a class="dropdown-item rounded d-flex align-items-center gap-2 py-2" href="#"><i class="fa-solid fa-gear text-primary" style="width:18px;"></i> Settings</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item text-danger rounded d-flex align-items-center gap-2 py-2 logout-link" href="index.html"><i class="fa-solid fa-arrow-right-from-bracket" style="width:18px;"></i> Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <!-- INBOX -->
+    <section class="inbox-wrap flex-grow-1">
+
+        <!-- HERO -->
+        <div class="inbox-hero">
+            <span class="inbox-circle c1"></span>
+            <span class="inbox-circle c2"></span>
+
+            <div class="inbox-hero-left">
+                <span class="mini-label">Mailbox</span>
+                <h2>Inbox</h2>
+                <p id="heroSummary">Loading…</p>
+                <div class="inbox-chips">
+                    <span class="inbox-chip grn"><i class="fa-solid fa-envelope"></i>Unread <b data-count="unread">0</b></span>
+                    <span class="inbox-chip amb"><i class="fa-solid fa-star"></i>Starred <b data-count="starred">0</b></span>
+                    <span class="inbox-chip blu"><i class="fa-solid fa-inbox"></i>Total <b data-count="total">0</b></span>
+                </div>
+            </div>
+
+            <div class="inbox-hero-right">
+                <button class="btn compose-btn" data-bs-toggle="modal" data-bs-target="#composeModal">
+                    <i class="fa-solid fa-pen-to-square me-2"></i>Compose
+                </button>
+            </div>
+        </div>
+
+        <!-- TOOLBAR -->
+        <div class="inbox-toolbar">
+            <div class="custom-check">
+                <input type="checkbox" id="selectAll">
+                <label for="selectAll" title="Select all"></label>
+            </div>
+            <button class="tool-btn" id="refreshBtn" title="Refresh"><i class="fa-solid fa-rotate"></i></button>
+            <button class="tool-btn bulk-btn" data-action="read" title="Mark as read"><i class="fa-regular fa-envelope-open"></i></button>
+            <button class="tool-btn danger bulk-btn" data-action="delete" title="Delete"><i class="fa-regular fa-trash-can"></i></button>
+            <button class="tool-btn bulk-btn" data-action="archive" title="Archive"><i class="fa-solid fa-box-archive"></i></button>
+
+            <div class="inbox-search">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="mailSearch" placeholder="Search messages...">
+            </div>
+
+            <select id="catFilter" class="form-select form-select-sm" style="width:150px">
+                <option value="all">All Messages</option>
+                <option value="work">Work</option>
+                <option value="private">Private</option>
+                <option value="support">Support</option>
+                <option value="social">Social</option>
+            </select>
+        </div>
+
+        <!-- PILLS -->
+        <div class="mail-pills">
+            <button class="mail-pill p-all active" data-cat="all"><i class="fa-solid fa-inbox"></i>All <b data-count="all">0</b></button>
+            <button class="mail-pill p-work" data-cat="work"><i class="fa-solid fa-briefcase"></i>Work <b data-count="work">0</b></button>
+            <button class="mail-pill p-private" data-cat="private"><i class="fa-solid fa-user"></i>Private <b data-count="private">0</b></button>
+            <button class="mail-pill p-support" data-cat="support"><i class="fa-solid fa-headset"></i>Support <b data-count="support">0</b></button>
+            <button class="mail-pill p-social" data-cat="social"><i class="fa-solid fa-users"></i>Social <b data-count="social">0</b></button>
+        </div>
+
+        <!-- EMAIL LIST -->
+        <div class="email-list" id="emailList">
+
+            <!-- Mail 1 -->
+            <div class="email-row unread p-2 p-md-3 d-flex align-items-start gap-2 gap-md-3" data-cat="work">
+                <div class="custom-check mt-1">
+                    <input type="checkbox" class="mail-check" id="m1">
+                    <label for="m1"></label>
+                </div>
+                <button class="star-btn mt-1"><i class="far fa-star"></i></button>
+                <div class="mail-avatar av-blue">RK</div>
+                <div class="flex-grow-1 min-vw-0" data-bs-toggle="collapse" data-bs-target="#mail1" role="button">
+                    <div class="d-flex align-items-center gap-2">
+                        <span class="sender-name">Ravi Kumar</span>
+                        <span class="new-badge">new</span>
+                        <span class="mail-time ms-auto">11:49 AM</span>
+                    </div>
+                    <div class="mail-sub">Monthly HR Report</div>
+                    <div class="mail-msg">Please find attached the monthly HR report for October.</div>
+                </div>
+                <div class="row-actions">
+                    <button class="tool-btn" data-bs-toggle="collapse" data-bs-target="#mail1" title="Show"><i class="far fa-eye"></i></button>
+                    <button class="tool-btn danger del-btn" title="Delete"><i class="far fa-trash-can"></i></button>
+                </div>
+                <div class="collapse w-100" id="mail1">
+                    <div class="mail-body">
+                        <h6>Monthly HR Report</h6>
+                        <p>Hello HR Team,<br><br>Please find attached the monthly employee report. The attendance and payroll information has been updated successfully.</p>
+                        <button class="btn btn-sm btn-success"><i class="fa-solid fa-paperclip me-1"></i>HR-Report.pdf</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mail 2 -->
+            <div class="email-row unread p-2 p-md-3 d-flex align-items-start gap-2 gap-md-3" data-cat="private">
+                <div class="custom-check mt-1">
+                    <input type="checkbox" class="mail-check" id="m2">
+                    <label for="m2"></label>
+                </div>
+                <button class="star-btn mt-1"><i class="far fa-star"></i></button>
+                <div class="mail-avatar av-green">EW</div>
+                <div class="flex-grow-1 min-vw-0" data-bs-toggle="collapse" data-bs-target="#mail2" role="button">
+                    <div class="d-flex align-items-center gap-2">
+                        <span class="sender-name">Emma Wilson</span>
+                        <span class="new-badge">new</span>
+                        <span class="mail-time ms-auto">10:25 AM</span>
+                    </div>
+                    <div class="mail-sub">Leave Request</div>
+                    <div class="mail-msg">I would like to request leave for next Monday.</div>
+                </div>
+                <div class="row-actions">
+                    <button class="tool-btn" data-bs-toggle="collapse" data-bs-target="#mail2" title="Show"><i class="far fa-eye"></i></button>
+                    <button class="tool-btn danger del-btn" title="Delete"><i class="far fa-trash-can"></i></button>
+                </div>
+                <div class="collapse w-100" id="mail2">
+                    <div class="mail-body">
+                        <h6>Leave Request</h6>
+                        <p>Hi HR,<br><br>I would like to request one day of leave for next Monday due to personal reasons.</p>
+                        <div class="d-flex gap-2">
+                            <button class="btn btn-sm btn-success approve-btn">Approve</button>
+                            <button class="btn btn-sm btn-outline-danger reject-btn">Reject</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mail 3 -->
+            <div class="email-row p-2 p-md-3 d-flex align-items-start gap-2 gap-md-3" data-cat="support">
+                <div class="custom-check mt-1">
+                    <input type="checkbox" class="mail-check" id="m3">
+                    <label for="m3"></label>
+                </div>
+                <button class="star-btn active mt-1"><i class="fas fa-star"></i></button>
+                <div class="mail-avatar av-amber">IT</div>
+                <div class="flex-grow-1 min-vw-0" data-bs-toggle="collapse" data-bs-target="#mail3" role="button">
+                    <div class="d-flex align-items-center gap-2">
+                        <span class="sender-name">IT Support</span>
+                        <span class="new-badge">new</span>
+                        <span class="mail-time ms-auto">Yesterday</span>
+                    </div>
+                    <div class="mail-sub">System Support</div>
+                    <div class="mail-msg">Your requested system update has been completed.</div>
+                </div>
+                <div class="row-actions">
+                    <button class="tool-btn" data-bs-toggle="collapse" data-bs-target="#mail3" title="Show"><i class="far fa-eye"></i></button>
+                    <button class="tool-btn danger del-btn" title="Delete"><i class="far fa-trash-can"></i></button>
+                </div>
+                <div class="collapse w-100" id="mail3">
+                    <div class="mail-body">
+                        <h6>System Support</h6>
+                        <p class="mb-0">Your requested system update has been completed. You can now access the updated HR portal.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mail 4 -->
+            <div class="email-row p-2 p-md-3 d-flex align-items-start gap-2 gap-md-3" data-cat="social">
+                <div class="custom-check mt-1">
+                    <input type="checkbox" class="mail-check" id="m4">
+                    <label for="m4"></label>
+                </div>
+                <button class="star-btn mt-1"><i class="far fa-star"></i></button>
+                <div class="mail-avatar av-slate">HR</div>
+                <div class="flex-grow-1 min-vw-0" data-bs-toggle="collapse" data-bs-target="#mail4" role="button">
+                    <div class="d-flex align-items-center gap-2">
+                        <span class="sender-name">HR Team</span>
+                        <span class="new-badge">new</span>
+                        <span class="mail-time ms-auto">Yesterday</span>
+                    </div>
+                    <div class="mail-sub">Welcome to HR Portal</div>
+                    <div class="mail-msg">Welcome to the new HR management portal.</div>
+                </div>
+                <div class="row-actions">
+                    <button class="tool-btn" data-bs-toggle="collapse" data-bs-target="#mail4" title="Show"><i class="far fa-eye"></i></button>
+                    <button class="tool-btn danger del-btn" title="Delete"><i class="far fa-trash-can"></i></button>
+                </div>
+                <div class="collapse w-100" id="mail4">
+                    <div class="mail-body">
+                        <h6>Welcome to HR Portal</h6>
+                        <p class="mb-0">Welcome to our new HR management portal. All employee information is now available from one place.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mail 5 -->
+            <div class="email-row unread p-2 p-md-3 d-flex align-items-start gap-2 gap-md-3" data-cat="work">
+                <div class="custom-check mt-1">
+                    <input type="checkbox" class="mail-check" id="m5">
+                    <label for="m5"></label>
+                </div>
+                <button class="star-btn mt-1"><i class="far fa-star"></i></button>
+                <div class="mail-avatar av-red">PS</div>
+                <div class="flex-grow-1 min-vw-0" data-bs-toggle="collapse" data-bs-target="#mail5" role="button">
+                    <div class="d-flex align-items-center gap-2">
+                        <span class="sender-name">Priya Sharma</span>
+                        <span class="new-badge">new</span>
+                        <span class="mail-time ms-auto">9:12 AM</span>
+                    </div>
+                    <div class="mail-sub">Team Meeting Notes</div>
+                    <div class="mail-msg">Sharing the minutes from yesterday's team meeting.</div>
+                </div>
+                <div class="row-actions">
+                    <button class="tool-btn" data-bs-toggle="collapse" data-bs-target="#mail5" title="Show"><i class="far fa-eye"></i></button>
+                    <button class="tool-btn danger del-btn" title="Delete"><i class="far fa-trash-can"></i></button>
+                </div>
+                <div class="collapse w-100" id="mail5">
+                    <div class="mail-body">
+                        <h6>Team Meeting Notes</h6>
+                        <p class="mb-0">Hi, sharing the minutes from yesterday's team meeting. Action items have been assigned to each department lead.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Empty -->
+            <div class="empty-box d-none" id="emptyBox">
+                <i class="far fa-envelope-open"></i>
+                <h6>No messages found</h6>
+                <small>Try another search or category.</small>
+            </div>
+        </div>
+
+        <!-- PAGINATION -->
+        <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mt-3">
+            <small class="text-muted">Showing <strong>1–5</strong> of <strong>5</strong> messages</small>
+            <div class="d-flex gap-2">
+                <button class="page-btn" disabled><i class="fa-solid fa-chevron-left"></i></button>
+                <button class="page-btn active">1</button>
+                <button class="page-btn">2</button>
+                <button class="page-btn">3</button>
+                <button class="page-btn"><i class="fa-solid fa-chevron-right"></i></button>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- COMPOSE MODAL -->
+    <div class="modal fade" id="composeModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content compose-modal rounded-4">
+                <div class="modal-header">
+                    <h5 class="modal-title fw-bold"><i class="fa-solid fa-paper-plane me-2"></i>New Message</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">To</label>
+                        <input type="email" class="form-control" id="cTo" placeholder="employee@company.com">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Subject</label>
+                        <input type="text" class="form-control" id="cSub" placeholder="Enter subject">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Message</label>
+                        <textarea class="form-control" id="cMsg" rows="6" placeholder="Write your message..."></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer border-0 pt-0">
+                    <button class="btn btn-light border" data-bs-dismiss="modal">Cancel</button>
+                    <button class="btn send-btn" id="sendBtn"><i class="fa-solid fa-paper-plane me-2"></i>Send Message</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOAST -->
+    <div class="toast-container position-fixed bottom-0 start-50 translate-middle-x p-3">
+        <div class="toast mail-toast border-0" id="appToast" data-bs-delay="2200" role="alert">
+            <div class="d-flex">
+                <div class="toast-body" id="toastMsg">Done</div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+            </div>
+        </div>
+    </div>
+
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+(function () {
+    /* ---- helpers ---- */
+    var $  = function (s, c) { return (c || document).querySelector(s); };
+    var $$ = function (s, c) { return [].slice.call((c || document).querySelectorAll(s)); };
+
+    /* ---- auth ---- */
+    var user = (localStorage.getItem("loggedInUser") || "").trim();
+    if (!user) { location.href = "index.html"; return; }
+    var av = "https://ui-avatars.com/api/?name=" + encodeURIComponent(user) + "&background=7dc443&color=fff&bold=true";
+    ["topbarUserName", "profileMenuName"].forEach(function (i) { var e = $("#" + i); if (e) e.textContent = user; });
+    ["topbarUserAvatar", "profileMenuAvatar"].forEach(function (i) { $("#" + i).src = av; });
+    $$(".logout-link").forEach(function (a) { a.onclick = function () { localStorage.removeItem("loggedInUser"); }; });
+    $("#markRead").onclick = function () {
+        $$(".drop-item.unread").forEach(function (d) { d.classList.remove("unread"); });
+        var b = $(".notif-badge"); if (b) b.classList.add("d-none");
+    };
+
+    /* ---- toast ---- */
+    var toast = new bootstrap.Toast($("#appToast"));
+    function notify(m) { $("#toastMsg").textContent = m; toast.show(); }
+
+    /* ---- counts + summary ---- */
+    function counts() {
+        var c = { all: 0, total: 0, unread: 0, starred: 0, work: 0, "private": 0, support: 0, social: 0 };
+        $$(".email-row").forEach(function (r) {
+            c.all++; c.total++;
+            if (r.classList.contains("unread")) c.unread++;
+            if ($(".star-btn.active", r)) c.starred++;
+            c[r.dataset.cat]++;
+        });
+        $$("[data-count]").forEach(function (e) { e.textContent = c[e.dataset.count] || 0; });
+        $("#heroSummary").innerHTML = c.unread
+            ? "You have <b>" + c.unread + "</b> unread message" + (c.unread > 1 ? "s" : "") + " that need your attention"
+            : "All caught up — <b>no unread messages</b>";
+    }
+
+    /* ---- filter ---- */
+    function filter() {
+        var q = $("#mailSearch").value.toLowerCase(), cat = $("#catFilter").value, v = 0;
+        $$(".email-row").forEach(function (r) {
+            var ok = (cat === "all" || r.dataset.cat === cat) && r.textContent.toLowerCase().indexOf(q) > -1;
+            r.classList.toggle("d-none", !ok);
+            if (ok) v++;
+        });
+        $("#emptyBox").classList.toggle("d-none", v > 0);
+    }
+    $("#mailSearch").oninput = filter;
+    $$(".mail-pill").forEach(function (b) {
+        b.onclick = function () {
+            $$(".mail-pill").forEach(function (x) { x.classList.remove("active"); });
+            b.classList.add("active");
+            $("#catFilter").value = b.dataset.cat;
+            filter();
+        };
+    });
+    $("#catFilter").onchange = function () {
+        $$(".mail-pill").forEach(function (x) { x.classList.toggle("active", x.dataset.cat === this.value); }, this);
+        filter();
+    };
+
+    /* ---- open mail = unread done (bootstrap event) ---- */
+    document.addEventListener("show.bs.collapse", function (e) {
+        var r = e.target.closest(".email-row");
+        if (r && r.classList.contains("unread")) { r.classList.remove("unread"); counts(); }
+    });
+
+    /* ---- select all ---- */
+    var all = $("#selectAll");
+    all.onchange = function () {
+        $$(".mail-check").forEach(function (c) {
+            c.checked = all.checked;
+            c.closest(".email-row").classList.toggle("selected", c.checked);
+        });
+    };
+    document.addEventListener("change", function (e) {
+        if (!e.target.classList.contains("mail-check")) return;
+        e.target.closest(".email-row").classList.toggle("selected", e.target.checked);
+        all.checked = $$(".mail-check").length === $$(".mail-check:checked").length;
+    });
+
+    /* ---- delegated clicks: star / delete / approve / reject ---- */
+    document.addEventListener("click", function (e) {
+        var s = e.target.closest(".star-btn");
+        if (s) {
+            s.classList.toggle("active");
+            s.querySelector("i").classList.toggle("far");
+            s.querySelector("i").classList.toggle("fas");
+            counts(); return;
+        }
+        var d = e.target.closest(".del-btn");
+        if (d) { d.closest(".email-row").remove(); counts(); filter(); notify("Message deleted"); return; }
+        if (e.target.closest(".approve-btn")) notify("Leave approved");
+        if (e.target.closest(".reject-btn")) notify("Leave rejected");
+    });
+
+    /* ---- bulk ---- */
+    $$(".bulk-btn").forEach(function (b) {
+        b.onclick = function () {
+            var sel = $$(".mail-check:checked"), act = b.dataset.action;
+            if (!sel.length) return notify("Please select at least one email");
+            sel.forEach(function (c) {
+                var r = c.closest(".email-row");
+                if (act === "read") r.classList.remove("unread");
+                else r.remove();
+            });
+            all.checked = false;
+            counts(); filter();
+            notify(act === "read" ? sel.length + " marked as read" : sel.length + (act === "delete" ? " deleted" : " archived"));
+        };
+    });
+
+    /* ---- refresh / send / pagination ---- */
+    $("#refreshBtn").onclick = function () {
+        var i = this.querySelector("i");
+        i.classList.add("fa-spin");
+        setTimeout(function () { i.classList.remove("fa-spin"); notify("Inbox refreshed"); }, 800);
+    };
+    $("#sendBtn").onclick = function () {
+        if (!$("#cTo").value.trim()) return notify("Enter recipient email");
+        bootstrap.Modal.getOrCreateInstance($("#composeModal")).hide();
+        ["cTo", "cSub", "cMsg"].forEach(function (i) { $("#" + i).value = ""; });
+        notify("Message sent successfully");
+    };
+    $$(".page-btn").forEach(function (b) {
+        b.onclick = function () {
+            $$(".page-btn").forEach(function (x) { x.classList.remove("active"); });
+            b.classList.add("active");
+        };
+    });
+
+    counts();
+})();
+</script>
+
+</body>
+</html>

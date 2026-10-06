@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HR Portal | Attendance</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="dashboard.css">
+
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+<aside class="offcanvas-lg offcanvas-start sidebar d-flex flex-column" tabindex="-1" id="sidebar" aria-label="HR Sidebar">
+    <div class="sidebar-brand d-flex align-items-center justify-content-between">
+        <img src="assets/logo-white.png" alt="logo">
+        <button type="button" class="btn-close btn-close-white d-lg-none" data-bs-dismiss="offcanvas" data-bs-target="#sidebar" aria-label="Close"></button>
+    </div>
+    <nav class="sidebar-nav flex-grow-1">
+        <span class="nav-label">Main Menu</span>
+        <a href="dashboard.html" class="nav-link"><i class="fa-solid fa-gauge-high"></i><span>Dashboard</span></a>
+        <a href="employees.html" class="nav-link"><i class="fa-solid fa-users"></i><span>Employees</span><span class="nav-badge ms-auto">248</span></a>
+        <a href="attendance.html" class="nav-link active"><i class="fa-solid fa-calendar-check"></i><span>Attendance</span></a>
+        <a href="paroll.html" class="nav-link"><i class="fa-solid fa-money-bill-wave"></i><span>Payroll</span></a>
+        <a href="leave.html" class="nav-link"><i class="fa-solid fa-plane-departure"></i><span>Leave</span><span class="nav-badge warn ms-auto">5</span></a>
+        <a href="recruitment.html" class="nav-link"><i class="fa-solid fa-briefcase"></i><span>Recruitment</span></a>
+        <span class="nav-label">Management</span>
+        <a href="performance.html" class="nav-link"><i class="fa-solid fa-chart-line"></i><span>Performance</span></a>
+        <a href="holidays.html" class="nav-link"><i class="fa-solid fa-umbrella-beach"></i><span>Holidays</span></a>
+        <a href="inbox.html" class="nav-link"><i class="fa-solid fa-inbox"></i><span>Inbox</span><span class="nav-badge ms-auto">3</span></a>
+        <a href="assets.html" class="nav-link"><i class="fa-solid fa-laptop"></i><span>Assets</span><span class="nav-badge ms-auto">5</span></a>
+    </nav>
+</aside>
+
+<!-- MAIN -->
+<main class="main-area d-flex flex-column min-vh-100">
+
+    <!-- TOPBAR -->
+    <header class="topbar sticky-top d-flex align-items-center">
+        <button class="btn btn-link text-dark text-decoration-none fs-4 p-0 me-3 d-lg-none" type="button"
+                data-bs-toggle="offcanvas" data-bs-target="#sidebar" aria-controls="sidebar">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+        <h4 class="fw-bolder mb-0 page-title">Attendance</h4>
+        <div class="topbar-search position-relative d-none d-md-block">
+            <i class="fa-solid fa-magnifying-glass position-absolute top-50 translate-middle-y"></i>
+            <input type="text" class="form-control rounded-pill" placeholder="Search employees, departments...">
+        </div>
+        <div class="d-flex align-items-center gap-3 ms-auto">
+            <div class="dropdown">
+                <button class="btn notif-btn rounded-circle position-relative" type="button"
+                        data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
+                    <i class="fa-regular fa-bell"></i>
+                    <span class="position-absolute badge rounded-pill bg-danger notif-badge">3</span>
+                </button>
+                <div class="dropdown-menu notif-menu">
+                    <div class="drop-head d-flex justify-content-between align-items-center">
+                        <span>Notifications</span>
+                        <button type="button" id="markRead">Mark all read</button>
+                    </div>
+                    <div class="drop-item unread">
+                        <i class="fa-solid fa-user-plus chip chip-blue"></i>
+                        <div><span>New registration request</span><small class="d-block">Ravi Kumar · 5m ago</small></div>
+                    </div>
+                    <div class="drop-item unread">
+                        <i class="fa-solid fa-plane-departure chip chip-amber"></i>
+                        <div><span>Leave request pending</span><small class="d-block">Emma Wilson · 1h ago</small></div>
+                    </div>
+                    <div class="drop-item unread">
+                        <i class="fa-solid fa-file-invoice-dollar chip chip-red"></i>
+                        <div><span>Payroll generated</span><small class="d-block">October payslips · 3h ago</small></div>
+                    </div>
+                </div>
+            </div>
+            <div class="dropdown">
+                <button class="btn profile-btn rounded-pill d-flex align-items-center gap-2" type="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                    <img id="topbarUserAvatar" src="" class="rounded-circle" width="34" height="34" alt="user">
+                    <span class="text-start d-none d-sm-block">
+                        <span class="d-block fw-bold small" id="topbarUserName"></span>
+                    </span>
+                    <i class="fa-solid fa-chevron-down text-muted small"></i>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end shadow border-0 p-2" style="min-width:230px;">
+                    <li class="d-flex align-items-center gap-2 p-2">
+                        <img id="profileMenuAvatar" src="" class="rounded-circle" width="42" height="42" alt="user">
+                        <div><strong class="d-block small" id="profileMenuName"></strong><small class="text-muted">HR Manager</small></div>
+                    </li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item rounded d-flex align-items-center gap-2 py-2" href="#"><i class="fa-regular fa-user text-primary" style="width:18px;"></i> My Profile</a></li>
+                    <li><a class="dropdown-item rounded d-flex align-items-center gap-2 py-2" href="#"><i class="fa-solid fa-gear text-primary" style="width:18px;"></i> Settings</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item text-danger rounded d-flex align-items-center gap-2 py-2 logout-link" href="index.html"><i class="fa-solid fa-arrow-right-from-bracket" style="width:18px;"></i> Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <!-- ATTENDANCE -->
+    <section class="atd-wrap flex-grow-1">
+
+
+<div class="atd-head atd-fade">
+    <div class="atd-head-info">
+        <span class="chip chip-green" style="width:46px;height:46px;font-size:1.05rem">
+            <i class="fa-solid fa-calendar-check"></i>
+        </span>
+        <div>
+            <h5 class="section-title mb-0">Employee Attendance</h5>
+            <small class="section-sub">21 employees · 5-day working week · click any face for full record</small>
+        </div>
+    </div>
+    <div class="atd-head-actions">
+        <button class="atd-export-btn" id="expAll">
+            <i class="fa-solid fa-download"></i>Export All
+        </button>
+    </div>
+</div>
+
+        <!--  TILES -->
+        <div class="atd-tiles">
+            <div class="atd-tile">
+                <i class="ti-green fa-solid fa-user-check"></i>
+                <div><strong>92%</strong><small>Avg Attendance Rate</small></div>
+            </div>
+            <div class="atd-tile">
+                <i class="ti-blue fa-solid fa-fire"></i>
+                <div><strong>4</strong><small>Perfect Streaks</small></div>
+            </div>
+            <div class="atd-tile">
+                <i class="ti-amber fa-solid fa-clock"></i>
+                <div><strong>36h 20m</strong><small>Team Overtime</small></div>
+            </div>
+            <div class="atd-tile">
+                <i class="ti-red fa-solid fa-triangle-exclamation"></i>
+                <div><strong>5</strong><small>Late This Week</small></div>
+            </div>
+        </div>
+
+        <!--  DIRECTORY + DETAIL -->
+        <div class="row g-3">
+
+            <!-- LEFT: list -->
+            <div class="col-lg-5 col-xl-4">
+                <div class="atd-dir">
+                    <div class="atd-dir-head">
+                        <h6>All Employees <span class="atd-dir-count" id="dirCount">21</span></h6>
+                        <div class="atd-dir-search">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                            <input type="text" id="dirSearch" placeholder="Search employees...">
+                        </div>
+                    </div>
+                    <div class="atd-list-body" id="dirList"></div>
+                </div>
+            </div>
+
+            <!-- RIGHT: detail -->
+            <div class="col-lg-7 col-xl-8">
+                <div class="atd-detail" id="detailPanel"></div>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!--  DAY POPUP MODAL -->
+    <div class="modal fade atd-daymodal" id="dayModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div>
+                        <h6 class="atd-dm-date" id="dmDate">—</h6>
+                        <p class="atd-dm-sub" id="dmSub">Day record</p>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="text-center mb-3">
+                        <span class="atd-dm-badge" id="dmBadge">—</span>
+                    </div>
+                    <div class="atd-dm-rows">
+                        <div class="atd-dm-row">
+                            <span><i class="fa-solid fa-right-to-bracket"></i>Check In</span>
+                            <b id="dmIn">—</b>
+                        </div>
+                        <div class="atd-dm-row">
+                            <span><i class="fa-solid fa-right-from-bracket"></i>Check Out</span>
+                            <b id="dmOut">—</b>
+                        </div>
+                        <div class="atd-dm-row">
+                            <span><i class="fa-regular fa-clock"></i>Hours Worked</span>
+                            <b id="dmHours">—</b>
+                        </div>
+                        <div class="atd-dm-row">
+                            <span><i class="fa-solid fa-user"></i>Employee</span>
+                            <b id="dmEmp">—</b>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <small style="font-size:.62rem;color:#94a496">
+                            <i class="fa-solid fa-circle-info me-1" style="color:#7dc443"></i>
+                            Auto-generated demo record
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOAST -->
+    <div class="toast-container position-fixed bottom-0 start-50 translate-middle-x p-3">
+        <div class="toast ex-toast border-0" id="appToast" data-bs-delay="2000" role="alert">
+            <div class="d-flex">
+                <div class="toast-body" id="toastMsg">Done</div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+            </div>
+        </div>
+    </div>
+
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+(function () {
+    "use strict";
+    var $  = function (s, c) { return (c || document).querySelector(s); };
+    var $$ = function (s, c) { return [].slice.call((c || document).querySelectorAll(s)); };
+
+    /* ---- auth ---- */
+    var user = (localStorage.getItem("loggedInUser") || "").trim();
+    if (!user) { location.href = "index.html"; return; }
+    var av = "https://ui-avatars.com/api/?name=" + encodeURIComponent(user) + "&background=7dc443&color=fff&bold=true";
+    ["topbarUserName", "profileMenuName"].forEach(function (i) { $("#" + i).textContent = user; });
+    ["topbarUserAvatar", "profileMenuAvatar"].forEach(function (i) { $("#" + i).src = av; });
+    $$(".logout-link").forEach(function (a) { a.onclick = function () { localStorage.removeItem("loggedInUser"); }; });
+    $("#markRead").onclick = function () {
+        $$(".drop-item.unread").forEach(function (d) { d.classList.remove("unread"); });
+        var b = $(".notif-badge"); if (b) b.classList.add("d-none");
+    };
+
+    var toast = new bootstrap.Toast($("#appToast"));
+    function notify(m) { $("#toastMsg").textContent = m; toast.show(); }
+    $("#expAll").onclick = function () { notify("Full attendance report exported"); };
+
+
+    var EMP = [
+        { n: "Aarya Sharma",   r: "Senior Web Designer", dept: "Design",      id: "EMP-1041", em: "aarya@demo.com",   loc: "Bangalore", u: 47, j: "12 Mar 2022",
+          on: true,  rate: 98, streak: 12, ot: "2h 15m", late: 1,
+          week: ["P","P","L","P","P","W","W"], pat: "PPLPPWPPPLPPWPPPLPPWPPPLPPW" },
+        { n: "Devya Singh",    r: "Mid Web Designer",    dept: "Design",      id: "EMP-1044", em: "devya@demo.com",   loc: "Delhi",     u: 44, j: "22 Aug 2022",
+          on: true,  rate: 95, streak: 2,  ot: "30m",    late: 0,
+          week: ["P","P","P","A","P","W","W"], pat: "PPLPPWPPAPPWPPPLPPWPPPLPPW" },
+        { n: "Neha Kapoor",    r: "Mid Web Designer",    dept: "Design",      id: "EMP-1045", em: "neha@demo.com",    loc: "Mumbai",    u: 45, j: "14 Feb 2023",
+          on: true,  rate: 96, streak: 4,  ot: "45m",    late: 1,
+          week: ["P","P","L","P","P","W","W"], pat: "PPLPPWPPPLPPWPPPLPPWPPPLPPW" },
+        { n: "Imran Sheikh",   r: "Junior Web Designer", dept: "Design",      id: "EMP-1048", em: "imran@demo.com",   loc: "Hyderabad", u: 15, j: "03 Mar 2024",
+          on: false, lv: "Sick Leave", rate: 91, streak: 0, ot: "0h", late: 0,
+          week: ["V","V","V","P","P","W","W"], pat: "VVVPPWPLLPPWVPPLPPWPLLPPWV" },
+        { n: "Zoya Fernandez", r: "Lead UI/UX Designer", dept: "Design",      id: "EMP-1077", em: "zoya@demo.com",    loc: "Goa",       u: 41, j: "05 Jan 2021",
+          on: true,  rate: 99, streak: 15, ot: "1h",     late: 0,
+          week: ["P","P","P","L","P","W","W"], pat: "PPPLPWPPPLPPWPPPPPWPPPPLPP" },
+        { n: "Harsh Vardhan",  r: "UX Designer",         dept: "Design",      id: "EMP-1078", em: "harsh@demo.com",   loc: "Noida",     u: 38, j: "19 Sep 2022",
+          on: true,  rate: 94, streak: 4,  ot: "1h 15m", late: 1,
+          week: ["P","P","P","P","L","W","W"], pat: "PPPPLWPPPLPPWPPPPLWPPPPLWP" },
+        { n: "Aliza Noor",     r: "Junior UI Designer",  dept: "Design",      id: "EMP-1079", em: "aliza@demo.com",   loc: "Noida",     u: 42, j: "10 Oct 2024",
+          on: false, lv: "Casual Leave", rate: 92, streak: 0, ot: "0h", late: 0,
+          week: ["P","P","P","V","V","W","W"], pat: "PPPVVWPPPLPPWPPPVVWPPPLPPW" },
+        { n: "Aditya Verma",   r: "React Lead",          dept: "Engineering", id: "EMP-2011", em: "aditya@demo.com",  loc: "Bangalore", u: 12, j: "08 Jun 2021",
+          on: true,  rate: 97, streak: 6,  ot: "1h 15m", late: 1,
+          week: ["P","P","P","P","L","W","W"], pat: "PPPPLWPPPLPPWPPPPLWPPPPLWP" },
+        { n: "Kirti Patel",    r: "React Developer",     dept: "Engineering", id: "EMP-2022", em: "kirti@demo.com",   loc: "Ahmedabad", u: 22, j: "17 Nov 2022",
+          on: true,  rate: 93, streak: 3,  ot: "45m",    late: 1,
+          week: ["P","P","L","P","P","W","W"], pat: "PPLPPWPPPLPPWPPPLPPWPPPLPPW" },
+        { n: "Vikram Singh",   r: "Backend Lead",        dept: "Engineering", id: "EMP-2025", em: "vikram@demo.com",  loc: "Gurugram",  u: 54, j: "11 Feb 2020",
+          on: true,  rate: 96, streak: 8,  ot: "2h",     late: 0,
+          week: ["P","P","P","P","P","W","W"], pat: "PPPPPWPPPPPPWPPPPPWPPPPPWP" },
+        { n: "Rohan Mehta",    r: "Backend Developer",   dept: "Engineering", id: "EMP-2028", em: "rohan@demo.com",   loc: "Indore",    u: 64, j: "11 Apr 2023",
+          on: true,  rate: 94, streak: 4,  ot: "1h",     late: 1,
+          week: ["P","P","P","P","L","W","W"], pat: "PPPPLWPPPLPPWPPPPLWPPPPLWP" },
+        { n: "Arjun Nair",     r: "PHP Lead",            dept: "Engineering", id: "EMP-3021", em: "arjun@demo.com",   loc: "Kochi",     u: 71, j: "23 Jul 2022",
+          on: true,  rate: 95, streak: 5,  ot: "1h",     late: 0,
+          week: ["P","P","P","P","P","W","W"], pat: "PPPPPWPPPLPPWPPPPPPWPPPPPWP" },
+        { n: "Farhan Ali",     r: "PHP Developer",       dept: "Engineering", id: "EMP-3024", em: "farhan@demo.com",  loc: "Lucknow",   u: 72, j: "30 Jan 2024",
+          on: true,  rate: 92, streak: 2,  ot: "30m",    late: 2,
+          week: ["P","L","P","P","P","W","W"], pat: "PLPPPWPPPLPPWPPPLPPWPPPLPPW" },
+        { n: "Sameer Khan",    r: "IT Support Lead",     dept: "IT",          id: "EMP-4011", em: "sameer@demo.com",  loc: "Mumbai",    u: 81, j: "15 Mar 2023",
+          on: true,  rate: 97, streak: 7,  ot: "3h",     late: 0,
+          week: ["P","P","P","P","P","W","W"], pat: "PPPPPWPPPPPPWPPPPPPWPPPPPWP" },
+        { n: "Deepti Rao",     r: "System Admin",        dept: "IT",          id: "EMP-4014", em: "deepti@demo.com",  loc: "Bengaluru", u: 82, j: "09 Aug 2023",
+          on: true,  rate: 98, streak: 10, ot: "2h 30m", late: 0,
+          week: ["P","P","P","P","P","W","W"], pat: "PPPPPPWPPPPPPWPPPPPPWPPPPPP" },
+        { n: "Tara Bose",      r: "QA Lead",             dept: "QA",          id: "EMP-5011", em: "tara@demo.com",    loc: "Kolkata",   u: 91, j: "21 Sep 2022",
+          on: true,  rate: 96, streak: 6,  ot: "1h 45m", late: 1,
+          week: ["P","P","P","P","L","W","W"], pat: "PPPPLWPPPLPPWPPPPLWPPPPLWP" },
+        { n: "Mohit Jain",     r: "QA Engineer",         dept: "QA",          id: "EMP-5014", em: "mohit@demo.com",   loc: "Jaipur",    u: 92, j: "05 Feb 2024",
+          on: true,  rate: 93, streak: 3,  ot: "45m",    late: 1,
+          week: ["P","P","L","P","P","W","W"], pat: "PPLPPWPPPLPPWPPPLPPWPPPLPPW" },
+        { n: "Emma Wilson",    r: "HR Executive",        dept: "People",      id: "EMP-6011", em: "emma@demo.com",    loc: "Delhi",     u: 44, j: "14 Jun 2022",
+          on: true,  rate: 99, streak: 18, ot: "1h 30m", late: 0,
+          week: ["P","P","P","P","P","W","W"], pat: "PPPPPPWPPPPPPWPPPPPPWPPPPPP" },
+        { n: "Nidhi Verma",    r: "Sr HR Manager",       dept: "People",      id: "EMP-6015", em: "nidhi@demo.com",   loc: "Delhi",     u: 95, j: "03 Jan 2021",
+          on: true,  rate: 98, streak: 14, ot: "2h",     late: 0,
+          week: ["P","P","P","P","P","W","W"], pat: "PPPPPPWPPPPPPWPPPPPPWPPPPPP" },
+        { n: "Pooja Singh",    r: "Junior HR",           dept: "People",      id: "EMP-6021", em: "pooja@demo.com",   loc: "Delhi",     u: 62, j: "28 Oct 2024",
+          on: true,  rate: 96, streak: 4,  ot: "30m",    late: 0,
+          week: ["P","P","P","P","P","W","W"], pat: "PPPPPWPPPLPPWPPPPPPWPPPPPWP" },
+        { n: "Aman Tiwari",    r: "Junior HR",           dept: "People",      id: "EMP-6024", em: "aman@demo.com",    loc: "Lucknow",   u: 96, j: "12 Nov 2024",
+          on: true,  rate: 95, streak: 3,  ot: "15m",    late: 1,
+          week: ["P","P","P","L","P","W","W"], pat: "PPPLPWPPPLPPWPPPLPPWPPPLPPW" }
+    ];
+
+    var DAY_LBL = ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"];
+    var DAY_CLS = {
+        P: ["d-P", "P", "Present"],
+        L: ["d-L", "L", "Late"],
+        V: ["d-V", "V", "On Leave"],
+        A: ["d-A", "A", "Absent"],
+        W: ["d-W", "–", "Weekend Off"]
+    };
+    var HEAT_CLS = { P: "h-P", L: "h-L", V: "h-V", A: "h-A", W: "h-W" };
+
+    var selected = 0;
+
+
+    function renderList() {
+        var q = $("#dirSearch").value.toLowerCase();
+        var h = "";
+        EMP.forEach(function (m, i) {
+            if (q && (m.n + m.r + m.dept).toLowerCase().indexOf(q) === -1) return;
+            var rc = m.rate >= 90 ? "c-green" : m.rate >= 75 ? "c-amber" : "c-red";
+            h += "<button class='atd-row" + (i === selected ? " on" : "") + "' data-i='" + i + "' " +
+                 "style='animation-delay:" + (i * .03) + "s'>" +
+                    "<img class='atd-rav' src='https://i.pravatar.cc/140?u=" + m.u + "' alt=''>" +
+                    "<span class='atd-rinfo'>" +
+                        "<strong>" + m.n + "</strong>" +
+                        "<small>" + m.r + " · " + m.dept + "</small>" +
+                    "</span>" +
+                    (m.on
+                        ? "<span class='atd-rrate " + rc + "'>" + m.rate + "%</span>"
+                        : "<span class='atd-lvtag'>On Leave</span>") +
+                 "</button>";
+        });
+        $("#dirList").innerHTML = h ||
+            "<div class='atd-dempty'><i class='fa-regular fa-face-frown'></i>No employees match your search.</div>";
+    }
+
+
+    function renderDetail() {
+        var m = EMP[selected];
+
+        /* week chips */
+        var week = "";
+        m.week.forEach(function (d, i) {
+            var s = DAY_CLS[d];
+            var isOff = d === "W";
+            week += "<div class='atd-day'>" +
+                        "<small>" + DAY_LBL[i] + "</small>" +
+                        "<span class='atd-dc " + s[0] + "'>" + s[1] + "</span>" +
+                        "<span class='atd-dlbl'>" + (isOff ? "Weekend Off" : s[2]) + "</span>" +
+                    "</div>";
+        });
+
+        /* 🔥 28-day heatmap */
+        var heat = "";
+        for (var i = 0; i < m.pat.length; i++) {
+            var ch = m.pat[i];
+            var tip = ch === "W" ? "Weekend Off" :
+                      (ch === "P" ? "Present" : ch === "L" ? "Late" :
+                      ch === "V" ? "On Leave" : "Absent");
+            heat += "<span class='atd-hc " + (HEAT_CLS[ch] || "h-W") + "' " +
+                    "style='animation-delay:" + (i * .012) + "s' " +
+                    "title='Day " + (i + 1) + " · " + tip + "'>" +
+                    (ch === "W" ? "" : ch) + "</span>";
+        }
+
+        var rateCls = m.rate >= 90 ? "c-green" : m.rate >= 75 ? "c-amber" : "c-red";
+        var stBadge = m.on
+            ? "<span class='badge rounded-pill bg-success px-3 py-2' style='font-size:.6rem'>Active</span>"
+            : "<span class='badge rounded-pill bg-warning text-dark px-3 py-2' style='font-size:.6rem'>On Leave</span>";
+
+        /* leave banner */
+        var lvBanner = !m.on
+            ? "<div class='atd-lvbanner'>" +
+                  "<i class='fa-solid fa-plane-departure'></i>" +
+                  "<div><strong>Currently On Leave — " + m.lv + "</strong>" +
+                  "<small>Leave days marked sky-blue in the week view</small></div>" +
+              "</div>"
+            : "";
+
+        $("#detailPanel").innerHTML =
+            "<div class='atd-dhead'>" +
+                "<div class='d-flex align-items-center gap-3'>" +
+                    "<img class='atd-dav' src='https://i.pravatar.cc/300?u=" + m.u + "' alt=''>" +
+                    "<div>" +
+                        "<strong>" + m.n + "</strong>" +
+                        "<small>" + m.r + " · " + m.dept + " Division</small><br>" +
+                        "<span class='atd-idbadge'>" + m.id + "</span>" +
+                    "</div>" +
+                "</div>" +
+                "<div class='d-flex align-items-center gap-3'>" +
+                    stBadge +
+                    "<div class='atd-big'>" +
+                        "<strong class='" + rateCls + "'>" + m.rate + "%</strong>" +
+                        "<small>Attendance Rate</small>" +
+                    "</div>" +
+                "</div>" +
+            "</div>" +
+
+            lvBanner +
+
+            "<div class='atd-label'>This Week — 5 Day Working Week</div>" +
+            "<div class='atd-week'>" + week + "</div>" +
+
+            "<div class='atd-label'>Month Fingerprint — Last 28 Days</div>" +
+            "<div class='atd-heat'>" + heat + "</div>" +
+            "<div class='atd-legend'>" +
+                "<span><span class='lg lg-P'></span>Present</span>" +
+                "<span><span class='lg lg-L'></span>Late</span>" +
+                "<span><span class='lg lg-V'></span>On Leave</span>" +
+                "<span><span class='lg lg-A'></span>Absent</span>" +
+                "<span><span class='lg lg-W'></span>Weekend</span>" +
+            "</div>" +
+
+            "<div class='atd-label'>Quick Stats</div>" +
+            "<div class='atd-minis'>" +
+                "<div class='atd-mini'><small>Streak</small><strong>" + m.streak + " days</strong></div>" +
+                "<div class='atd-mini'><small>Overtime</small><strong>" + m.ot + "</strong></div>" +
+                "<div class='atd-mini'><small>Late Days</small><strong>" + m.late + "</strong></div>" +
+                "<div class='atd-mini'><small>Joined</small><strong>" + m.j + "</strong></div>" +
+            "</div>" +
+
+            "<div class='atd-label'>Contact</div>" +
+            "<div class='atd-contact'>" +
+                "<div class='atd-crow2'><span><i class='fa-regular fa-envelope'></i>Email</span><b>" + m.em + "</b></div>" +
+                "<div class='atd-crow2'><span><i class='fa-solid fa-location-dot'></i>Location</span><b>" + m.loc + "</b></div>" +
+            "</div>" +
+
+            "<div class='d-flex gap-2 mt-3'>" +
+                "<button class='btn btn-primary btn-sm rounded-pill px-4 fw-semibold' style='font-size:.72rem'>" +
+                "<i class='fa-regular fa-message me-1'></i>Message</button>" +
+                "<button class='btn btn-light border btn-sm rounded-pill px-4 fw-semibold' style='font-size:.72rem' id='expOne'>" +
+                "<i class='fa-solid fa-download me-1'></i>Export Report</button>" +
+            "</div>";
+
+        var exp = document.getElementById("expOne");
+        if (exp) exp.onclick = function () { notify(m.n + "'s attendance report exported"); };
+    }
+
+    function refresh() { renderList(); renderDetail(); }
+
+    /* interactions — delegated (bug-proof) */
+    $("#dirSearch").addEventListener("input", renderList);
+
+    $("#dirList").addEventListener("click", function (e) {
+        var row = e.target.closest(".atd-row");
+        if (!row) return;
+        selected = +row.dataset.i;
+        $$(".atd-row").forEach(function (x) {
+            x.classList.toggle("on", +x.dataset.i === selected);
+        });
+        renderDetail();
+        /* ⭐ mobile: select pe detail tak smooth scroll */
+        if (window.innerWidth < 992) {
+            document.getElementById("detailPanel").scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+    });
+
+    refresh();
+})();
+</script>
+
+</body>
+</html>

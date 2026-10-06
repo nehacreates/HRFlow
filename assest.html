@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HR Portal | Assets</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="dashboard.css">
+<link rel="stylesheet" href="assets.css">
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+<aside class="offcanvas-lg offcanvas-start sidebar d-flex flex-column" tabindex="-1" id="sidebar" aria-label="HR Sidebar">
+    <div class="sidebar-brand d-flex align-items-center justify-content-between">
+        <img src="assets/logo-white.png" alt="logo">
+        <button type="button" class="btn-close btn-close-white d-lg-none" data-bs-dismiss="offcanvas" data-bs-target="#sidebar" aria-label="Close"></button>
+    </div>
+    <nav class="sidebar-nav flex-grow-1">
+        <span class="nav-label">Main Menu</span>
+        <a href="dashboard.html" class="nav-link"><i class="fa-solid fa-gauge-high"></i><span>Dashboard</span></a>
+        <a href="employees.html" class="nav-link"><i class="fa-solid fa-users"></i><span>Employees</span><span class="nav-badge ms-auto">248</span></a>
+        <a href="attendence.html" class="nav-link"><i class="fa-solid fa-calendar-check"></i><span>Attendance</span></a>
+        <a href="paroll.html" class="nav-link"><i class="fa-solid fa-money-bill-wave"></i><span>Payroll</span></a>
+        <a href="leave.html" class="nav-link"><i class="fa-solid fa-plane-departure"></i><span>Leave</span><span class="nav-badge warn ms-auto">5</span></a>
+        <a href="recruitment.html" class="nav-link"><i class="fa-solid fa-briefcase"></i><span>Recruitment</span></a>
+        <span class="nav-label">Management</span>
+        <a href="performance.html" class="nav-link"><i class="fa-solid fa-chart-line"></i><span>Performance</span></a>
+        <a href="holidays.html" class="nav-link"><i class="fa-solid fa-umbrella-beach"></i><span>Holidays</span></a>
+        <a href="inbox.html" class="nav-link"><i class="fa-solid fa-inbox"></i><span>Inbox</span><span class="nav-badge ms-auto">3</span></a>
+        <a href="assets.html" class="nav-link active"><i class="fa-solid fa-laptop"></i><span>Assets</span><span class="nav-badge ms-auto">5</span></a>
+    </nav>
+</aside>
+
+<!-- MAIN -->
+<main class="main-area d-flex flex-column min-vh-100">
+
+    <!-- TOPBAR -->
+    <header class="topbar sticky-top d-flex align-items-center">
+        <button class="btn btn-link text-dark text-decoration-none fs-4 p-0 me-3 d-lg-none" type="button"
+                data-bs-toggle="offcanvas" data-bs-target="#sidebar" aria-controls="sidebar">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+        <h4 class="fw-bolder mb-0 page-title">Assets</h4>
+        <div class="topbar-search position-relative d-none d-md-block">
+            <i class="fa-solid fa-magnifying-glass position-absolute top-50 translate-middle-y"></i>
+            <input type="text" class="form-control rounded-pill" placeholder="Search employees, departments...">
+        </div>
+        <div class="d-flex align-items-center gap-3 ms-auto">
+            <div class="dropdown">
+                <button class="btn notif-btn rounded-circle position-relative" type="button"
+                        data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
+                    <i class="fa-regular fa-bell"></i>
+                    <span class="position-absolute badge rounded-pill bg-danger notif-badge">3</span>
+                </button>
+                <div class="dropdown-menu notif-menu">
+                    <div class="drop-head d-flex justify-content-between align-items-center">
+                        <span>Notifications</span>
+                        <button type="button" id="markRead">Mark all read</button>
+                    </div>
+                    <div class="drop-item unread">
+                        <i class="fa-solid fa-user-plus chip chip-blue"></i>
+                        <div><span>New registration request</span><small class="d-block">Ravi Kumar · 5m ago</small></div>
+                    </div>
+                    <div class="drop-item unread">
+                        <i class="fa-solid fa-plane-departure chip chip-amber"></i>
+                        <div><span>Leave request pending</span><small class="d-block">Emma Wilson · 1h ago</small></div>
+                    </div>
+                    <div class="drop-item unread">
+                        <i class="fa-solid fa-file-invoice-dollar chip chip-red"></i>
+                        <div><span>Payroll generated</span><small class="d-block">October payslips · 3h ago</small></div>
+                    </div>
+                </div>
+            </div>
+            <div class="dropdown">
+                <button class="btn profile-btn rounded-pill d-flex align-items-center gap-2" type="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                    <img id="topbarUserAvatar" src="" class="rounded-circle" width="34" height="34" alt="user">
+                    <span class="text-start d-none d-sm-block">
+                        <span class="d-block fw-bold small" id="topbarUserName"></span>
+                    </span>
+                    <i class="fa-solid fa-chevron-down text-muted small"></i>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end shadow border-0 p-2" style="min-width:230px;">
+                    <li class="d-flex align-items-center gap-2 p-2">
+                        <img id="profileMenuAvatar" src="" class="rounded-circle" width="42" height="42" alt="user">
+                        <div><strong class="d-block small" id="profileMenuName"></strong><small class="text-muted">HR Manager</small></div>
+                    </li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item rounded d-flex align-items-center gap-2 py-2" href="#"><i class="fa-regular fa-user text-primary" style="width:18px;"></i> My Profile</a></li>
+                    <li><a class="dropdown-item rounded d-flex align-items-center gap-2 py-2" href="#"><i class="fa-solid fa-gear text-primary" style="width:18px;"></i> Settings</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item text-danger rounded d-flex align-items-center gap-2 py-2 logout-link" href="index.html"><i class="fa-solid fa-arrow-right-from-bracket" style="width:18px;"></i> Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <!-- ASSET VAULT -->
+    <section class="as-wrap flex-grow-1">
+
+        <!-- 🌑 DARK VAULT HERO -->
+        <div class="att-panel mb-3">
+            <span class="att-glow"></span>
+            <div class="att-left">
+                <span class="att-label">Asset Vault</span>
+                <div class="att-clock" id="vTotal">0</div>
+                <div class="att-date">Devices under management</div>
+                <div class="att-status mt-3">
+                    <span class="att-status-dot" style="background:#7dc443"></span>
+                    <span>Worth <strong id="vValue">₹0</strong>&nbsp;total inventory</span>
+                </div>
+            </div>
+            <div class="att-center">
+                <div class="att-ring" id="vRing">
+                    <div class="att-ring-inner">
+                        <strong id="vPct">0%</strong>
+                        <small>In Field</small>
+                    </div>
+                </div>
+            </div>
+            <div class="att-right">
+                <span class="att-label">Breakdown</span>
+                <div class="att-step">
+                    <span class="att-dot on"></span>
+                    <div><small>Assigned</small><strong id="vAssigned">0</strong></div>
+                </div>
+                <div class="att-step">
+                    <span class="att-dot on" style="background:#38bdf8"></span>
+                    <div><small>On Shelf</small><strong id="vShelf">0</strong></div>
+                </div>
+                <div class="att-step">
+                    <span class="att-dot" style="background:rgba(255,255,255,.18)"></span>
+                    <div><small>Pending Req.</small><strong id="vReq">0</strong></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SEARCH + TABS + ADD -->
+        <div class="d-flex flex-wrap align-items-center gap-2 mb-3 fu">
+            <div class="as-pill">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="asSearch" placeholder="Search device or holder...">
+            </div>
+            <div class="tabs" id="tabs">
+                <button class="on" data-f="all">All</button>
+                <button data-f="laptop">Laptops</button>
+                <button data-f="mobile">Phones</button>
+                <button data-f="monitor">Monitors</button>
+            </div>
+            <button class="btn btn-primary btn-sm rounded-pill px-3 ms-auto" data-bs-toggle="modal" data-bs-target="#addModal">
+                <i class="fa-solid fa-plus me-1"></i>Add Device
+            </button>
+        </div>
+
+        <div class="row g-3">
+
+            <!-- LEFT: passports -->
+            <div class="col-lg-8">
+                <div class="row g-3" id="passports"></div>
+                <div class="text-center text-muted py-5 d-none" id="ppEmpty">
+                    <i class="fa-regular fa-folder-open fa-2x d-block mb-2" style="color:#c9d8c0"></i>
+                    <small>No devices match this filter.</small>
+                </div>
+            </div>
+
+            <!-- RIGHT: sticky issue desk -->
+            <div class="col-lg-4">
+                <div class="desk-sticky" style="position:sticky;top:84px">
+                    <div class="desk mb-3">
+                        <div class="desk-panel">
+                            <h6><i class="fa-solid fa-box-open"></i>Step 1 — Pick Device</h6>
+                            <div id="deskDevices"></div>
+                        </div>
+                        <div class="desk-panel mt-3">
+                            <h6><i class="fa-solid fa-user-plus"></i>Step 2 — Hand Over To</h6>
+                            <div id="deskEmps"></div>
+                        </div>
+                        <button class="issue-btn" id="issueBtn" disabled>
+                            <i class="fa-solid fa-hand-holding me-2"></i>Issue Device
+                        </button>
+                        <div class="mini-shelf">
+                            <h6><i class="fa-solid fa-warehouse me-1" style="color:#7dc443"></i>On the Shelf</h6>
+                            <div class="ms-cubes" id="msCubes"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- REQUESTS -->
+        <div class="d-flex align-items-center gap-2 mt-2 mb-3">
+            <h6 class="section-title mb-0" style="font-size:.95rem">Device Requests</h6>
+            <span class="badge rounded-pill" style="background:rgba(240,169,46,.15);color:#c07d12;font-weight:700;font-size:.56rem" id="reqBadge">0 pending</span>
+            <span class="flex-grow-1" style="height:1px;background:#e7eee1"></span>
+        </div>
+        <div class="card border-0 shadow-sm rounded-4 fu">
+            <div class="card-body px-4 py-2" id="reqList"></div>
+        </div>
+
+    </section>
+
+    <!-- ADD MODAL -->
+    <div class="modal fade" id="addModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title fw-bold"><i class="fa-solid fa-plus me-2"></i>Add Device</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">Device Name</label>
+                        <input type="text" class="form-control" id="adName" placeholder="e.g. iPad Air 11″ M2">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Type</label>
+                        <select class="form-select" id="adType">
+                            <option value="laptop">Laptop</option>
+                            <option value="mobile">Mobile</option>
+                            <option value="monitor">Monitor</option>
+                            <option value="audio">Audio</option>
+                            <option value="accessory">Accessory</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="form-label">Serial Number</label>
+                        <input type="text" class="form-control" id="adSerial" placeholder="auto if empty">
+                    </div>
+                </div>
+                <div class="modal-footer border-0 pt-0">
+                    <button class="btn btn-light border" data-bs-dismiss="modal">Cancel</button>
+                    <button class="btn btn-primary rounded-pill px-3" id="adSave"><i class="fa-solid fa-check me-1"></i>Add</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOAST -->
+    <div class="toast-container position-fixed bottom-0 start-50 translate-middle-x p-3">
+        <div class="toast as-toast border-0" id="appToast" data-bs-delay="2200" role="alert">
+            <div class="d-flex">
+                <div class="toast-body" id="toastMsg">Done</div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+            </div>
+        </div>
+    </div>
+
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+(function () {
+    "use strict";
+    var $  = function (s, c) { return (c || document).querySelector(s); };
+    var $$ = function (s, c) { return [].slice.call((c || document).querySelectorAll(s)); };
+
+    /* ---- auth ---- */
+    var user = (localStorage.getItem("loggedInUser") || "").trim();
+    if (!user) { location.href = "index.html"; return; }
+    var av = "https://ui-avatars.com/api/?name=" + encodeURIComponent(user) + "&background=7dc443&color=fff&bold=true";
+    ["topbarUserName", "profileMenuName"].forEach(function (i) { var e = $("#" + i); if (e) e.textContent = user; });
+    ["topbarUserAvatar", "profileMenuAvatar"].forEach(function (i) { $("#" + i).src = av; });
+    $$(".logout-link").forEach(function (a) { a.onclick = function () { localStorage.removeItem("loggedInUser"); }; });
+    $("#markRead").onclick = function () {
+        $$(".drop-item.unread").forEach(function (d) { d.classList.remove("unread"); });
+        var b = $(".notif-badge"); if (b) b.classList.add("d-none");
+    };
+
+    var toast = new bootstrap.Toast($("#appToast"));
+    function notify(m) { $("#toastMsg").textContent = m; toast.show(); }
+
+    /* DATA — single source of truth */
+    var TYPE = {
+        laptop:    { icon: "fa-laptop",        cls: "tc-blue",  short: "LAP", value: 189900 },
+        mobile:    { icon: "fa-mobile-screen", cls: "tc-green", short: "MOB", value: 132900 },
+        monitor:   { icon: "fa-desktop",       cls: "tc-slate", short: "MON", value: 42500 },
+        audio:     { icon: "fa-headphones",    cls: "tc-amber", short: "AUD", value: 24900 },
+        accessory: { icon: "fa-keyboard",      cls: "tc-slate", short: "ACC", value: 8500 }
+    };
+
+    var employees = [
+        { name: "Imran Sheikh",  role: "Junior Web Designer", ini: "IS" },
+        { name: "Neha Kapoor",   role: "Mid Web Designer",    ini: "NK" },
+        { name: "Harsh Vardhan", role: "UX Designer",         ini: "HV" },
+        { name: "Kirti Patel",   role: "React Developer",     ini: "KP" }
+    ];
+
+    /* serial = device ka serial no · wr = warranty text · wk = chip class */
+    var devices = [
+        { id: "LAP-001", name: "MacBook Pro 14″ M3",  type: "laptop",  at: "Aarya Sharma", img: 47, days: 187, cond: 92, service: "Feb 2025", serial: "C02XK9WT", wr: "Aug 2027", wk: "ok" },
+        { id: "MOB-007", name: "iPhone 15 Pro",        type: "mobile",  at: "Emma Wilson",  img: 44, days: 124, cond: 97, service: "—",        serial: "F2LX80PL", wr: "Jun 2026", wk: "ok" },
+        { id: "MON-014", name: "Dell UltraSharp 27″",  type: "monitor", at: "Priya Sharma", img: 45, days: 63,  cond: 88, service: "Aug 2026", serial: "CN0RTK9",  wr: "Aug 2029", wk: "ok" },
+        { id: "LAP-018", name: "MacBook Air 13″ M2",   type: "laptop",  at: null, img: 0, days: 0, cond: 74, service: "Mar 2027", serial: "C02LM4XA", wr: "Mar 2027", wk: "ok" },
+        { id: "MOB-012", name: "iPhone 14",            type: "mobile",  at: null, img: 0, days: 0, cond: 91, service: "Nov 2025", serial: "K2LQ7VX",  wr: "Nov 2025", wk: "warn" }
+    ];
+
+    var requests = [
+        { emp: employees[2], item: "External Monitor", icon: "fa-desktop", type: "monitor", days: "2 days ago", reason: "for client project" },
+        { emp: employees[3], item: "Laptop Upgrade",  icon: "fa-laptop",  type: "laptop",  days: "today",      reason: "current device is 3 yrs old" }
+    ];
+
+    var q = "", tab = "all";
+
+    function matches(d) {
+        if (tab !== "all" && d.type !== tab) return false;
+        if (!q) return true;
+        return (d.name + " " + d.id + " " + (d.at || "")).toLowerCase().indexOf(q) > -1;
+    }
+
+    /* RENDERERS */
+    function hero() {
+        var field = devices.filter(function (d) { return d.at; }).length;
+        var pct = devices.length ? Math.round(field / devices.length * 100) : 0;
+        $("#vTotal").textContent = devices.length;
+        $("#vAssigned").textContent = field;
+        $("#vShelf").textContent = devices.length - field;
+        $("#vReq").textContent = requests.length;
+        $("#vPct").textContent = pct + "%";
+        $("#vRing").style.background = "conic-gradient(#7dc443 0 " + pct + "%, #e9f2e2 " + pct + "% 100%)";
+        var total = devices.reduce(function (s, d) { return s + TYPE[d.type].value; }, 0);
+        $("#vValue").textContent = "₹" + (total / 100000).toFixed(1) + "L";
+    }
+
+    function passports() {
+        var list = devices.filter(matches);
+        var h = "";
+        list.forEach(function (d, i) {
+            var inUse = !!d.at;
+            var t = TYPE[d.type];
+            var value = "₹" + (t.value / 100000).toFixed(1) + "L";
+            h += "<div class='col-md-6 col-xl-4'>" +
+                "<div class='passport " + t.cls + "' style='animation-delay:" + (i * .06) + "s'>" +
+                    "<div class='pp-strip'></div>" +
+                    "<span class='pp-stamp " + (inUse ? "use" : "store") + "'>" + (inUse ? "In Use" : "In Store") + "</span>" +
+                    "<div class='pp-body'>" +
+                        "<div class='pp-id-row'>" +
+                            "<span class='pp-photo'><i class='fa-solid " + t.icon + "'></i></span>" +
+                            "<div><strong>" + d.name + "</strong><small>" + d.id + " · " + t.short + "</small></div>" +
+                        "</div>" +
+                        "<div class='pp-rows'>" +
+                            "<div class='pr'><span>" + (inUse ? "Issued To" : "Status") + "</span>" +
+                                (inUse
+                                    ? "<b><img src='https://i.pravatar.cc/60?u=" + d.img + "' alt=''>" + d.at + "</b>"
+                                    : "<b style='color:#5ea52f'>Ready to issue</b>") +
+                            "</div>" +
+                            (inUse ? "<div class='pr'><span>Held For</span><b>" + d.days + " days</b></div>" : "") +
+                            "<div class='pr'><span>Condition</span><b><span class='cond" + (d.cond < 80 ? " warn" : "") + "'><span style='width:" + d.cond + "%'></span></span>" + d.cond + "%</b></div>" +
+                            "<div class='pr'><span>" + (inUse ? "Next Service" : "Warranty") + "</span><b>" + d.service + "</b></div>" +
+                        "</div>" +
+                    "</div>" +
+          
+                    "<div class='pp-foot'>" +
+                        "<span class='pf-id'><i class='fa-solid fa-fingerprint'></i>" + d.serial + "</span>" +
+                        "<span class='pf-chip'>" + value + "</span>" +
+                        "<span class='pf-chip " + d.wk + "'>Warranty " + d.wr + "</span>" +
+                    "</div>" +
+                    (inUse ? "<button class='pp-return' data-return='" + d.id + "'><i class='fa-solid fa-rotate-left me-1'></i>Return to Store</button>" : "") +
+                "</div></div>";
+        });
+        $("#passports").innerHTML = h;
+        $("#ppEmpty").classList.toggle("d-none", list.length > 0);
+    }
+
+    function desk() {
+        var free = devices.filter(function (d) { return !d.at && matches(d); });
+        var h = "";
+        free.forEach(function (d) {
+            h += "<button class='dev-opt " + TYPE[d.type].cls + "' data-id='" + d.id + "'>" +
+                    "<span class='do-ic'><i class='fa-solid " + TYPE[d.type].icon + "'></i></span>" +
+                    "<span><strong>" + d.name + "</strong><small>" + d.id + "</small></span>" +
+                 "</button>";
+        });
+        $("#deskDevices").innerHTML = h || "<div class='desk-empty'>Shelf khali hai — sab field me hain!</div>";
+
+        var eh = "";
+        employees.forEach(function (e) {
+            eh += "<button class='emp-row' data-name='" + e.name + "'>" +
+                    "<span class='er-av'>" + e.ini + "</span>" +
+                    "<span><strong>" + e.name + "</strong><small>" + e.role + "</small></span>" +
+                    "<span class='er-chk'><i class='fa-solid fa-check'></i></span>" +
+                  "</button>";
+        });
+        $("#deskEmps").innerHTML = eh;
+
+        var shelfFree = devices.filter(function (d) { return !d.at; });
+        var ch = "";
+        shelfFree.slice(0, 3).forEach(function (d) {
+            ch += "<span class='ms-cube " + TYPE[d.type].cls + "'><i class='fa-solid " + TYPE[d.type].icon + "'></i></span>";
+        });
+        for (var s = shelfFree.length; s < 4; s++) {
+            ch += "<span class='ms-slot'><i class='fa-solid fa-plus'></i></span>";
+        }
+        $("#msCubes").innerHTML = ch;
+    }
+
+    function reqs() {
+        var h = "";
+        requests.forEach(function (r, i) {
+            h += "<div class='req-row'>" +
+                    "<span class='rq-av'>" + r.emp.ini + "</span>" +
+                    "<div class='rq-info'><strong>" + r.emp.name +
+                    " <small class='fw-normal text-muted'>· " + r.emp.role + "</small></strong>" +
+                    "<small>Requested " + r.days + " · " + r.reason + "</small></div>" +
+                    "<span class='rq-need'><i class='fa-solid " + r.icon + " me-1'></i>" + r.item + "</span>" +
+                    "<button class='rq-btn yes' data-req='" + i + "'><i class='fa-solid fa-check me-1'></i>Approve</button>" +
+                    "<button class='rq-btn no' data-deny='" + i + "'><i class='fa-solid fa-xmark'></i></button>" +
+                 "</div>";
+        });
+        $("#reqList").innerHTML = h || "<div class='text-center text-muted small py-4'>No pending requests — all clear!</div>";
+        $("#reqBadge").textContent = requests.length + " pending";
+    }
+
+    function refresh() { hero(); passports(); desk(); reqs(); }
+
+    /* INTERACTIONS  */
+    var picked = null;
+    var issueBtn = $("#issueBtn");
+    function tryEnable() { issueBtn.disabled = !picked; }
+
+    $("#deskDevices").addEventListener("click", function (e) {
+        var b = e.target.closest(".dev-opt");
+        if (!b) return;
+        $$(".dev-opt").forEach(function (x) { x.classList.remove("sel"); });
+        b.classList.add("sel");
+        picked = b.dataset.id;
+        tryEnable();
+    });
+
+    $("#deskEmps").addEventListener("click", function (e) {
+        var b = e.target.closest(".emp-row");
+        if (!b) return;
+        $$(".emp-row").forEach(function (x) { x.classList.remove("sel"); });
+        b.classList.add("sel");
+        issueBtn.dataset.emp = b.dataset.name;
+    });
+
+    issueBtn.onclick = function () {
+        if (!picked) return;
+        var d = devices.find(function (x) { return x.id === picked; });
+        d.at = issueBtn.dataset.emp;
+        d.img = Math.floor(Math.random() * 60) + 10;
+        d.days = 1;
+        picked = null;
+        issueBtn.disabled = true;
+        refresh();
+        notify(d.name + " issued to " + d.at);
+    };
+
+    $("#passports").addEventListener("click", function (e) {
+        var b = e.target.closest("[data-return]");
+        if (!b) return;
+        var d = devices.find(function (x) { return x.id === b.dataset.return; });
+        d.at = null;
+        refresh();
+        notify(d.name + " returned — back on shelf");
+    });
+
+    $("#reqList").addEventListener("click", function (e) {
+        var yes = e.target.closest("[data-req]");
+        var no = e.target.closest("[data-deny]");
+        if (!yes && !no) return;
+        var idx = +(yes ? yes.dataset.req : no.dataset.deny);
+        var r = requests[idx];
+        requests.splice(idx, 1);
+        if (yes) {
+            var free = devices.filter(function (d) { return !d.at && d.type === r.type; });
+            if (free.length) {
+                free[0].at = r.emp.name;
+                free[0].img = Math.floor(Math.random() * 60) + 10;
+                free[0].days = 1;
+                notify(r.item + " approved — issued to " + r.emp.name);
+            } else {
+                notify("Approved — no " + r.type + " on shelf right now!");
+            }
+        } else {
+            notify("Request declined");
+        }
+        refresh();
+    });
+
+    /* search + tabs */
+    $("#asSearch").oninput = function () {
+        q = this.value.toLowerCase();
+        passports(); desk();
+    };
+    $$("#tabs button").forEach(function (b) {
+        b.onclick = function () {
+            $$("#tabs button").forEach(function (x) { x.classList.remove("on"); });
+            b.classList.add("on");
+            tab = b.dataset.f;
+            passports(); desk();
+        };
+    });
+
+    /* add device */
+    $("#adSave").onclick = function () {
+        var name = $("#adName").value.trim();
+        if (!name) return notify("Enter device name");
+        var type = $("#adType").value;
+        var serial = $("#adSerial").value.trim().toUpperCase() || "SN" + Math.floor(Math.random() * 900000 + 100000);
+        var id = TYPE[type].short + "-0" + Math.floor(Math.random() * 90 + 20);
+        devices.push({
+            id: id, name: name, type: type, at: null, img: 0,
+            days: 0, cond: 100, service: "—", serial: serial,
+            wr: "Active", wk: "ok"
+        });
+        bootstrap.Modal.getOrCreateInstance($("#addModal")).hide();
+        $("#adName").value = ""; $("#adSerial").value = "";
+        refresh();
+        notify(name + " added to shelf");
+    };
+
+    refresh();
+})();
+</script>
+
+</body>
+</html>

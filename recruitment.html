@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HR Portal | Recruitment</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="dashboard.css">
+<link rel="stylesheet" href="recruit.css">
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+<aside class="offcanvas-lg offcanvas-start sidebar d-flex flex-column" tabindex="-1" id="sidebar" aria-label="HR Sidebar">
+    <div class="sidebar-brand d-flex align-items-center justify-content-between">
+        <img src="assets/logo-white.png" alt="logo">
+        <button type="button" class="btn-close btn-close-white d-lg-none" data-bs-dismiss="offcanvas" data-bs-target="#sidebar" aria-label="Close"></button>
+    </div>
+    <nav class="sidebar-nav flex-grow-1">
+        <span class="nav-label">Main Menu</span>
+        <a href="dashboard.html" class="nav-link"><i class="fa-solid fa-gauge-high"></i><span>Dashboard</span></a>
+        <a href="employees.html" class="nav-link"><i class="fa-solid fa-users"></i><span>Employees</span><span class="nav-badge ms-auto">248</span></a>
+        <a href="attendence.html" class="nav-link"><i class="fa-solid fa-calendar-check"></i><span>Attendance</span></a>
+        <a href="paroll.html" class="nav-link"><i class="fa-solid fa-money-bill-wave"></i><span>Payroll</span></a>
+        <a href="leave.html" class="nav-link"><i class="fa-solid fa-plane-departure"></i><span>Leave</span><span class="nav-badge warn ms-auto">5</span></a>
+        <a href="recruitment.html" class="nav-link active"><i class="fa-solid fa-briefcase"></i><span>Recruitment</span></a>
+        <span class="nav-label">Management</span>
+        <a href="performance.html" class="nav-link"><i class="fa-solid fa-chart-line"></i><span>Performance</span></a>
+        <a href="holidays.html" class="nav-link"><i class="fa-solid fa-umbrella-beach"></i><span>Holidays</span></a>
+        <a href="inbox.html" class="nav-link"><i class="fa-solid fa-inbox"></i><span>Inbox</span><span class="nav-badge ms-auto">3</span></a>
+         <a href="assest.html" class="nav-link">
+         <i class="fa-solid fa-folder-open"></i><span>Assets </span>
+         </a>
+    </nav>
+</aside>
+
+<!-- MAIN -->
+<main class="main-area d-flex flex-column min-vh-100">
+
+    <!-- TOPBAR -->
+    <header class="topbar sticky-top d-flex align-items-center">
+        <button class="btn btn-link text-dark text-decoration-none fs-4 p-0 me-3 d-lg-none" type="button"
+                data-bs-toggle="offcanvas" data-bs-target="#sidebar" aria-controls="sidebar">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+        <h4 class="fw-bolder mb-0 page-title">Recruitment</h4>
+        <div class="topbar-search position-relative d-none d-md-block">
+            <i class="fa-solid fa-magnifying-glass position-absolute top-50 translate-middle-y"></i>
+            <input type="text" class="form-control rounded-pill" placeholder="Search employees, departments...">
+        </div>
+        <div class="d-flex align-items-center gap-3 ms-auto">
+            <div class="dropdown">
+                <button class="btn notif-btn rounded-circle position-relative" type="button"
+                        data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
+                    <i class="fa-regular fa-bell"></i>
+                    <span class="position-absolute badge rounded-pill bg-danger notif-badge">3</span>
+                </button>
+                <div class="dropdown-menu notif-menu">
+                    <div class="drop-head d-flex justify-content-between align-items-center">
+                        <span>Notifications</span>
+                        <button type="button" id="markRead">Mark all read</button>
+                    </div>
+                    <div class="drop-item unread">
+                        <i class="fa-solid fa-user-plus chip chip-blue"></i>
+                        <div><span>New registration request</span><small class="d-block">Ravi Kumar · 5m ago</small></div>
+                    </div>
+                    <div class="drop-item unread">
+                        <i class="fa-solid fa-plane-departure chip chip-amber"></i>
+                        <div><span>Leave request pending</span><small class="d-block">Emma Wilson · 1h ago</small></div>
+                    </div>
+                    <div class="drop-item unread">
+                        <i class="fa-solid fa-file-invoice-dollar chip chip-red"></i>
+                        <div><span>Payroll generated</span><small class="d-block">October payslips · 3h ago</small></div>
+                    </div>
+                </div>
+            </div>
+            <div class="dropdown">
+                <button class="btn profile-btn rounded-pill d-flex align-items-center gap-2" type="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                    <img id="topbarUserAvatar" src="" class="rounded-circle" width="34" height="34" alt="user">
+                    <span class="text-start d-none d-sm-block">
+                        <span class="d-block fw-bold small" id="topbarUserName"></span>
+                    </span>
+                    <i class="fa-solid fa-chevron-down text-muted small"></i>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end shadow border-0 p-2" style="min-width:230px;">
+                    <li class="d-flex align-items-center gap-2 p-2">
+                        <img id="profileMenuAvatar" src="" class="rounded-circle" width="42" height="42" alt="user">
+                        <div><strong class="d-block small" id="profileMenuName"></strong><small class="text-muted">HR Manager</small></div>
+                    </li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item rounded d-flex align-items-center gap-2 py-2" href="#"><i class="fa-regular fa-user text-primary" style="width:18px;"></i> My Profile</a></li>
+                    <li><a class="dropdown-item rounded d-flex align-items-center gap-2 py-2" href="#"><i class="fa-solid fa-gear text-primary" style="width:18px;"></i> Settings</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item text-danger rounded d-flex align-items-center gap-2 py-2 logout-link" href="index.html"><i class="fa-solid fa-arrow-right-from-bracket" style="width:18px;"></i> Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <!-- RECRUITMENT CONTENT -->
+    <section class="rc-wrap flex-grow-1">
+
+        <!--  SLIM CONTROL BAR  -->
+        <div class="rc-bar">
+            <span class="rc-ic"><i class="fa-solid fa-briefcase"></i></span>
+            <div>
+                <h4>Hiring Pipeline</h4>
+            </div>
+            <span class="rc-live"><span class="pulse-dot"></span> 14 candidates in pipeline</span>
+            <div class="rc-search">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="bSearch" placeholder="Search candidate...">
+            </div>
+            <button class="btn rc-btn" data-bs-toggle="modal" data-bs-target="#jobModal">
+                <i class="fa-solid fa-plus me-1"></i>Post Job
+            </button>
+        </div>
+
+        <!-- KANBAN BOARD -->
+        <div class="board" id="board">
+
+            <!-- NEW -->
+            <div class="b-col c-new" data-stage="new">
+                <div class="b-head c-new"><span class="b-dot"></span><strong>New</strong><span class="b-count">0</span></div>
+                <div class="b-body">
+
+                    <div class="b-card" data-search="tara bose php developer">
+                        <div class="bc-top">
+                            <span class="pav pav-amber">TB</span>
+                            <div><strong>Tara Bose</strong><small>PHP Developer</small></div>
+                        </div>
+                        <div class="bc-foot">
+                            <span class="m-chip mm">64%</span>
+                            <span class="bc-time">2d ago</span>
+                            <button class="mv-btn" title="Move to Screening"><i class="fa-solid fa-arrow-right"></i></button>
+                        </div>
+                    </div>
+
+                    <div class="b-card" data-search="rohit verma qa engineer">
+                        <div class="bc-top">
+                            <span class="pav pav-slate">RV</span>
+                            <div><strong>Rohit Verma</strong><small>QA Engineer</small></div>
+                        </div>
+                        <div class="bc-foot">
+                            <span class="m-chip mm">81%</span>
+                            <span class="bc-time">1d ago</span>
+                            <button class="mv-btn" title="Move to Screening"><i class="fa-solid fa-arrow-right"></i></button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- SCREENING -->
+            <div class="b-col c-screen" data-stage="screen">
+                <div class="b-head c-screen"><span class="b-dot"></span><strong>Screening</strong><span class="b-count">0</span></div>
+                <div class="b-body">
+
+                    <div class="b-card" data-search="kabir anand ui ux designer">
+                        <div class="bc-top">
+                            <span class="pav pav-amber">KA</span>
+                            <div><strong>Kabir Anand</strong><small>UI/UX Designer</small></div>
+                        </div>
+                        <div class="bc-foot">
+                            <span class="m-chip">88%</span>
+                            <span class="bc-time">3d ago</span>
+                            <button class="mv-btn" title="Move to Interview"><i class="fa-solid fa-arrow-right"></i></button>
+                        </div>
+                    </div>
+
+                    <div class="b-card" data-search="nisha rao react native">
+                        <div class="bc-top">
+                            <span class="pav pav-red">NR</span>
+                            <div><strong>Nisha Rao</strong><small>React Native Dev</small></div>
+                        </div>
+                        <div class="bc-foot">
+                            <span class="m-chip mm">58%</span>
+                            <span class="bc-time">5d ago</span>
+                            <button class="mv-btn" title="Move to Interview"><i class="fa-solid fa-arrow-right"></i></button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- INTERVIEW -->
+            <div class="b-col c-interview" data-stage="interview">
+                <div class="b-head c-interview"><span class="b-dot"></span><strong>Interview</strong><span class="b-count">0</span></div>
+                <div class="b-body">
+
+                    <div class="b-card" data-search="meera iyer react js developer">
+                        <div class="bc-top">
+                            <span class="pav pav-blue">MI</span>
+                            <div><strong>Meera Iyer</strong><small>React JS Developer</small></div>
+                        </div>
+                        <div class="bc-foot">
+                            <span class="m-chip">92%</span>
+                            <span class="bc-time">Today 10:30</span>
+                            <button class="mv-btn" title="Move to Offer"><i class="fa-solid fa-arrow-right"></i></button>
+                        </div>
+                    </div>
+
+                    <div class="b-card" data-search="sana qureshi web designer">
+                        <div class="bc-top">
+                            <span class="pav pav-green">SQ</span>
+                            <div><strong>Sana Qureshi</strong><small>Web Designer</small></div>
+                        </div>
+                        <div class="bc-foot">
+                            <span class="m-chip">85%</span>
+                            <span class="bc-time">Today 2:30</span>
+                            <button class="mv-btn" title="Move to Offer"><i class="fa-solid fa-arrow-right"></i></button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- OFFER -->
+            <div class="b-col c-offer" data-stage="offer">
+                <div class="b-head c-offer"><span class="b-dot"></span><strong>Offer</strong><span class="b-count">0</span></div>
+                <div class="b-body">
+
+                    <div class="b-card" data-search="arjun mehta backend developer">
+                        <div class="bc-top">
+                            <span class="pav pav-green">AM</span>
+                            <div><strong>Arjun Mehta</strong><small>Backend Developer</small></div>
+                        </div>
+                        <div class="bc-foot">
+                            <span class="m-chip">78%</span>
+                            <span class="bc-time">Sent 2d ago</span>
+                            <button class="mv-btn" title="Mark Hired"><i class="fa-solid fa-arrow-right"></i></button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- HIRED -->
+            <div class="b-col c-hired" data-stage="hired">
+                <div class="b-head c-hired"><span class="b-dot"></span><strong>Hired</strong><span class="b-count">0</span></div>
+                <div class="b-body">
+
+                    <div class="b-card" data-search="vikram singh web designer">
+                        <div class="bc-top">
+                            <span class="pav pav-green">VS</span>
+                            <div><strong>Vikram Singh</strong><small>Web Designer</small></div>
+                        </div>
+                        <div class="bc-foot">
+                            <span class="m-chip">90%</span>
+                            <span class="hired-tick"><i class="fa-solid fa-check"></i></span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+        <!-- OPEN ROLES -->
+        <div class="sec-label">
+            <span class="mini-label">Open Roles</span>
+            <span class="line"></span>
+        </div>
+        <div class="roles-grid" id="rolesGrid">
+
+            <div class="role-card">
+                <div class="role-top">
+                    <div><strong>Senior React Developer</strong><small>Bengaluru · Full-time</small></div>
+                    <span class="role-dept rd-blue">React JS</span>
+                </div>
+                <div class="role-nums"><span>Applications</span><b>18 / 25</b></div>
+                <div class="role-bar"><span style="width:72%"></span></div>
+                <div class="role-foot"><span>Posted 6d ago</span><span class="hot">Closing soon</span></div>
+            </div>
+
+            <div class="role-card">
+                <div class="role-top">
+                    <div><strong>UI/UX Designer</strong><small>Mumbai · Full-time</small></div>
+                    <span class="role-dept rd-green">UI/UX</span>
+                </div>
+                <div class="role-nums"><span>Applications</span><span><b>11</b> / 20</span></div>
+                <div class="role-bar"><span style="width:55%"></span></div>
+                <div class="role-foot"><span>Posted 4d ago</span><span>Active</span></div>
+            </div>
+
+            <div class="role-card">
+                <div class="role-top">
+                    <div><strong>PHP Developer</strong><small>Delhi · On-site</small></div>
+                    <span class="role-dept rd-slate">Backend</span>
+                </div>
+                <div class="role-nums"><span>Applications</span><span><b>7</b> / 15</span></div>
+                <div class="role-bar"><span style="width:47%"></span></div>
+                <div class="role-foot"><span>Posted 2d ago</span><span>Active</span></div>
+            </div>
+
+        </div>
+
+        <!--  INTERVIEWS TIMELINE -->
+        <div class="sec-label">
+            <span class="mini-label">Today's Interviews</span>
+            <span class="line"></span>
+            <span class="rc-live"><span class="pulse-dot"></span> Live</span>
+        </div>
+
+        <div class="rc-card" style="padding:18px 22px;animation:up .5s ease .3s backwards">
+            <div class="tl">
+
+                <div class="tl-item">
+                    <span class="tl-time">10:30</span>
+                    <div class="tl-card">
+                        <span class="pav pav-blue">MI</span>
+                        <div><strong>Meera Iyer</strong><small>React JS Developer</small></div>
+                        <span class="tl-round tr-blue">Round 1 · Zoya F.</span>
+                    </div>
+                </div>
+
+                <div class="tl-item">
+                    <span class="tl-time">12:00</span>
+                    <div class="tl-card">
+                        <span class="pav pav-amber">KA</span>
+                        <div><strong>Kabir Anand</strong><small>UI/UX Designer</small></div>
+                        <span class="tl-round tr-amber">HR · Emma W.</span>
+                    </div>
+                </div>
+
+                <div class="tl-item">
+                    <span class="tl-time">02:30</span>
+                    <div class="tl-card">
+                        <span class="pav pav-green">SQ</span>
+                        <div><strong>Sana Qureshi</strong><small>Web Designer</small></div>
+                        <span class="tl-round tr-green">Final · Aarya S.</span>
+                    </div>
+                </div>
+
+                <div class="tl-item">
+                    <span class="tl-time">04:00</span>
+                    <div class="tl-card">
+                        <span class="pav pav-slate">RV</span>
+                        <div><strong>Rohit Verma</strong><small>QA Engineer</small></div>
+                        <span class="tl-round tr-blue">Round 2 · Neha K.</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </section>
+
+    <!-- POST JOB MODAL -->
+    <div class="modal fade" id="jobModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content rc-modal rounded-4">
+                <div class="modal-header">
+                    <h5 class="modal-title fw-bold"><i class="fa-solid fa-briefcase me-2"></i>Post New Job</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">Job Title</label>
+                        <input type="text" class="form-control" id="jbTitle" placeholder="e.g. Senior React Developer">
+                    </div>
+                    <div class="row g-3">
+                        <div class="col-6">
+                            <label class="form-label">Department</label>
+                            <select class="form-select" id="jbDept">
+                                <option>Web Designers</option>
+                                <option>UI/UX</option>
+                                <option>React JS</option>
+                                <option>Backend</option>
+                                <option>PHP</option>
+                                <option>QA</option>
+                            </select>
+                        </div>
+                        <div class="col-6">
+                            <label class="form-label">Openings</label>
+                            <input type="number" class="form-control" id="jbOpen" value="1" min="1">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer border-0 pt-0">
+                    <button class="btn btn-light border" data-bs-dismiss="modal">Cancel</button>
+                    <button class="btn rc-btn" id="jbSend"><i class="fa-solid fa-paper-plane me-2"></i>Publish</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOAST -->
+    <div class="toast-container position-fixed bottom-0 start-50 translate-middle-x p-3">
+        <div class="toast rc-toast border-0" id="appToast" data-bs-delay="2200" role="alert">
+            <div class="d-flex">
+                <div class="toast-body" id="toastMsg">Done</div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+            </div>
+        </div>
+    </div>
+
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+(function () {
+    var $  = function (s, c) { return (c || document).querySelector(s); };
+    var $$ = function (s, c) { return [].slice.call((c || document).querySelectorAll(s)); };
+
+    /* ---- auth ---- */
+    var user = (localStorage.getItem("loggedInUser") || "").trim();
+    if (!user) { location.href = "index.html"; return; }
+    var av = "https://ui-avatars.com/api/?name=" + encodeURIComponent(user) + "&background=7dc443&color=fff&bold=true";
+    ["topbarUserName", "profileMenuName"].forEach(function (i) { var e = $("#" + i); if (e) e.textContent = user; });
+    ["topbarUserAvatar", "profileMenuAvatar"].forEach(function (i) { $("#" + i).src = av; });
+    $$(".logout-link").forEach(function (a) { a.onclick = function () { localStorage.removeItem("loggedInUser"); }; });
+    $("#markRead").onclick = function () {
+        $$(".drop-item.unread").forEach(function (d) { d.classList.remove("unread"); });
+        var b = $(".notif-badge"); if (b) b.classList.add("d-none");
+    };
+
+    /* ---- toast ---- */
+    var toast = new bootstrap.Toast($("#appToast"));
+    function notify(m) { $("#toastMsg").textContent = m; toast.show(); }
+
+    /* ---- column counts ---- */
+    function counts() {
+        $$(".b-col").forEach(function (col) {
+            $(".b-count", col).textContent = $$(".b-card", col).length;
+        });
+    }
+
+    /* ----  MOVE TO NEXT STAGE (magic arrow) ---- */
+    var STAGES = ["new", "screen", "interview", "offer", "hired"];
+    var NAMES  = { new: "Screening", screen: "Interview", offer: "Hired" };
+
+    document.addEventListener("click", function (e) {
+        var btn = e.target.closest(".mv-btn");
+        if (!btn) return;
+        var card = btn.closest(".b-card");
+        var col  = btn.closest(".b-col");
+        var next = STAGES[STAGES.indexOf(col.dataset.stage) + 1];
+        var nextCol = $('.b-col[data-stage="' + next + '"]');
+
+        card.classList.add("leaving");               /* slide-out animation */
+        setTimeout(function () {
+            nextCol.querySelector(".b-body").appendChild(card);
+            card.style.animation = "none"; card.offsetHeight; card.style.animation = "";
+            card.classList.remove("leaving");
+            /* last stage me arrow ki jagah ✓ */
+            if (next === "hired") btn.outerHTML = '<span class="hired-tick"><i class="fa-solid fa-check"></i></span>';
+            counts();
+            notify($(".bc-top strong", card).textContent + " → " + (NAMES[next] || "Hired") + " 🎉");
+        }, 300);
+    });
+
+    /* ---- live search across board ---- */
+    $("#bSearch").oninput = function () {
+        var q = this.value.toLowerCase();
+        $$(".b-card").forEach(function (c) {
+            c.style.display = c.dataset.search.indexOf(q) > -1 ? "" : "none";
+        });
+    };
+
+    /* ---- post job → roles grid me add ---- */
+    $("#jbSend").onclick = function () {
+        var t = $("#jbTitle").value.trim();
+        if (!t) return notify("Enter job title");
+        var d = document.createElement("div");
+        d.className = "role-card";
+        d.innerHTML =
+            "<div class='role-top'><div><strong>" + t + "</strong><small>Head Office · Full-time</small></div>" +
+            "<span class='role-dept rd-blue'>" + $("#jbDept").value + "</span></div>" +
+            "<div class='role-nums'><span>Applications</span><span><b>0</b> / 10</span></div>" +
+            "<div class='role-bar'><span style='width:0%'></span></div>" +
+            "<div class='role-foot'><span>Posted just now</span><span>Active</span></div>";
+        $("#rolesGrid").prepend(d);
+        bootstrap.Modal.getOrCreateInstance($("#jobModal")).hide();
+        $("#jbTitle").value = "";
+        notify("Job published — live on careers page 🚀");
+    };
+
+    counts();
+})();
+</script>
+
+</body>
+</html>

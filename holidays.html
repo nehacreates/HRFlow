@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HR Portal | Holidays 2026</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="dashboard.css">
+<link rel="stylesheet" href="holidays.css">
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+<aside class="offcanvas-lg offcanvas-start sidebar d-flex flex-column" tabindex="-1" id="sidebar" aria-label="HR Sidebar">
+    <div class="sidebar-brand d-flex align-items-center justify-content-between">
+        <img src="assets/logo-white.png" alt="logo">
+        <button type="button" class="btn-close btn-close-white d-lg-none" data-bs-dismiss="offcanvas" data-bs-target="#sidebar" aria-label="Close"></button>
+    </div>
+    <nav class="sidebar-nav flex-grow-1">
+        <span class="nav-label">Main Menu</span>
+        <a href="dashboard.html" class="nav-link"><i class="fa-solid fa-gauge-high"></i><span>Dashboard</span></a>
+        <a href="employees.html" class="nav-link"><i class="fa-solid fa-users"></i><span>Employees</span><span class="nav-badge ms-auto">248</span></a>
+        <a href="attendance.html" class="nav-link"><i class="fa-solid fa-calendar-check"></i><span>Attendance</span></a>
+        <a href="payroll.html" class="nav-link"><i class="fa-solid fa-money-bill-wave"></i><span>Payroll</span></a>
+        <a href="leave.html" class="nav-link"><i class="fa-solid fa-plane-departure"></i><span>Leave</span><span class="nav-badge warn ms-auto">5</span></a>
+        <a href="recruitment.html" class="nav-link"><i class="fa-solid fa-briefcase"></i><span>Recruitment</span></a>
+        <span class="nav-label">Management</span>
+        <a href="performance.html" class="nav-link"><i class="fa-solid fa-chart-line"></i><span>Performance</span></a>
+        <a href="holidays.html" class="nav-link active"><i class="fa-solid fa-umbrella-beach"></i><span>Holidays</span></a>
+        <a href="inbox.html" class="nav-link"><i class="fa-solid fa-inbox"></i><span>Inbox</span><span class="nav-badge ms-auto">3</span></a>
+        <a href="assets.html" class="nav-link"><i class="fa-solid fa-laptop"></i><span>Assets</span><span class="nav-badge ms-auto">5</span></a>
+    </nav>
+</aside>
+
+<!-- MAIN -->
+<main class="main-area d-flex flex-column min-vh-100">
+
+    <!-- TOPBAR -->
+    <header class="topbar sticky-top d-flex align-items-center">
+        <button class="btn btn-link text-dark text-decoration-none fs-4 p-0 me-3 d-lg-none" type="button"
+                data-bs-toggle="offcanvas" data-bs-target="#sidebar" aria-controls="sidebar">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+        <h4 class="fw-bolder mb-0 page-title">Holidays</h4>
+        <div class="topbar-search position-relative d-none d-md-block">
+            <i class="fa-solid fa-magnifying-glass position-absolute top-50 translate-middle-y"></i>
+            <input type="text" class="form-control rounded-pill" placeholder="Search holidays...">
+        </div>
+        <div class="d-flex align-items-center gap-3 ms-auto">
+            <div class="dropdown">
+                <button class="btn notif-btn rounded-circle position-relative" type="button"
+                        data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
+                    <i class="fa-regular fa-bell"></i>
+                    <span class="position-absolute badge rounded-pill bg-danger notif-badge">3</span>
+                </button>
+                <div class="dropdown-menu notif-menu">
+                    <div class="drop-head d-flex justify-content-between align-items-center">
+                        <span>Notifications</span>
+                        <button type="button" id="markRead">Mark all read</button>
+                    </div>
+                    <div class="drop-item unread">
+                        <i class="fa-solid fa-user-plus chip chip-blue"></i>
+                        <div><span>New registration request</span><small class="d-block">Ravi Kumar · 5m ago</small></div>
+                    </div>
+                    <div class="drop-item unread">
+                        <i class="fa-solid fa-plane-departure chip chip-amber"></i>
+                        <div><span>Leave request pending</span><small class="d-block">Emma Wilson · 1h ago</small></div>
+                    </div>
+                    <div class="drop-item unread">
+                        <i class="fa-solid fa-file-invoice-dollar chip chip-red"></i>
+                        <div><span>Payroll generated</span><small class="d-block">October payslips · 3h ago</small></div>
+                    </div>
+                </div>
+            </div>
+            <div class="dropdown">
+                <button class="btn profile-btn rounded-pill d-flex align-items-center gap-2" type="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                    <img id="topbarUserAvatar" src="" class="rounded-circle" width="34" height="34" alt="user">
+                    <span class="text-start d-none d-sm-block">
+                        <span class="d-block fw-bold small" id="topbarUserName"></span>
+                    </span>
+                    <i class="fa-solid fa-chevron-down text-muted small"></i>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end shadow border-0 p-2" style="min-width:230px;">
+                    <li class="d-flex align-items-center gap-2 p-2">
+                        <img id="profileMenuAvatar" src="" class="rounded-circle" width="42" height="42" alt="user">
+                        <div><strong class="d-block small" id="profileMenuName"></strong><small class="text-muted">HR Manager</small></div>
+                    </li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item rounded d-flex align-items-center gap-2 py-2" href="#"><i class="fa-regular fa-user text-primary" style="width:18px;"></i> My Profile</a></li>
+                    <li><a class="dropdown-item rounded d-flex align-items-center gap-2 py-2" href="#"><i class="fa-solid fa-gear text-primary" style="width:18px;"></i> Settings</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item text-danger rounded d-flex align-items-center gap-2 py-2 logout-link" href="index.html"><i class="fa-solid fa-arrow-right-from-bracket" style="width:18px;"></i> Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <!-- HOLIDAYS 2026 -->
+    <section class="hol-wrap flex-grow-1">
+
+        <!-- ✈️ AIRPORT DEPARTURE BOARD -->
+        <div class="hol-board" id="depBoard"></div>
+
+        <!-- 🎫 BOARDING PASSES -->
+        <div class="hol-tickets-head">
+            <h6>Boarding Pass Collection 2026</h6>
+            <span class="hol-line"></span>
+            <span class="hol-tc">18 passes</span>
+        </div>
+
+        <div class="row g-3" id="ticketGrid"></div>
+
+    </section>
+
+    <!-- TOAST -->
+    <div class="toast-container position-fixed bottom-0 start-50 translate-middle-x p-3">
+        <div class="toast border-0" id="appToast" data-bs-delay="2000" role="alert"
+             style="background:#0d1b26;border-radius:12px">
+            <div class="d-flex">
+                <div class="toast-body" id="toastMsg" style="font-size:.8rem;font-weight:600;color:#fff">Done</div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+            </div>
+        </div>
+    </div>
+
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+(function () {
+    "use strict";
+
+    /* ---- auth ---- */
+    var user = (localStorage.getItem("loggedInUser") || "").trim();
+    if (!user) { location.href = "index.html"; return; }
+    var av = "https://ui-avatars.com/api/?name=" + encodeURIComponent(user) + "&background=7dc443&color=fff&bold=true";
+    document.getElementById("topbarUserName").textContent = user;
+    document.getElementById("profileMenuName").textContent = user;
+    document.getElementById("topbarUserAvatar").src = av;
+    document.getElementById("profileMenuAvatar").src = av;
+    document.querySelector(".logout-link").addEventListener("click", function () {
+        localStorage.removeItem("loggedInUser");
+    });
+    document.addEventListener("click", function (e) {
+        if (e.target.closest("#markRead")) {
+            document.querySelectorAll(".drop-item.unread").forEach(function (el) { el.classList.remove("unread"); });
+            var b = document.querySelector(".notif-badge");
+            if (b) b.style.display = "none";
+        }
+    });
+
+    /* DATA  */
+    var HOL = [
+        { d: 26, m: 0,  n: "Republic Day",       day: "Monday",    t: "national",   ic: "fa-flag",            note: "Flag ceremony" },
+        { d: 4,  m: 2,  n: "Holi",               day: "Wednesday", t: "festival",   ic: "fa-palette",         note: "Colours day" },
+        { d: 3,  m: 3,  n: "Good Friday",        day: "Friday",    t: "restricted", ic: "fa-dove",            note: "Observed" },
+        { d: 14, m: 3,  n: "Ambedkar Jayanti",   day: "Tuesday",   t: "national",   ic: "fa-scale-balanced",  note: "Equality day" },
+        { d: 1,  m: 4,  n: "Labour Day",         day: "Friday",    t: "national",   ic: "fa-hammer",          note: "Workers day" },
+        { d: 15, m: 7,  n: "Independence Day",   day: "Saturday",  t: "national",   ic: "fa-flag",            note: "Flag hoisting" },
+        { d: 2,  m: 9,  n: "Gandhi Jayanti",     day: "Friday",    t: "national",   ic: "fa-dove",            note: "Peace day" },
+        { d: 20, m: 9,  n: "Dussehra",           day: "Tuesday",   t: "festival",   ic: "fa-bahai",           note: "Victory of good" },
+        { d: 8,  m: 10, n: "Diwali",             day: "Sunday",    t: "festival",   ic: "fa-lightbulb",       note: "Festival of lights" },
+        { d: 25, m: 10, n: "Guru Nanak Jayanti", day: "Wednesday", t: "national",   ic: "fa-star",            note: "Gurpurab" },
+        { d: 25, m: 11, n: "Christmas",          day: "Friday",    t: "national",   ic: "fa-tree",            note: "Long weekend" }
+    ];
+
+    var MN = ["JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC"];
+    var MN_FULL = ["January","February","March","April","May","June",
+                   "July","August","September","October","November","December"];
+    var TC = {
+        national:   "#7dc443",
+        festival:   "#8b5cf6",
+        restricted: "#f0a92e"
+    };
+    var now = new Date();
+
+    /* DEPARTURE BOARD */
+    function renderBoard() {
+        var upcoming = HOL.filter(function (h) {
+            return new Date(2026, h.m, h.d) > now;
+        }).slice(0, 5);
+
+        var h = "";
+        upcoming.forEach(function (x, i) {
+            var st = i === 0
+                ? "<span class='b-status bs-boarding'><span class='sdot'></span>BOARDING SOON</span>"
+                : "<span class='b-status bs-scheduled'>SCHEDULED</span>";
+            h += "<div class='hol-brow' style='animation-delay:" + (i * .07) + "s'>" +
+                    "<span class='b-date'>" + String(x.d).padStart(2, "0") + " " + MN[x.m] +
+                        "<small>" + x.day + "</small></span>" +
+                    "<span class='b-dest'>" + x.n + "<small>" + x.note + "</small></span>" +
+                    "<span class='b-type'>" + x.t + "</span>" +
+                    st +
+                 "</div>";
+        });
+        document.getElementById("depBoard").innerHTML =
+            "<div class='hol-board-head'>" +
+                "<span class='hol-board-title'><span class='hol-live'></span>Departures — Upcoming Holidays</span>" +
+                "<span class='hol-board-year'>TERMINAL 2026</span>" +
+            "</div>" + h;
+    }
+
+
+    function renderTickets() {
+        var h = "";
+        HOL.forEach(function (x, i) {
+            var dt = new Date(2026, x.m, x.d);
+            var past = dt < now;
+            /* next upcoming */
+            var nextOne = HOL.filter(function (q) {
+                return new Date(2026, q.m, q.d) > now;
+            })[0];
+            var isNext = nextOne && nextOne.n === x.n;
+
+            var status = past
+                ? "<span class='tk-status st-flown'><span class='sdot'></span>FLOWN</span>"
+                : isNext
+                ? "<span class='tk-status st-boarding'><span class='sdot'></span>BOARDING NOW</span>"
+                : "<span class='tk-status st-ontime'><span class='sdot'></span>ON TIME</span>";
+
+            var stamp = past
+                ? "<span class='tk-stamp'>FLOWN</span>"
+                : isNext
+                ? "<span class='tk-stamp b-now'>BOARDING</span>"
+                : "";
+
+            var tc = TC[x.t] || "#7dc443";
+
+            h += "<div class='col-sm-6 col-xl-4'>" +
+                "<div class='ticket h-100" + (past ? " t-flown" : "") + "' style='--tc:" + tc + ";animation-delay:" + (i * .05) + "s'>" +
+                    "<div class='tk-date" + (x.n.length > 12 ? " tk-sm" : "") + "'>" +
+                        "<strong>" + String(x.d).padStart(2, "0") + "</strong><small>" + MN[x.m] + "</small>" +
+                    "</div>" +
+                    "<div class='tk-tear'></div>" +
+                    "<div class='tk-body'>" +
+                        "<div class='tk-kicker'><span>" + x.t + " Holiday</span>" + status + "</div>" +
+                        "<strong class='tk-name'>" + x.n + "</strong>" +
+                        "<small class='tk-meta'>" + x.day + " · " + x.note + "</small>" +
+                    
+                        "<div class='tk-barcode'>" +
+                            "<span class='tk-code'></span>" +
+                            "<span class='tk-flight'>FL <small>20" + String(26).slice(2) + "-" + String(i + 1).padStart(3, "0") + "</small></span>" +
+                        "</div>" +
+                    "</div>" +
+                    stamp +
+                "</div></div>";
+        });
+        document.getElementById("ticketGrid").innerHTML = h;
+    }
+
+    renderBoard();
+    renderTickets();
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HR Portal | Leave</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="dashboard.css">
+
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+<aside class="offcanvas-lg offcanvas-start sidebar d-flex flex-column" tabindex="-1" id="sidebar" aria-label="HR Sidebar">
+    <div class="sidebar-brand d-flex align-items-center justify-content-between">
+        <img src="assets/logo-white.png" alt="logo">
+        <button type="button" class="btn-close btn-close-white d-lg-none" data-bs-dismiss="offcanvas" data-bs-target="#sidebar" aria-label="Close"></button>
+    </div>
+    <nav class="sidebar-nav flex-grow-1">
+        <span class="nav-label">Main Menu</span>
+        <a href="dashboard.html" class="nav-link"><i class="fa-solid fa-gauge-high"></i><span>Dashboard</span></a>
+        <a href="employees.html" class="nav-link"><i class="fa-solid fa-users"></i><span>Employees</span><span class="nav-badge ms-auto">248</span></a>
+        <a href="attendence.html" class="nav-link"><i class="fa-solid fa-calendar-check"></i><span>Attendance</span></a>
+        <a href="paroll.html" class="nav-link"><i class="fa-solid fa-money-bill-wave"></i><span>Payroll</span></a>
+        <a href="leave.html" class="nav-link active"><i class="fa-solid fa-plane-departure"></i><span>Leave</span><span class="nav-badge warn ms-auto">5</span></a>
+        <a href="recruitment.html" class="nav-link"><i class="fa-solid fa-briefcase"></i><span>Recruitment</span></a>
+        <span class="nav-label">Management</span>
+        <a href="performance.html" class="nav-link"><i class="fa-solid fa-chart-line"></i><span>Performance</span></a>
+        <a href="holidays.html" class="nav-link"><i class="fa-solid fa-umbrella-beach"></i><span>Holidays</span></a>
+        <a href="inbox.html" class="nav-link"><i class="fa-solid fa-inbox"></i><span>Inbox</span><span class="nav-badge ms-auto">3</span></a>
+    <a href="assest.html" class="nav-link">
+        <i class="fa-solid fa-folder-open"></i><span>Assets </span>
+    </a>
+    </nav>
+</aside>
+
+<!-- MAIN -->
+<main class="main-area d-flex flex-column min-vh-100">
+
+    <!-- TOPBAR -->
+    <header class="topbar sticky-top d-flex align-items-center">
+        <button class="btn btn-link text-dark text-decoration-none fs-4 p-0 me-3 d-lg-none" type="button"
+                data-bs-toggle="offcanvas" data-bs-target="#sidebar" aria-controls="sidebar">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+        <h4 class="fw-bolder mb-0 page-title">Leave</h4>
+        <div class="topbar-search position-relative d-none d-md-block">
+            <i class="fa-solid fa-magnifying-glass position-absolute top-50 translate-middle-y"></i>
+            <input type="text" class="form-control rounded-pill" placeholder="Search employees, departments...">
+        </div>
+        <div class="d-flex align-items-center gap-3 ms-auto">
+            <div class="dropdown">
+                <button class="btn notif-btn rounded-circle position-relative" type="button"
+                        data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
+                    <i class="fa-regular fa-bell"></i>
+                    <span class="position-absolute badge rounded-pill bg-danger notif-badge">3</span>
+                </button>
+                <div class="dropdown-menu notif-menu">
+                    <div class="drop-head d-flex justify-content-between align-items-center">
+                        <span>Notifications</span>
+                        <button type="button" id="markRead">Mark all read</button>
+                    </div>
+                    <div class="drop-item unread">
+                        <i class="fa-solid fa-user-plus chip chip-blue"></i>
+                        <div><span>New registration request</span><small class="d-block">Ravi Kumar registered · 5m ago</small></div>
+                    </div>
+                    <div class="drop-item unread">
+                        <i class="fa-solid fa-plane-departure chip chip-amber"></i>
+                        <div><span>Leave request pending</span><small class="d-block">Emma Wilson · 1h ago</small></div>
+                    </div>
+                    <div class="drop-item unread">
+                        <i class="fa-solid fa-file-invoice-dollar chip chip-red"></i>
+                        <div><span>Payroll generated</span><small class="d-block">October payslips ready · 3h ago</small></div>
+                    </div>
+                </div>
+            </div>
+            <div class="dropdown">
+                <button class="btn profile-btn rounded-pill d-flex align-items-center gap-2" type="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                    <img id="topbarUserAvatar" src="" class="rounded-circle" width="34" height="34" alt="user">
+                    <span class="text-start d-none d-sm-block">
+                        <span class="d-block fw-bold small" id="topbarUserName"></span>
+                    </span>
+                    <i class="fa-solid fa-chevron-down text-muted small"></i>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end shadow border-0 p-2" style="min-width:230px;">
+                    <li class="d-flex align-items-center gap-2 p-2">
+                        <img id="profileMenuAvatar" src="" class="rounded-circle" width="42" height="42" alt="user">
+                        <div><strong class="d-block small" id="profileMenuName"></strong><small class="text-muted">HR Manager</small></div>
+                    </li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item rounded d-flex align-items-center gap-2 py-2" href="#"><i class="fa-regular fa-user text-primary" style="width:18px;"></i> My Profile</a></li>
+                    <li><a class="dropdown-item rounded d-flex align-items-center gap-2 py-2" href="#"><i class="fa-solid fa-gear text-primary" style="width:18px;"></i> Settings</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item text-danger rounded d-flex align-items-center gap-2 py-2 logout-link" href="index.html"><i class="fa-solid fa-arrow-right-from-bracket" style="width:18px;"></i> Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <!-- LEAVE CONTENT -->
+    <section class="lv-wrap flex-grow-1">
+
+        <!-- STAT CARDS -->
+        <div class="row g-3 mb-4">
+            <div class="col-sm-6 col-xl-3">
+                <div class="lv-stat">
+                    <span class="stat-bubble bub-green"><span class="stat-ic"><i class="fa-regular fa-calendar-check"></i></span></span>
+                    <div class="stat-title">Earned Leaves</div>
+                    <div class="stat-num" data-target="5">0</div>
+                    <span class="stat-chip sc-green">Remaining : 07</span>
+                </div>
+            </div>
+            <div class="col-sm-6 col-xl-3">
+                <div class="lv-stat">
+                    <span class="stat-bubble bub-red"><span class="stat-ic"><i class="fa-solid fa-briefcase-medical"></i></span></span>
+                    <div class="stat-title">Sick Leaves</div>
+                    <div class="stat-num" data-target="2">0</div>
+                    <span class="stat-chip sc-red">Remaining : 01</span>
+                </div>
+            </div>
+            <div class="col-sm-6 col-xl-3">
+                <div class="lv-stat">
+                    <span class="stat-bubble bub-blue"><span class="stat-ic"><i class="fa-solid fa-umbrella-beach"></i></span></span>
+                    <div class="stat-title">Casual Leaves</div>
+                    <div class="stat-num" data-target="3">0</div>
+                    <span class="stat-chip sc-blue">Remaining : 09</span>
+                </div>
+            </div>
+            <div class="col-sm-6 col-xl-3">
+                <div class="lv-stat">
+                    <span class="stat-bubble bub-slate"><span class="stat-ic"><i class="fa-solid fa-arrow-rotate-left"></i></span></span>
+                    <div class="stat-title">Comp Offs</div>
+                    <div class="stat-num" data-target="2">0</div>
+                    <span class="stat-chip sc-slate">Remaining : 04</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- LEAVE LIST -->
+        <div class="lv-card">
+            <div class="lv-head">
+                <h5>Leave List</h5>
+                <span class="lv-badge lb-green">Total : <b data-count="total">0</b></span>
+                <span class="lv-badge lb-amber">Pending : <b data-count="pending">0</b></span>
+                <button class="btn lv-btn ms-auto py-2 px-3" data-bs-toggle="modal" data-bs-target="#reqModal">
+                    <i class="fa-solid fa-plus me-1"></i>Request
+                </button>
+            </div>
+
+            <div class="lv-filters">
+                <select id="fType">
+                    <option value="all">All Types</option>
+                    <option value="annual">Earned</option>
+                    <option value="sick">Sick</option>
+                    <option value="casual">Casual</option>
+                    <option value="comp">Comp Off</option>
+                </select>
+                <select id="fStatus">
+                    <option value="all">All Status</option>
+                    <option value="pending">Pending</option>
+                    <option value="approved">Approved</option>
+                    <option value="rejected">Rejected</option>
+                </select>
+                <div class="lv-search">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" id="fSearch" placeholder="Search employee...">
+                </div>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table lv-table align-middle">
+                    <thead>
+                        <tr>
+                            <th>Leave Type</th>
+                            <th>From</th>
+                            <th>Employee</th>
+                            <th class="d-none d-md-table-cell">To</th>
+                            <th>Days</th>
+                            <th>Status</th>
+                            <th class="text-end">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="lvBody">
+
+                        <tr class="lv-row" data-type="sick" data-status="pending">
+                            <td><span class="lv-type t-sick"><span class="type-dot"></span>Sick Leave</span></td>
+                            <td><span class="dates"><i class="fa-regular fa-calendar"></i>26 Sept</span></td>
+                            <td><div class="emp-cell"><span class="pav pav-red">IS</span><span><strong>Imran Sheikh</strong><small>Junior Web Designer</small></span></div></td>
+                            <td class="d-none d-md-table-cell"><span class="dates">28 Sept</span></td>
+                            <td><span class="dur">3 days</span></td>
+                            <td>
+                                <div class="st-drop dropdown">
+                                    <button class="st-btn st-pending dropdown-toggle" data-bs-toggle="dropdown"><span class="st-dot"></span>Pending</button>
+                                    <div class="dropdown-menu st-menu">
+                                        <div class="st-item" data-set="approved"><span class="st-dot" style="color:#5ea52f"></span>Approved</div>
+                                        <div class="st-item" data-set="rejected"><span class="st-dot" style="color:#d13438"></span>Rejected</div>
+                                        <div class="st-item" data-set="pending"><span class="st-dot" style="color:#c07d12"></span>Pending</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td><div class="row-acts"><button class="act-ic del" title="Delete"><i class="far fa-trash-can"></i></button></div></td>
+                        </tr>
+
+                        <tr class="lv-row" data-type="casual" data-status="pending">
+                            <td><span class="lv-type t-casual"><span class="type-dot"></span>Casual Leave</span></td>
+                            <td><span class="dates"><i class="fa-regular fa-calendar"></i>29 Sept</span></td>
+                            <td><div class="emp-cell"><span class="pav pav-green">EW</span><span><strong>Emma Wilson</strong><small>HR Executive</small></span></div></td>
+                            <td class="d-none d-md-table-cell"><span class="dates">30 Sept</span></td>
+                            <td><span class="dur">2 days</span></td>
+                            <td>
+                                <div class="st-drop dropdown">
+                                    <button class="st-btn st-pending dropdown-toggle" data-bs-toggle="dropdown"><span class="st-dot"></span>Pending</button>
+                                    <div class="dropdown-menu st-menu">
+                                        <div class="st-item" data-set="approved"><span class="st-dot" style="color:#5ea52f"></span>Approved</div>
+                                        <div class="st-item" data-set="rejected"><span class="st-dot" style="color:#d13438"></span>Rejected</div>
+                                        <div class="st-item" data-set="pending"><span class="st-dot" style="color:#c07d12"></span>Pending</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td><div class="row-acts"><button class="act-ic del" title="Delete"><i class="far fa-trash-can"></i></button></div></td>
+                        </tr>
+
+                        <tr class="lv-row" data-type="annual" data-status="approved">
+                            <td><span class="lv-type t-annual"><span class="type-dot"></span>Earned Leave</span></td>
+                            <td><span class="dates"><i class="fa-regular fa-calendar"></i>14 Oct</span></td>
+                            <td><div class="emp-cell"><span class="pav pav-amber">PS</span><span><strong>Priya Sharma</strong><small>Team Lead</small></span></div></td>
+                            <td class="d-none d-md-table-cell"><span class="dates">16 Oct</span></td>
+                            <td><span class="dur">3 days</span></td>
+                            <td>
+                                <div class="st-drop dropdown">
+                                    <button class="st-btn st-approved dropdown-toggle" data-bs-toggle="dropdown"><span class="st-dot"></span>Approved</button>
+                                    <div class="dropdown-menu st-menu">
+                                        <div class="st-item" data-set="approved"><span class="st-dot" style="color:#5ea52f"></span>Approved</div>
+                                        <div class="st-item" data-set="rejected"><span class="st-dot" style="color:#d13438"></span>Rejected</div>
+                                        <div class="st-item" data-set="pending"><span class="st-dot" style="color:#c07d12"></span>Pending</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td><div class="row-acts"><button class="act-ic del" title="Delete"><i class="far fa-trash-can"></i></button></div></td>
+                        </tr>
+
+                        <tr class="lv-row" data-type="comp" data-status="approved">
+                            <td><span class="lv-type t-comp"><span class="type-dot"></span>Comp Off</span></td>
+                            <td><span class="dates"><i class="fa-regular fa-calendar"></i>27 Sept</span></td>
+                            <td><div class="emp-cell"><span class="pav pav-amber">AN</span><span><strong>Aliza Noor</strong><small>Junior UI Designer</small></span></div></td>
+                            <td class="d-none d-md-table-cell"><span class="dates">29 Sept</span></td>
+                            <td><span class="dur">3 days</span></td>
+                            <td>
+                                <div class="st-drop dropdown">
+                                    <button class="st-btn st-approved dropdown-toggle" data-bs-toggle="dropdown"><span class="st-dot"></span>Approved</button>
+                                    <div class="dropdown-menu st-menu">
+                                        <div class="st-item" data-set="approved"><span class="st-dot" style="color:#5ea52f"></span>Approved</div>
+                                        <div class="st-item" data-set="rejected"><span class="st-dot" style="color:#d13438"></span>Rejected</div>
+                                        <div class="st-item" data-set="pending"><span class="st-dot" style="color:#c07d12"></span>Pending</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td><div class="row-acts"><button class="act-ic del" title="Delete"><i class="far fa-trash-can"></i></button></div></td>
+                        </tr>
+
+                        <tr class="lv-row" data-type="casual" data-status="rejected">
+                            <td><span class="lv-type t-casual"><span class="type-dot"></span>Casual Leave</span></td>
+                            <td><span class="dates"><i class="fa-regular fa-calendar"></i>18 Sept</span></td>
+                            <td><div class="emp-cell"><span class="pav pav-blue">HV</span><span><strong>Harsh Vardhan</strong><small>UX Designer</small></span></div></td>
+                            <td class="d-none d-md-table-cell"><span class="dates">19 Sept</span></td>
+                            <td><span class="dur">2 days</span></td>
+                            <td>
+                                <div class="st-drop dropdown">
+                                    <button class="st-btn st-rejected dropdown-toggle" data-bs-toggle="dropdown"><span class="st-dot"></span>Rejected</button>
+                                    <div class="dropdown-menu st-menu">
+                                        <div class="st-item" data-set="approved"><span class="st-dot" style="color:#5ea52f"></span>Approved</div>
+                                        <div class="st-item" data-set="rejected"><span class="st-dot" style="color:#d13438"></span>Rejected</div>
+                                        <div class="st-item" data-set="pending"><span class="st-dot" style="color:#c07d12"></span>Pending</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td><div class="row-acts"><button class="act-ic del" title="Delete"><i class="far fa-trash-can"></i></button></div></td>
+                        </tr>
+
+                        <tr class="lv-row" data-type="annual" data-status="pending">
+                            <td><span class="lv-type t-annual"><span class="type-dot"></span>Earned Leave</span></td>
+                            <td><span class="dates"><i class="fa-regular fa-calendar"></i>04 Oct</span></td>
+                            <td><div class="emp-cell"><span class="pav pav-slate">DS</span><span><strong>Devya Singh</strong><small>Mid Web Designer</small></span></div></td>
+                            <td class="d-none d-md-table-cell"><span class="dates">05 Oct</span></td>
+                            <td><span class="dur">2 days</span></td>
+                            <td>
+                                <div class="st-drop dropdown">
+                                    <button class="st-btn st-pending dropdown-toggle" data-bs-toggle="dropdown"><span class="st-dot"></span>Pending</button>
+                                    <div class="dropdown-menu st-menu">
+                                        <div class="st-item" data-set="approved"><span class="st-dot" style="color:#5ea52f"></span>Approved</div>
+                                        <div class="st-item" data-set="rejected"><span class="st-dot" style="color:#d13438"></span>Rejected</div>
+                                        <div class="st-item" data-set="pending"><span class="st-dot" style="color:#c07d12"></span>Pending</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td><div class="row-acts"><button class="act-ic del" title="Delete"><i class="far fa-trash-can"></i></button></div></td>
+                        </tr>
+
+                        <tr class="lv-row" data-type="sick" data-status="approved">
+                            <td><span class="lv-type t-sick"><span class="type-dot"></span>Sick Leave</span></td>
+                            <td><span class="dates"><i class="fa-regular fa-calendar"></i>08 Sept</span></td>
+                            <td><div class="emp-cell"><span class="pav pav-green">NK</span><span><strong>Neha Kapoor</strong><small>Mid Web Designer</small></span></div></td>
+                            <td class="d-none d-md-table-cell"><span class="dates">09 Sept</span></td>
+                            <td><span class="dur">2 days</span></td>
+                            <td>
+                                <div class="st-drop dropdown">
+                                    <button class="st-btn st-approved dropdown-toggle" data-bs-toggle="dropdown"><span class="st-dot"></span>Approved</button>
+                                    <div class="dropdown-menu st-menu">
+                                        <div class="st-item" data-set="approved"><span class="st-dot" style="color:#5ea52f"></span>Approved</div>
+                                        <div class="st-item" data-set="rejected"><span class="st-dot" style="color:#d13438"></span>Rejected</div>
+                                        <div class="st-item" data-set="pending"><span class="st-dot" style="color:#c07d12"></span>Pending</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td><div class="row-acts"><button class="act-ic del" title="Delete"><i class="far fa-trash-can"></i></button></div></td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="lv-empty d-none" id="lvEmpty">
+                <i class="far fa-folder-open"></i>
+                <h6 class="fw-bold" style="color:#34423a">No requests found</h6>
+                <small>Try another filter.</small>
+            </div>
+
+            <div class="lv-foot">
+                <small>Showing <b>1–<span data-count="total">0</span></b> of <b data-count="total">0</b> entries</small>
+                <div class="pg-btns">
+                    <button class="pg-btn" disabled><i class="fa-solid fa-chevron-left"></i></button>
+                    <button class="pg-btn active">1</button>
+                    <button class="pg-btn">2</button>
+                    <button class="pg-btn"><i class="fa-solid fa-chevron-right"></i></button>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <!--  WELCOME POPUP  -->
+    <div class="modal fade welcome-modal" id="welcomeModal" tabindex="-1" data-bs-backdrop="static">
+        <div class="modal-dialog modal-dialog-centered" style="max-width:400px">
+            <div class="modal-content">
+
+                <div class="wm-head">
+                    <span class="wm-glow"></span>
+                    <div class="wm-row">
+                        <span class="wm-wave">👋</span>
+                        <div>
+                            <h5>Welcome back, <span id="wmName">HR</span>!</h5>
+                            <p><b>3</b> team members are off today</p>
+                        </div>
+                    </div>
+                    <div class="wm-stack">
+                        <span class="pav pav-red">IS</span>
+                        <span class="pav pav-amber">AN</span>
+                        <span class="pav pav-green">NK</span>
+                        <span class="wm-more">+4</span>
+                    </div>
+                </div>
+
+                <div class="wm-body">
+                    <div class="wm-label">
+                        <span class="pulse-dot"></span> Out of office today
+                    </div>
+
+                    <div class="wm-card">
+                        <span class="pav pav-red">IS</span>
+                        <div>
+                            <strong>Imran Sheikh</strong>
+                            <small>Junior Web Designer</small>
+                            <span class="wm-chip ot-sick">Sick Leave</span>
+                        </div>
+                        <div class="wm-back">Back on<b>Sep 28</b></div>
+                    </div>
+
+                    <div class="wm-card">
+                        <span class="pav pav-amber">AN</span>
+                        <div>
+                            <strong>Aliza Noor</strong>
+                            <small>Junior UI Designer</small>
+                            <span class="wm-chip ot-casual">Casual</span>
+                        </div>
+                        <div class="wm-back">Back on<b>Sep 29</b></div>
+                    </div>
+
+                    <div class="wm-card">
+                        <span class="pav pav-green">NK</span>
+                        <div>
+                            <strong>Neha Kapoor</strong>
+                            <small>Mid Web Designer</small>
+                            <span class="wm-chip ot-earned">Earned</span>
+                        </div>
+                        <div class="wm-back">Back on<b>Sep 27</b></div>
+                    </div>
+                </div>
+
+                <div class="wm-foot">
+                    <button class="btn wm-btn-ghost" data-bs-dismiss="modal" id="wmView">View Requests</button>
+                    <button class="btn wm-btn-ok" data-bs-dismiss="modal">Got it</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- REQUEST MODAL -->
+    <div class="modal fade" id="reqModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content lv-modal rounded-4">
+                <div class="modal-header">
+                    <h5 class="modal-title fw-bold"><i class="fa-solid fa-plane-departure me-2"></i>Request Leave</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">Employee Name</label>
+                        <input type="text" class="form-control" id="rqName" placeholder="e.g. Aarya Sharma">
+                    </div>
+                    <div class="row g-3 mb-3">
+                        <div class="col-6">
+                            <label class="form-label">Type</label>
+                            <select class="form-select" id="rqType">
+                                <option value="annual">Earned</option>
+                                <option value="sick">Sick</option>
+                                <option value="casual">Casual</option>
+                                <option value="comp">Comp Off</option>
+                            </select>
+                        </div>
+                        <div class="col-6">
+                            <label class="form-label">Days</label>
+                            <input type="text" class="form-control" id="rqDays" placeholder="e.g. 2 days">
+                        </div>
+                    </div>
+                    <div class="row g-3">
+                        <div class="col-6">
+                            <label class="form-label">From</label>
+                            <input type="date" class="form-control" id="rqFrom">
+                        </div>
+                        <div class="col-6">
+                            <label class="form-label">To</label>
+                            <input type="date" class="form-control" id="rqTo">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer border-0 pt-0">
+                    <button class="btn btn-light border" data-bs-dismiss="modal">Cancel</button>
+                    <button class="btn lv-btn" id="rqSend"><i class="fa-solid fa-paper-plane me-2"></i>Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOAST -->
+    <div class="toast-container position-fixed bottom-0 start-50 translate-middle-x p-3">
+        <div class="toast lv-toast border-0" id="appToast" data-bs-delay="2200" role="alert">
+            <div class="d-flex">
+                <div class="toast-body" id="toastMsg">Done</div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+            </div>
+        </div>
+    </div>
+
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+(function () {
+    var $  = function (s, c) { return (c || document).querySelector(s); };
+    var $$ = function (s, c) { return [].slice.call((c || document).querySelectorAll(s)); };
+
+    /* ---- auth ---- */
+    var user = (localStorage.getItem("loggedInUser") || "").trim();
+    if (!user) { location.href = "index.html"; return; }
+    var av = "https://ui-avatars.com/api/?name=" + encodeURIComponent(user) + "&background=7dc443&color=fff&bold=true";
+    ["topbarUserName", "profileMenuName"].forEach(function (i) { var e = $("#" + i); if (e) e.textContent = user; });
+    ["topbarUserAvatar", "profileMenuAvatar"].forEach(function (i) { $("#" + i).src = av; });
+    $$(".logout-link").forEach(function (a) { a.onclick = function () { localStorage.removeItem("loggedInUser"); }; });
+    $("#markRead").onclick = function () {
+        $$(".drop-item.unread").forEach(function (d) { d.classList.remove("unread"); });
+        var b = $(".notif-badge"); if (b) b.classList.add("d-none");
+    };
+
+    /* ---- toast ---- */
+    var toast = new bootstrap.Toast($("#appToast"));
+    function notify(m) { $("#toastMsg").textContent = m; toast.show(); }
+
+
+    $("#wmName").textContent = user.split(" ")[0];
+    if (!sessionStorage.getItem("welcomed")) {
+        setTimeout(function () {
+            bootstrap.Modal.getOrCreateInstance($("#welcomeModal")).show();
+            sessionStorage.setItem("welcomed", "1");
+        }, 1000);
+    }
+    $("#wmView").onclick = function () {
+        document.querySelector(".lv-card").scrollIntoView({ behavior: "smooth" });
+        setTimeout(function () { $("#fSearch").focus(); }, 500);
+    };
+
+    /* ---- count-up animation ---- */
+    $$("[data-target]").forEach(function (el) {
+        var end = +el.dataset.target, t0 = null;
+        function step(ts) {
+            if (!t0) t0 = ts;
+            var p = Math.min((ts - t0) / 800, 1);
+            el.textContent = Math.round(end * p);
+            if (p < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+    });
+
+    /* ---- badge counts ---- */
+    function counts() {
+        var c = { total: $$(".lv-row").length, pending: 0 };
+        $$(".lv-row").forEach(function (r) { if (r.dataset.status === "pending") c.pending++; });
+        $$("[data-count='total']").forEach(function (e) { e.textContent = c.total; });
+        $$("[data-count='pending']").forEach(function (e) { e.textContent = c.pending; });
+    }
+
+    /* ---- filters ---- */
+    function filter() {
+        var q = $("#fSearch").value.toLowerCase(), ty = $("#fType").value, st = $("#fStatus").value, v = 0;
+        $$(".lv-row").forEach(function (r) {
+            var ok = (ty === "all" || r.dataset.type === ty) &&
+                     (st === "all" || r.dataset.status === st) &&
+                     r.textContent.toLowerCase().indexOf(q) > -1;
+            r.classList.toggle("d-none", !ok);
+            if (ok) v++;
+        });
+        $("#lvEmpty").classList.toggle("d-none", v > 0);
+    }
+    $("#fSearch").oninput = filter;
+    $("#fType").onchange = filter;
+    $("#fStatus").onchange = filter;
+
+    /* ---- inline status change ---- */
+    document.addEventListener("click", function (e) {
+        var item = e.target.closest(".st-item");
+        if (!item) return;
+        var tr = item.closest(".lv-row");
+        var set = item.dataset.set;
+        tr.dataset.status = set;
+        var btn = $(".st-btn", tr);
+        btn.classList.remove("st-pending", "st-approved", "st-rejected");
+        btn.classList.add("st-" + set);
+        btn.innerHTML = "<span class='st-dot'></span>" + set.charAt(0).toUpperCase() + set.slice(1);
+        counts();
+        notify($(".emp-cell strong", tr).textContent + " → " + set);
+    });
+
+    /* ---- delete row ---- */
+    document.addEventListener("click", function (e) {
+        var del = e.target.closest(".act-ic.del");
+        if (!del) return;
+        var tr = del.closest(".lv-row");
+        tr.style.cssText = "background:#fef2f2;opacity:0;transform:translateX(18px);transition:all .3s ease";
+        setTimeout(function () { tr.remove(); counts(); filter(); notify("Request deleted"); }, 300);
+    });
+
+    /* ---- new request ---- */
+    var tc = { annual: "t-annual", sick: "t-sick", casual: "t-casual", comp: "t-comp" };
+    var tl = { annual: "Earned Leave", sick: "Sick Leave", casual: "Casual Leave", comp: "Comp Off" };
+    var cols = ["pav-green", "pav-blue", "pav-amber", "pav-red", "pav-slate"];
+
+    $("#rqSend").onclick = function () {
+        var name = $("#rqName").value.trim();
+        if (!name) return notify("Enter employee name");
+        var ini = name.split(" ").map(function (w) { return w[0]; }).join("").slice(0, 2).toUpperCase();
+        var tr = document.createElement("tr");
+        tr.className = "lv-row";
+        tr.dataset.type = $("#rqType").value;
+        tr.dataset.status = "pending";
+        tr.innerHTML =
+            "<td><span class='lv-type " + tc[tr.dataset.type] + "'><span class='type-dot'></span>" + tl[tr.dataset.type] + "</span></td>" +
+            "<td><span class='dates'><i class='fa-regular fa-calendar'></i>" + ($("#rqFrom").value || "—") + "</span></td>" +
+            "<td><div class='emp-cell'><span class='pav " + cols[Math.floor(Math.random() * 5)] + "'>" + ini + "</span><span><strong>" + name + "</strong><small>New Request</small></span></div></td>" +
+            "<td class='d-none d-md-table-cell'><span class='dates'>" + ($("#rqTo").value || "—") + "</span></td>" +
+            "<td><span class='dur'>" + ($("#rqDays").value || "1 day") + "</span></td>" +
+            "<td><div class='st-drop dropdown'><button class='st-btn st-pending dropdown-toggle' data-bs-toggle='dropdown'><span class='st-dot'></span>Pending</button>" +
+            "<div class='dropdown-menu st-menu'><div class='st-item' data-set='approved'><span class='st-dot' style='color:#5ea52f'></span>Approved</div>" +
+            "<div class='st-item' data-set='rejected'><span class='st-dot' style='color:#d13438'></span>Rejected</div>" +
+            "<div class='st-item' data-set='pending'><span class='st-dot' style='color:#c07d12'></span>Pending</div></div></div></td>" +
+            "<td><div class='row-acts'><button class='act-ic del'><i class='far fa-trash-can'></i></button></div></td>";
+        $("#lvBody").prepend(tr);
+        bootstrap.Modal.getOrCreateInstance($("#reqModal")).hide();
+        ["rqName", "rqDays", "rqFrom", "rqTo"].forEach(function (i) { $("#" + i).value = ""; });
+        counts(); filter();
+        notify("Request submitted — pending");
+    };
+
+    /* ---- pagination active ---- */
+    $$(".pg-btn").forEach(function (b) {
+        b.onclick = function () {
+            $$(".pg-btn").forEach(function (x) { x.classList.remove("active"); });
+            b.classList.add("active");
+        };
+    });
+
+    counts();
+})();
+</script>
+
+</body>
+</html>

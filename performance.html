@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HR Portal | Performance</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="dashboard.css">
+<link rel="stylesheet" href="performance.css">
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+<aside class="offcanvas-lg offcanvas-start sidebar d-flex flex-column" tabindex="-1" id="sidebar" aria-label="HR Sidebar">
+    <div class="sidebar-brand d-flex align-items-center justify-content-between">
+        <img src="assets/logo-white.png" alt="logo">
+        <button type="button" class="btn-close btn-close-white d-lg-none" data-bs-dismiss="offcanvas" data-bs-target="#sidebar" aria-label="Close"></button>
+    </div>
+    <nav class="sidebar-nav flex-grow-1">
+        <span class="nav-label">Main Menu</span>
+        <a href="dashboard.html" class="nav-link"><i class="fa-solid fa-gauge-high"></i><span>Dashboard</span></a>
+        <a href="employees.html" class="nav-link"><i class="fa-solid fa-users"></i><span>Employees</span><span class="nav-badge ms-auto">248</span></a>
+        <a href="attendence.html" class="nav-link"><i class="fa-solid fa-calendar-check"></i><span>Attendance</span></a>
+        <a href="paroll.html" class="nav-link"><i class="fa-solid fa-money-bill-wave"></i><span>Payroll</span></a>
+        <a href="leave.html" class="nav-link"><i class="fa-solid fa-plane-departure"></i><span>Leave</span><span class="nav-badge warn ms-auto">5</span></a>
+        <a href="recruitment.html" class="nav-link"><i class="fa-solid fa-briefcase"></i><span>Recruitment</span></a>
+        <span class="nav-label">Management</span>
+        <a href="performance.html" class="nav-link active"><i class="fa-solid fa-chart-line"></i><span>Performance</span></a>
+        <a href="holidays.html" class="nav-link"><i class="fa-solid fa-umbrella-beach"></i><span>Holidays</span></a>
+        <a href="inbox.html" class="nav-link"><i class="fa-solid fa-inbox"></i><span>Inbox</span><span class="nav-badge ms-auto">3</span></a>
+    <a href="assest.html" class="nav-link">
+        <i class="fa-solid fa-folder-open"></i><span>Assets </span>
+    </a>
+    </nav>
+</aside>
+
+<!-- MAIN -->
+<main class="main-area d-flex flex-column min-vh-100">
+
+    <!-- TOPBAR -->
+    <header class="topbar sticky-top d-flex align-items-center">
+        <button class="btn btn-link text-dark text-decoration-none fs-4 p-0 me-3 d-lg-none" type="button"
+                data-bs-toggle="offcanvas" data-bs-target="#sidebar" aria-controls="sidebar">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+        <h4 class="fw-bolder mb-0 page-title">Performance</h4>
+        <div class="topbar-search position-relative d-none d-md-block">
+            <i class="fa-solid fa-magnifying-glass position-absolute top-50 translate-middle-y"></i>
+            <input type="text" class="form-control rounded-pill" placeholder="Search employees, departments...">
+        </div>
+        <div class="d-flex align-items-center gap-3 ms-auto">
+            <div class="dropdown">
+                <button class="btn notif-btn rounded-circle position-relative" type="button"
+                        data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
+                    <i class="fa-regular fa-bell"></i>
+                    <span class="position-absolute badge rounded-pill bg-danger notif-badge">3</span>
+                </button>
+                <div class="dropdown-menu notif-menu">
+                    <div class="drop-head d-flex justify-content-between align-items-center">
+                        <span>Notifications</span>
+                        <button type="button" id="markRead">Mark all read</button>
+                    </div>
+                    <div class="drop-item unread">
+                        <i class="fa-solid fa-user-plus chip chip-blue"></i>
+                        <div><span>New registration request</span><small class="d-block">Ravi Kumar · 5m ago</small></div>
+                    </div>
+                    <div class="drop-item unread">
+                        <i class="fa-solid fa-plane-departure chip chip-amber"></i>
+                        <div><span>Leave request pending</span><small class="d-block">Emma Wilson · 1h ago</small></div>
+                    </div>
+                    <div class="drop-item unread">
+                        <i class="fa-solid fa-file-invoice-dollar chip chip-red"></i>
+                        <div><span>Payroll generated</span><small class="d-block">October payslips · 3h ago</small></div>
+                    </div>
+                </div>
+            </div>
+            <div class="dropdown">
+                <button class="btn profile-btn rounded-pill d-flex align-items-center gap-2" type="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                    <img id="topbarUserAvatar" src="" class="rounded-circle" width="34" height="34" alt="user">
+                    <span class="text-start d-none d-sm-block">
+                        <span class="d-block fw-bold small" id="topbarUserName"></span>
+                    </span>
+                    <i class="fa-solid fa-chevron-down text-muted small"></i>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end shadow border-0 p-2" style="min-width:230px;">
+                    <li class="d-flex align-items-center gap-2 p-2">
+                        <img id="profileMenuAvatar" src="" class="rounded-circle" width="42" height="42" alt="user">
+                        <div><strong class="d-block small" id="profileMenuName"></strong><small class="text-muted">HR Manager</small></div>
+                    </li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item rounded d-flex align-items-center gap-2 py-2" href="#"><i class="fa-regular fa-user text-primary" style="width:18px;"></i> My Profile</a></li>
+                    <li><a class="dropdown-item rounded d-flex align-items-center gap-2 py-2" href="#"><i class="fa-solid fa-gear text-primary" style="width:18px;"></i> Settings</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item text-danger rounded d-flex align-items-center gap-2 py-2 logout-link" href="index.html"><i class="fa-solid fa-arrow-right-from-bracket" style="width:18px;"></i> Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <!-- PERFORMANCE CONTENT -->
+    <section class="pf-wrap flex-grow-1">
+
+        <!-- bar -->
+        <div class="pf-bar">
+            <span class="pf-ic"><i class="fa-solid fa-chart-line"></i></span>
+            <div>
+                <h4>Performance</h4>
+                <small>Q4 2026 · who's shining this quarter</small>
+            </div>
+            <div class="q-pills">
+                <button class="q-pill" data-q="Q1 2026">Q1</button>
+                <button class="q-pill" data-q="Q2 2026">Q2</button>
+                <button class="q-pill" data-q="Q3 2026">Q3</button>
+                <button class="q-pill active" data-q="Q4 2026">Q4</button>
+            </div>
+        </div>
+
+        <div class="row g-3 mt-1">
+
+            <!--  PODIUM -->
+            <div class="col-lg-7">
+                <div class="podium-card">
+                    <div class="podium-head">
+                        <strong>Champions of the Quarter</strong>
+                        <small>Top rated performers · Q4 2026</small>
+                    </div>
+                    <div class="podium">
+
+                        <div class="pod pod-2">
+                            <span class="pod-medal"><i class="fa-solid fa-medal"></i></span>
+                            <img src="https://i.pravatar.cc/140?u=12" class="pod-av" alt="">
+                            <strong>Aditya Verma</strong>
+                            <small>React Lead</small>
+                            <span class="pod-score ps-silver"><i class="fa-solid fa-star"></i>4.7</span>
+                            <div class="pod-bar pb-2">2</div>
+                        </div>
+
+                        <div class="pod pod-1">
+                            <span class="pod-medal"><i class="fa-solid fa-crown"></i></span>
+                            <img src="https://i.pravatar.cc/140?u=47" class="pod-av" alt="">
+                            <strong>Aarya Sharma</strong>
+                            <small>Web Designer</small>
+                            <span class="pod-score ps-gold"><i class="fa-solid fa-star"></i>4.9</span>
+                            <div class="pod-bar pb-1">1</div>
+                        </div>
+
+                        <div class="pod pod-3">
+                            <span class="pod-medal"><i class="fa-solid fa-medal"></i></span>
+                            <img src="https://i.pravatar.cc/140?u=54" class="pod-av" alt="">
+                            <strong>Vikram Singh</strong>
+                            <small>Backend Lead</small>
+                            <span class="pod-score ps-bronze"><i class="fa-solid fa-star"></i>4.6</span>
+                            <div class="pod-bar pb-3">3</div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!--  RATING PULSE -->
+            <div class="col-lg-5">
+                <div class="pulse-card">
+                    <div class="pulse-head">
+                        <strong>Rating Pulse</strong>
+                        <span><i class="fa-solid fa-users"></i>46 reviewed</span>
+                    </div>
+
+                    <div class="avg-box">
+                        <span class="avg-ic"><i class="fa-solid fa-star"></i></span>
+                        <div>
+                            <div class="avg-num">4.3<small>/ 5</small></div>
+                        </div>
+                        <div>
+                            <small>Team average</small>
+                            <b><i class="fa-solid fa-arrow-trend-up"></i>+0.4 vs Q3</b>
+                        </div>
+                    </div>
+
+                    <div class="star-row">
+                        <span class="lbl">5 <i class="fa-solid fa-star"></i></span>
+                        <div class="track"><span class="fill f-gold" style="width:80%"></span></div>
+                        <span class="cnt">8</span>
+                    </div>
+                    <div class="star-row">
+                        <span class="lbl">4 <i class="fa-solid fa-star"></i></span>
+                        <div class="track"><span class="fill f-green" style="width:62%"></span></div>
+                        <span class="cnt">14</span>
+                    </div>
+                    <div class="star-row">
+                        <span class="lbl">3 <i class="fa-solid fa-star"></i></span>
+                        <div class="track"><span class="fill f-blue" style="width:45%"></span></div>
+                        <span class="cnt">18</span>
+                    </div>
+                    <div class="star-row">
+                        <span class="lbl">2 <i class="fa-solid fa-star"></i></span>
+                        <div class="track"><span class="fill f-slate" style="width:20%"></span></div>
+                        <span class="cnt">4</span>
+                    </div>
+                    <div class="star-row">
+                        <span class="lbl">1 <i class="fa-solid fa-star"></i></span>
+                        <div class="track"><span class="fill f-red" style="width:8%"></span></div>
+                        <span class="cnt">2</span>
+                    </div>
+                </div>
+            </div>
+
+            <!--  KUDOS WALL -->
+            <div class="col-12">
+                <div class="kudos-card">
+                    <div class="pulse-head">
+                        <strong>Kudos Wall</strong>
+                        <span><i class="fa-solid fa-fire"></i>This week</span>
+                    </div>
+
+                    <div class="kudos-row">
+                        <span class="k-av k-green">AS</span>
+                        <span class="k-arrow"><i class="fa-solid fa-arrow-right"></i></span>
+                        <span class="k-av k-amber">PS</span>
+                        <div class="k-msg">
+                            <p><b>Aarya Sharma</b> praised <b>Priya Sharma</b> for redesigning the onboarding flow overnight<span class="k-tag t-lead"><i class="fa-solid fa-flag"></i>Leadership</span></p>
+                            <small>2h ago · Web Team</small>
+                        </div>
+                        <button class="heart-btn" data-count="12"><i class="fa-solid fa-heart"></i><span>12</span></button>
+                    </div>
+
+                    <div class="kudos-row">
+                        <span class="k-av k-blue">EW</span>
+                        <span class="k-arrow"><i class="fa-solid fa-arrow-right"></i></span>
+                        <span class="k-av k-red">IS</span>
+                        <div class="k-msg">
+                            <p><b>Emma Wilson</b> appreciated <b>Imran Sheikh</b> for fixing the client demo bug in 20 mins<span class="k-tag t-client"><i class="fa-solid fa-bolt"></i>Client Impact</span></p>
+                            <small>5h ago · Support</small>
+                        </div>
+                        <button class="heart-btn" data-count="8"><i class="fa-solid fa-heart"></i><span>8</span></button>
+                    </div>
+
+                    <div class="kudos-row">
+                        <span class="k-av k-amber">ZN</span>
+                        <span class="k-arrow"><i class="fa-solid fa-arrow-right"></i></span>
+                        <span class="k-av k-green">DS</span>
+                        <div class="k-msg">
+                            <p><b>Zoya Fernandez</b> thanked <b>Devya Singh</b> for mentoring two juniors this sprint<span class="k-tag t-team"><i class="fa-solid fa-users"></i>Teamwork</span></p>
+                            <small>1d ago · Design</small>
+                        </div>
+                        <button class="heart-btn" data-count="15"><i class="fa-solid fa-heart"></i><span>15</span></button>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+        <!-- TOAST -->
+        <div class="toast-container position-fixed bottom-0 start-50 translate-middle-x p-3">
+            <div class="toast pf-toast border-0" id="appToast" data-bs-delay="2000" role="alert">
+                <div class="d-flex">
+                    <div class="toast-body" id="toastMsg">Done</div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+(function () {
+    "use strict";
+
+  
+    var $  = function (s, c) { return (c || document).querySelector(s); };
+    var $$ = function (s, c) { return [].slice.call((c || document).querySelectorAll(s)); };
+
+    /* ---- auth guard ---- */
+    var user = (localStorage.getItem("loggedInUser") || "").trim();
+    if (!user) { location.href = "index.html"; return; }
+    var av = "https://ui-avatars.com/api/?name=" + encodeURIComponent(user) + "&background=7dc443&color=fff&bold=true";
+    ["topbarUserName", "profileMenuName"].forEach(function (i) { var e = $("#" + i); if (e) e.textContent = user; });
+    ["topbarUserAvatar", "profileMenuAvatar"].forEach(function (i) { var e = $("#" + i); if (e) e.src = av; });
+    $$(".logout-link").forEach(function (a) {
+        a.addEventListener("click", function () { localStorage.removeItem("loggedInUser"); });
+    });
+    $("#markRead").addEventListener("click", function () {
+        $$(".drop-item.unread").forEach(function (d) { d.classList.remove("unread"); });
+        var b = $(".notif-badge"); if (b) b.classList.add("d-none");
+    });
+
+    /* ---- toast ---- */
+    var toast = new bootstrap.Toast($("#appToast"));
+    function notify(m) { $("#toastMsg").textContent = m; toast.show(); }
+
+    /* ---- quarter pills ---- */
+    $$(".q-pill").forEach(function (p) {
+        p.addEventListener("click", function () {
+            $$(".q-pill").forEach(function (x) { x.classList.remove("active"); });
+            p.classList.add("active");
+            notify(p.dataset.q + " data loaded");
+        });
+    });
+
+    /* ---- heart → count +1 ---- */
+    $$(".heart-btn").forEach(function (b) {
+        b.addEventListener("click", function () {
+            var n = +b.dataset.count + 1;
+            b.dataset.count = n;
+            b.querySelector("span").textContent = n;
+            b.classList.remove("bump");
+            void b.offsetHeight; 
+            b.classList.add("bump");
+            notify("Kudos sent!");
+        });
+    });
+
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HR Portal | Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+
+<body>
+
+<!--  SIDEBAR  -->
+<aside class="offcanvas-lg offcanvas-start sidebar d-flex flex-column" tabindex="-1" id="sidebar" aria-label="HR Sidebar">
+    <div class="sidebar-brand d-flex align-items-center justify-content-between">
+       <img src="assets/logo-white.png" alt="logo">
+        <button type="button" class="btn-close btn-close-white d-lg-none" data-bs-dismiss="offcanvas" data-bs-target="#sidebar" aria-label="Close"></button>
+    </div>
+
+    <nav class="sidebar-nav flex-grow-1">
+    <span class="nav-label">Main Menu</span>
+
+    <a href="dashboard.html" class="nav-link active">
+        <i class="fa-solid fa-gauge-high"></i><span>Dashboard</span>
+    </a>
+    <a href="employees.html" class="nav-link">
+        <i class="fa-solid fa-users"></i><span>Employees</span>
+        <span class="nav-badge ms-auto">248</span>
+    </a>
+    <a href="attendence.html" class="nav-link">
+        <i class="fa-solid fa-calendar-check"></i><span>Attendance</span>
+    </a>
+    <a href="paroll.html" class="nav-link">
+        <i class="fa-solid fa-money-bill-wave"></i><span>Payroll</span>
+    </a>
+    <a href="leave.html" class="nav-link">
+        <i class="fa-solid fa-plane-departure"></i><span>Leave</span>
+        <span class="nav-badge warn ms-auto">5</span>
+    </a>
+    <a href="recruitment.html" class="nav-link">
+        <i class="fa-solid fa-briefcase"></i><span>Recruitment</span>
+    </a>
+
+    <span class="nav-label">Management</span>
+    <a href="performance.html" class="nav-link">
+        <i class="fa-solid fa-chart-line"></i><span>Performance</span>
+    </a>
+    <a href="holidays.html" class="nav-link">
+        <i class="fa-solid fa-umbrella-beach"></i><span>Holidays</span>
+    </a>
+    <a href="inbox.html" class="nav-link">
+        <i class="fa-solid fa-inbox"></i><span>Inbox</span>
+        <span class="nav-badge ms-auto">3</span>
+    </a>
+    <a href="assest.html" class="nav-link">
+        <i class="fa-solid fa-folder-open"></i><span>Assets </span>
+    </a>
+
+</nav>
+</aside>
+
+<!-- MAIN  -->
+<main class="main-area d-flex flex-column min-vh-100">
+
+    <!-- TOPBAR -->
+    <header class="topbar sticky-top d-flex align-items-center">
+        <button class="btn btn-link text-dark text-decoration-none fs-4 p-0 me-3 d-lg-none" type="button"
+                data-bs-toggle="offcanvas" data-bs-target="#sidebar" aria-controls="sidebar">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+
+        <h4 class="fw-bolder mb-0 page-title" id="pageTitle">Dashboard</h4>
+
+        <div class="topbar-search position-relative d-none d-md-block">
+            <i class="fa-solid fa-magnifying-glass position-absolute top-50 translate-middle-y"></i>
+            <input type="text" id="globalSearch" class="form-control rounded-pill" placeholder="Search employees, departments...">
+        </div>
+
+        <div class="d-flex align-items-center gap-3 ms-auto">
+
+            <!-- Notifications (Bootstrap dropdown) -->
+            <div class="dropdown">
+                <button class="btn notif-btn rounded-circle position-relative" type="button"
+                        data-bs-toggle="dropdown" data-bs-display="static" data-bs-auto-close="outside" aria-expanded="false">
+                    <i class="fa-regular fa-bell"></i>
+                    <span class="position-absolute badge rounded-pill bg-danger notif-badge" id="notifBadge">3</span>
+                </button>
+
+                <div class="dropdown-menu notif-menu">
+                    <div class="drop-head d-flex justify-content-between align-items-center">
+                        <span>Notifications</span>
+                        <button type="button" id="markRead">Mark all read</button>
+                    </div>
+
+                    <div class="drop-item unread">
+                        <i class="fa-solid fa-user-plus chip chip-blue"></i>
+                        <div>
+                            <span>New registration request</span>
+                            <small class="d-block">Ravi Kumar registered · 5m ago</small>
+                        </div>
+                    </div>
+
+                    <div class="drop-item unread">
+                        <i class="fa-solid fa-plane-departure chip chip-amber"></i>
+                        <div>
+                            <span>Leave request pending</span>
+                            <small class="d-block">Emma Wilson · 1h ago</small>
+                        </div>
+                    </div>
+
+                    <div class="drop-item unread">
+                        <i class="fa-solid fa-file-invoice-dollar chip chip-red"></i>
+                        <div>
+                            <span>Payroll generated</span>
+                            <small class="d-block">October payslips ready · 3h ago</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Profile  -->
+            <div class="dropdown">
+                <button class="btn profile-btn rounded-pill d-flex align-items-center gap-2" type="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                    <img id="topbarUserAvatar" src="" class="rounded-circle" width="34" height="34" alt="Logged in user">
+                    <span class="text-start d-none d-sm-block">
+                        <span class="d-block fw-bold small" id="topbarUserName"></span>
+                     
+                    </span>
+                    <i class="fa-solid fa-chevron-down text-muted small"></i>
+                </button>
+
+                <ul class="dropdown-menu dropdown-menu-end shadow border-0 p-2" style="min-width:230px;">
+                    <li class="d-flex align-items-center gap-2 p-2">
+                        <img id="profileMenuAvatar" src="" class="rounded-circle" width="42" height="42" alt="User">
+                        <div>
+                            <strong class="d-block small" id="profileMenuName"></strong>
+                            <small class="text-muted">HR Manager</small>
+                        </div>
+                    </li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li>
+                        <a class="dropdown-item rounded d-flex align-items-center gap-2 py-2" href="#">
+                            <i class="fa-regular fa-user text-primary" style="width:18px;"></i> My Profile
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item rounded d-flex align-items-center gap-2 py-2" href="#">
+                            <i class="fa-solid fa-gear text-primary" style="width:18px;"></i> Settings
+                        </a>
+                    </li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li>
+                        <a class="dropdown-item text-danger rounded d-flex align-items-center gap-2 py-2 logout-link" href="index.html">
+                            <i class="fa-solid fa-arrow-right-from-bracket" style="width:18px;"></i> Logout
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </header>
+
+    <!-- PAGE CONTENT -->
+    <section class="flex-grow-1 p-3 p-lg-4">
+
+        <!-- HERO -->
+        <section class="dashboard-hero position-relative overflow-hidden d-flex flex-column flex-lg-row align-items-stretch align-items-lg-center justify-content-lg-between gap-4">
+
+            <div class="hero-bg-circle hero-bg-circle-1"></div>
+            <div class="hero-bg-circle hero-bg-circle-2"></div>
+
+            <!-- Left -->
+            <div class="hero-content position-relative">
+                <span class="hero-chip d-inline-flex align-items-center gap-2 rounded-pill mb-3">
+                    <span class="chip chip-sm chip-green"><i class="fa-regular fa-hand"></i></span>
+                    Welcome back, HR Manager
+                    <span class="hero-live-dot rounded-circle d-inline-block"></span>
+                </span>
+
+                <h1 class="fw-bolder mb-2">
+                    <span id="heroGreeting">Good morning,</span>
+                    <span id="heroUserName" class="text-primary">there</span>
+                </h1>
+
+                <p class="mb-4">Here's your workforce overview for today. Stay on top of your people, attendance and HR activities.</p>
+
+                <div class="d-flex align-items-center flex-wrap gap-4 mb-4">
+                    <div class="d-flex align-items-center gap-2">
+                        <span class="chip chip-outline"><i class="fa-regular fa-calendar"></i></span>
+                        <div>
+                            <small class="mini-label">Today</small>
+                            <span class="hero-value d-block" id="currentDate">—</span>
+                        </div>
+                    </div>
+
+                    <div class="vr opacity-25 d-none d-sm-block"></div>
+
+                    <div class="d-flex align-items-center gap-2">
+                        <span class="chip chip-outline"><i class="fa-solid fa-chart-line"></i></span>
+                        <div>
+                            <small class="mini-label">Attendance</small>
+                            <strong class="hero-value d-block">87.1%</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-flex flex-column flex-sm-row gap-2">
+                    <button class="btn btn-primary rounded-3 fw-bold px-3 py-2" style="font-size:.82rem;">
+                        <i class="fa-solid fa-user-plus me-2"></i>Add Employee
+                    </button>
+                    <button class="btn btn-light border rounded-3 fw-bold px-3 py-2" style="font-size:.82rem;">
+                        <i class="fa-solid fa-file-export me-2"></i>Generate Report
+                    </button>
+                </div>
+            </div>
+
+            <!-- Right mini card -->
+            <div class="hero-right position-relative">
+                <div class="panel-card h-100">
+                    <div class="d-flex align-items-center justify-content-between mb-3">
+                        <div>
+                            <small class="mini-label">Workforce</small>
+                            <strong class="d-block" style="font-size:.92rem;">Today's Snapshot</strong>
+                        </div>
+                        <span class="chip chip-green"><i class="fa-solid fa-users"></i></span>
+                    </div>
+
+                    <div class="row g-2">
+                        <div class="col-6">
+                            <div class="stat-tile d-flex align-items-center gap-2 rounded-3 p-2 h-100">
+                                <span class="chip chip-blue"><i class="fa-solid fa-user-check"></i></span>
+                                <div>
+                                    <strong class="d-block fw-bolder lh-1" style="font-size:1rem;">216</strong>
+                                    <small class="stat-sub">Present</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="stat-tile d-flex align-items-center gap-2 rounded-3 p-2 h-100">
+                                <span class="chip chip-amber"><i class="fa-solid fa-plane-departure"></i></span>
+                                <div>
+                                    <strong class="d-block fw-bolder lh-1" style="font-size:1rem;">18</strong>
+                                    <small class="stat-sub">On Leave</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="stat-tile d-flex align-items-center gap-2 rounded-3 p-2 h-100">
+                                <span class="chip chip-slate"><i class="fa-solid fa-briefcase"></i></span>
+                                <div>
+                                    <strong class="d-block fw-bolder lh-1" style="font-size:1rem;">12</strong>
+                                    <small class="stat-sub">Open Roles</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="stat-tile d-flex align-items-center gap-2 rounded-3 p-2 h-100">
+                                <span class="chip chip-green"><i class="fa-solid fa-users"></i></span>
+                                <div>
+                                    <strong class="d-block fw-bolder lh-1" style="font-size:1rem;">248</strong>
+                                    <small class="stat-sub">Employees</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex align-items-center justify-content-between border-top mt-3 pt-3">
+                        <small class="t-muted fw-semibold" style="font-size:.75rem;">
+                            <i class="fa-solid fa-arrow-trend-up text-primary me-1"></i>
+                            Workforce grew 8.2% this month
+                        </small>
+                        <i class="fa-solid fa-arrow-right t-muted" style="font-size:.8rem;"></i>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- QUICK ACTIONS  -->
+        <section class="mt-4">
+
+            <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3">
+                <div>
+                    <h5 class="section-title">Quick Actions</h5>
+                    <small class="section-sub">Everything you need, one click away</small>
+                </div>
+                <a href="#" class="btn btn-primary btn-sm rounded-pill fw-semibold px-3">
+                    View All <i class="fa-solid fa-arrow-right ms-1"></i>
+                </a>
+            </div>
+
+            <div class="panel-card qa-panel">
+                <div class="row g-0">
+
+                    <div class="col-6 col-lg-3">
+                        <a href="#" class="qa-cell">
+                            <span class="qa-ic ic-green"><i class="fa-solid fa-user-plus"></i></span>
+                            <span class="qa-t">Add Employee</span>
+                            <small class="qa-s">Onboard a new hire</small>
+                        </a>
+                    </div>
+
+                    <div class="col-6 col-lg-3">
+                        <a href="#" class="qa-cell">
+                            <span class="qa-ic ic-slate"><i class="fa-solid fa-calendar-check"></i></span>
+                            <span class="qa-t">Mark Attendance</span>
+                            <small class="qa-s">Today's check-ins</small>
+                        </a>
+                    </div>
+
+                    <div class="col-6 col-lg-3">
+                        <a href="#" class="qa-cell">
+                            <span class="qa-ic ic-amber position-relative">
+                                <i class="fa-solid fa-plane-departure"></i>
+                                <span class="qa-count">5</span>
+                            </span>
+                            <span class="qa-t">Approve Leaves</span>
+                            <small class="qa-s">5 pending requests</small>
+                        </a>
+                    </div>
+
+                    <div class="col-6 col-lg-3">
+                        <a href="#" class="qa-cell">
+                            <span class="qa-ic ic-blue"><i class="fa-solid fa-money-bill-wave"></i></span>
+                            <span class="qa-t">Run Payroll</span>
+                            <small class="qa-s">November salaries</small>
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- MY ATTENDANCE — PUNCH CLOCK  -->
+        <section class="mt-4">
+            <div class="att-panel" id="attPanel">
+
+                <div class="att-glow"></div>
+
+                <!-- LEFT — live clock -->
+                <div class="att-left">
+                    <small class="att-label"><i class="fa-regular fa-clock me-2"></i>My Attendance</small>
+                    <div class="att-clock" id="liveClock">--:--:--</div>
+                    <div class="att-date" id="liveDate">—</div>
+                    <div class="att-status" id="workStatus">
+                        <span class="att-status-dot"></span> Not checked in
+                    </div>
+                </div>
+
+                <!-- CENTER — punch button -->
+                <div class="att-center">
+                    <div class="punch-wrap" id="punchWrap">
+                        <span class="punch-ring"></span>
+                        <span class="punch-ring punch-ring-2"></span>
+                        <button class="punch-btn" id="punchAction" type="button">
+                            <i class="fa-solid fa-fingerprint"></i>
+                            <span id="punchText">Check In</span>
+                            <small id="punchTime">Tap to start</small>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- RIGHT — timeline -->
+                <div class="att-right">
+                    <small class="att-label">Today's Timeline</small>
+
+                    <div class="att-step">
+                        <span class="att-dot" id="dotIn"></span>
+                        <div>
+                            <small>Check In</small>
+                            <strong id="timeIn">— —</strong>
+                        </div>
+                    </div>
+
+                    <div class="att-step">
+                        <span class="att-dot" id="dotWork"></span>
+                        <div>
+                            <small>Working</small>
+                            <strong id="stepWorkTime">0h 0m</strong>
+                        </div>
+                    </div>
+
+                    <div class="att-step">
+                        <span class="att-dot" id="dotOut"></span>
+                        <div>
+                            <small>Check Out</small>
+                            <strong id="timeOut">— —</strong>
+                        </div>
+                    </div>
+
+                    <div class="att-total">
+                        <small>Worked Today</small>
+                        <strong id="totalHours">0h 0m</strong>
+                    </div>
+                </div>
+
+                <!-- BOTTOM — week strip -->
+                <div class="att-week">
+                    <div class="att-day"><span class="att-bar-track"><span class="att-bar" style="height:65%;"></span></span><small>Mon</small></div>
+                    <div class="att-day"><span class="att-bar-track"><span class="att-bar" style="height:82%;"></span></span><small>Tue</small></div>
+                    <div class="att-day"><span class="att-bar-track"><span class="att-bar" style="height:90%;"></span></span><small>Wed</small></div>
+                    <div class="att-day"><span class="att-bar-track"><span class="att-bar" style="height:75%;"></span></span><small>Thu</small></div>
+                    <div class="att-day"><span class="att-bar-track"><span class="att-bar" style="height:88%;"></span></span><small>Fri</small></div>
+                    <div class="att-day"><span class="att-bar-track"></span><small>Sat</small></div>
+                    <div class="att-day"><span class="att-bar-track"></span><small>Sun</small></div>
+
+                    <div class="att-week-total ms-auto">
+                        <small>This Week</small>
+                        <strong>37h 10m</strong>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+
+
+<!-- TEAM ATTENDANCE + DEPARTMENTS -->
+<section class="mt-4">
+    <div class="row g-3">
+
+        <div class="col-lg-7">
+            <div class="panel-card h-100">
+
+                <!-- Header -->
+                <div class="d-flex align-items-center justify-content-between mb-4">
+                    <div class="d-flex align-items-center gap-2">
+                        <span class="chip chip-green"><i class="fa-solid fa-users-rectangle"></i></span>
+                        <div>
+                            <h6 class="fw-bolder mb-0" style="font-size:.95rem;">Team Attendance</h6>
+                            <small class="t-muted" style="font-size:.75rem;">Live overview · updated just now</small>
+                        </div>
+                    </div>
+                    <span class="badge rounded-pill bg-success-subtle text-dark border border-success-subtle fw-semibold" style="font-size:.66rem;">
+                        <span class="pulse-dot"></span> Live
+                    </span>
+                </div>
+
+                <div class="d-flex align-items-center gap-4 flex-wrap">
+
+                    <!-- Ring  -->
+                    <div class="att-ring flex-shrink-0">
+                        <div class="att-ring-inner">
+                            <strong>87.1%</strong>
+                            <small>Present</small>
+                        </div>
+                    </div>
+
+                    <!-- Breakdown -->
+                    <div class="flex-grow-1" style="min-width:220px;">
+
+                        <div class="attb-row">
+                            <span class="b-dot bg-success"></span>
+                            <div class="flex-grow-1">
+                                <div class="d-flex justify-content-between mb-1">
+                                    <span class="b-name">Present</span>
+                                    <span class="b-val">216</span>
+                                </div>
+                                <div class="progress b-bar"><div class="progress-bar bg-success" style="width:87%;"></div></div>
+                            </div>
+                        </div>
+
+                        <div class="attb-row">
+                            <span class="b-dot bg-warning"></span>
+                            <div class="flex-grow-1">
+                                <div class="d-flex justify-content-between mb-1">
+                                    <span class="b-name">On Leave</span>
+                                    <span class="b-val">18</span>
+                                </div>
+                                <div class="progress b-bar"><div class="progress-bar bg-warning" style="width:7%;"></div></div>
+                            </div>
+                        </div>
+
+                        <div class="attb-row">
+                            <span class="b-dot bg-secondary"></span>
+                            <div class="flex-grow-1">
+                                <div class="d-flex justify-content-between mb-1">
+                                    <span class="b-name">Late Arrivals</span>
+                                    <span class="b-val">12</span>
+                                </div>
+                                <div class="progress b-bar"><div class="progress-bar bg-secondary" style="width:5%;"></div></div>
+                            </div>
+                        </div>
+
+                        <div class="attb-row">
+                            <span class="b-dot bg-danger"></span>
+                            <div class="flex-grow-1">
+                                <div class="d-flex justify-content-between mb-1">
+                                    <span class="b-name">Absent</span>
+                                    <span class="b-val">8</span>
+                                </div>
+                                <div class="progress b-bar"><div class="progress-bar bg-danger" style="width:3%;"></div></div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Footer -->
+                <div class="d-flex align-items-center justify-content-between border-top mt-4 pt-3">
+                    <small class="t-muted" style="font-size:.75rem;">
+                        <i class="fa-solid fa-arrow-trend-up text-primary me-1"></i>
+                        3% better than yesterday
+                    </small>
+                    <a href="#" class="fw-bold text-decoration-none" style="font-size:.75rem; color:#5ea52f;">
+                        Full report <i class="fa-solid fa-arrow-right ms-1"></i>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+
+        <!--  Departments  -->
+        <div class="col-lg-5">
+            <div class="panel-card h-100">
+
+                <!-- Header -->
+                <div class="d-flex align-items-center justify-content-between mb-4">
+                    <div class="d-flex align-items-center gap-2">
+                        <span class="chip chip-blue"><i class="fa-solid fa-sitemap"></i></span>
+                        <div>
+                            <h6 class="fw-bolder mb-0" style="font-size:.95rem;">Departments</h6>
+                            <small class="t-muted" style="font-size:.75rem;">Headcount distribution</small>
+                        </div>
+                    </div>
+                    <a href="#" class="fw-bold text-decoration-none" style="font-size:.75rem; color:#5ea52f;">
+                        View All
+                    </a>
+                </div>
+
+                <div class="dept-row">
+                    <span class="chip chip-blue"><i class="fa-solid fa-code"></i></span>
+                    <div class="flex-grow-1">
+                        <div class="d-flex justify-content-between mb-1">
+                            <span class="b-name">Engineering</span>
+                            <span class="b-val">84</span>
+                        </div>
+                        <div class="progress b-bar"><div class="progress-bar bg-success" style="width:100%;"></div></div>
+                    </div>
+                </div>
+
+                <div class="dept-row">
+                    <span class="chip chip-green"><i class="fa-solid fa-handshake"></i></span>
+                    <div class="flex-grow-1">
+                        <div class="d-flex justify-content-between mb-1">
+                            <span class="b-name">Sales</span>
+                            <span class="b-val">56</span>
+                        </div>
+                        <div class="progress b-bar"><div class="progress-bar bg-success" style="width:67%;"></div></div>
+                    </div>
+                </div>
+
+                <div class="dept-row">
+                    <span class="chip chip-slate"><i class="fa-solid fa-gears"></i></span>
+                    <div class="flex-grow-1">
+                        <div class="d-flex justify-content-between mb-1">
+                            <span class="b-name">Operations</span>
+                            <span class="b-val">45</span>
+                        </div>
+                        <div class="progress b-bar"><div class="progress-bar bg-success" style="width:54%;"></div></div>
+                    </div>
+                </div>
+
+                <div class="dept-row">
+                    <span class="chip chip-amber"><i class="fa-solid fa-bullhorn"></i></span>
+                    <div class="flex-grow-1">
+                        <div class="d-flex justify-content-between mb-1">
+                            <span class="b-name">Marketing</span>
+                            <span class="b-val">33</span>
+                        </div>
+                        <div class="progress b-bar"><div class="progress-bar bg-success" style="width:39%;"></div></div>
+                    </div>
+                </div>
+
+                <div class="dept-row">
+                    <span class="chip chip-red"><i class="fa-solid fa-calculator"></i></span>
+                    <div class="flex-grow-1">
+                        <div class="d-flex justify-content-between mb-1">
+                            <span class="b-name">Finance</span>
+                            <span class="b-val">30</span>
+                        </div>
+                        <div class="progress b-bar"><div class="progress-bar bg-success" style="width:36%;"></div></div>
+                    </div>
+                </div>
+
+                <!-- Footer -->
+                <div class="d-flex align-items-center justify-content-between border-top mt-4 pt-3">
+                    <small class="t-muted" style="font-size:.75rem;">
+                        <i class="fa-solid fa-users me-1"></i>248 total employees
+                    </small>
+                    <small class="text-primary fw-bold" style="font-size:.75rem;">
+                        <i class="fa-solid fa-user-plus me-1"></i>+12 this month
+                    </small>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</section>
+
+
+
+<section class="mt-4">
+    <div class="panel-card">
+
+        <!-- Header + Tabs -->
+        <div class="d-flex flex-wrap align-items-center justify-content-between gap-2">
+            <div class="d-flex align-items-center gap-2">
+                <span class="chip chip-green"><i class="fa-solid fa-money-check-dollar"></i></span>
+                <div>
+                    <h6 class="fw-bolder mb-0" style="font-size:.95rem;">Payroll &amp; Hiring</h6>
+                    <small class="t-muted" style="font-size:.75rem;">November cycle · 12 open roles</small>
+                </div>
+            </div>
+
+            <ul class="nav ph-tabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" type="button" data-bs-toggle="tab" data-bs-target="#tabPayroll" role="tab">
+                        <i class="fa-solid fa-money-check-dollar me-1"></i>Payroll
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" type="button" data-bs-toggle="tab" data-bs-target="#tabHiring" role="tab">
+                        <i class="fa-solid fa-user-tie me-1"></i>Hiring Pipeline
+                    </button>
+                </li>
+            </ul>
+        </div>
+
+        <div class="tab-content pt-4">
+
+            <div class="tab-pane fade show active" id="tabPayroll" role="tabpanel">
+
+                <div class="row align-items-center g-4">
+                    <!-- Amount -->
+                    <div class="col-md-5">
+                        <div class="text-center text-md-start">
+                            <small class="mini-label">Net Payout</small>
+                            <div class="pay-amount">$48,220</div>
+                            <div class="pay-sub">
+                                Gross <strong class="text-dark">$52,400</strong>
+                                <span class="mx-1">·</span>
+                                Deductions <strong class="text-dark">$4,180</strong>
+                            </div>
+                            <span class="badge rounded-pill bg-success-subtle text-dark border border-success-subtle fw-semibold mt-2" style="font-size:.66rem;">
+                                <i class="fa-regular fa-calendar me-1"></i>Payout 30 Nov
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Track -->
+                    <div class="col-md-7">
+                        <div class="track d-flex justify-content-between">
+                            <span class="track-line"></span>
+                            <div class="track-step done"><span class="track-dot"></span><small>Generated</small></div>
+                            <div class="track-step done"><span class="track-dot"></span><small>Reviewed</small></div>
+                            <div class="track-step now"><span class="track-dot"></span><small>Approval</small></div>
+                            <div class="track-step"><span class="track-dot"></span><small>Transfer</small></div>
+                            <div class="track-step"><span class="track-dot"></span><small>Paid</small></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Footer -->
+                <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 border-top mt-4 pt-3">
+                    <small class="t-muted" style="font-size:.75rem;">
+                        <i class="fa-solid fa-users me-1"></i>248 employees included
+                    </small>
+                    <a href="#" class="btn btn-primary btn-sm rounded-pill fw-semibold px-3" style="font-size:.72rem;">
+                        <i class="fa-solid fa-check me-1"></i>Approve Payroll
+                    </a>
+                </div>
+
+            </div>
+
+ 
+            <div class="tab-pane fade" id="tabHiring" role="tabpanel">
+
+                <!-- Horizontal flow -->
+                <div class="flow d-flex align-items-stretch justify-content-between">
+                    <div class="flow-step">
+                        <strong>156</strong>
+                        <small>Applied</small>
+                        <div class="progress flow-bar"><div class="progress-bar bg-success" style="width:100%;"></div></div>
+                    </div>
+                    <i class="fa-solid fa-arrow-right-long flow-arrow"></i>
+
+                    <div class="flow-step">
+                        <strong>42</strong>
+                        <small>Screening</small>
+                        <div class="progress flow-bar"><div class="progress-bar bg-success" style="width:64%;"></div></div>
+                    </div>
+                    <i class="fa-solid fa-arrow-right-long flow-arrow"></i>
+
+                    <div class="flow-step">
+                        <strong>18</strong>
+                        <small>Interviews</small>
+                        <div class="progress flow-bar"><div class="progress-bar bg-success" style="width:38%;"></div></div>
+                    </div>
+                    <i class="fa-solid fa-arrow-right-long flow-arrow"></i>
+
+                    <div class="flow-step">
+                        <strong>6</strong>
+                        <small>Offers</small>
+                        <div class="progress flow-bar"><div class="progress-bar bg-success" style="width:20%;"></div></div>
+                    </div>
+                    <i class="fa-solid fa-arrow-right-long flow-arrow"></i>
+
+                    <div class="flow-step hot">
+                        <strong>3</strong>
+                        <small>Hired 🎉</small>
+                        <div class="progress flow-bar"><div class="progress-bar bg-success" style="width:100%;"></div></div>
+                    </div>
+                </div>
+
+                <!-- Footer -->
+                <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 border-top mt-4 pt-3">
+                    <small class="t-muted" style="font-size:.75rem;">
+                        <i class="fa-solid fa-hourglass-half me-1"></i>Avg. time to hire: 18 days
+                    </small>
+                    <a href="#" class="fw-bold text-decoration-none" style="font-size:.75rem; color:#5ea52f;">
+                        View all jobs <i class="fa-solid fa-arrow-right ms-1"></i>
+                    </a>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</section>
+        
+    </section>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+(function () {
+    "use strict";
+
+    // ---- Auth guard ----
+    var user = (localStorage.getItem("loggedInUser") || "").trim();
+   if (!user) {
+    location.href = "index.html?return=" + encodeURIComponent(location.pathname.split("/").pop());
+    return;
+}
+
+    var $ = function (id) { return document.getElementById(id); };
+    var two = function (n) { return String(n).padStart(2, "0"); };
+
+    // ---- User info + greeting + dates ----
+    var now = new Date();
+    var av = "https://ui-avatars.com/api/?name=" + encodeURIComponent(user) + "&background=7dc443&color=fff&bold=true";
+    $("topbarUserName").textContent = user;
+    $("profileMenuName").textContent = user;
+    $("heroUserName").textContent = user.split(" ")[0];
+    $("topbarUserAvatar").src = av;
+    $("profileMenuAvatar").src = av;
+    $("heroGreeting").textContent = now.getHours() >= 17 ? "Good evening," : now.getHours() >= 12 ? "Good afternoon," : "Good morning,";
+    $("currentDate").textContent = now.toLocaleDateString("en-US", { weekday: "short", day: "numeric", month: "short", year: "numeric" });
+    $("liveDate").textContent = now.toLocaleDateString("en-US", { weekday: "long", day: "numeric", month: "long", year: "numeric" });
+
+    // ---- Logout / mark read / nav active ----
+    document.querySelector(".logout-link").addEventListener("click", function () {
+        localStorage.removeItem("loggedInUser");
+    });
+
+    $("markRead").addEventListener("click", function () {
+        document.querySelectorAll(".drop-item.unread").forEach(function (el) { el.classList.remove("unread"); });
+        $("notifBadge").style.display = "none";
+    });
+
+
+
+    // ---- Punch clock ----
+    var KEY = "nc_punch";
+    var ps = JSON.parse(localStorage.getItem(KEY) || "null") || { status: "out", inTime: null, outTime: null };
+    var hm = function (ts) { return new Date(ts).toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" }); };
+    var dur = function (ms) {
+        var s = Math.floor(ms / 1e3);
+        return Math.floor(s / 3600) + "h " + Math.floor(s % 3600 / 60) + "m " + s % 60 + "s";
+    };
+
+    function draw() {
+        var live = ps.status === "in";
+        $("punchText").textContent = live ? "Check Out" : "Check In";
+        $("punchWrap").classList.toggle("wrk-out", live);
+        $("attPanel").classList.toggle("is-live", live);
+        $("dotWork").classList.toggle("live", live);
+        $("dotIn").classList.toggle("on", !!ps.inTime);
+        $("dotOut").classList.toggle("on", !!ps.outTime);
+
+        if (live) {
+            $("punchTime").textContent = "since " + hm(ps.inTime);
+            $("timeIn").textContent = hm(ps.inTime);
+            $("timeOut").textContent = "— —";
+            $("workStatus").innerHTML = '<span class="att-status-dot"></span> Working — <strong>…</strong>';
+        } else if (ps.outTime) {
+            var total = dur(ps.outTime - ps.inTime);
+            $("punchTime").textContent = "Total " + total;
+            $("timeIn").textContent = hm(ps.inTime);
+            $("timeOut").textContent = hm(ps.outTime);
+            $("totalHours").textContent = total;
+            $("workStatus").innerHTML = '<span class="att-status-dot"></span> Checked out · <strong>' + total + '</strong>';
+        } else {
+            $("punchTime").textContent = "Tap to start";
+            $("timeIn").textContent = "— —";
+            $("timeOut").textContent = "— —";
+            $("totalHours").textContent = "0h 0m";
+            $("workStatus").innerHTML = '<span class="att-status-dot"></span> Not checked in';
+        }
+    }
+
+    function tick() {
+        var n = new Date();
+        $("liveClock").textContent = two(n.getHours()) + ":" + two(n.getMinutes()) + ":" + two(n.getSeconds());
+        if (ps.status === "in") {
+            var t = dur(Date.now() - ps.inTime);
+            $("stepWorkTime").textContent = t;
+            $("totalHours").textContent = t;
+            var w = document.querySelector("#workStatus strong");
+            if (w) w.textContent = t;
+        }
+    }
+
+    $("punchAction").addEventListener("click", function () {
+        if (ps.status !== "in") ps = { status: "in", inTime: Date.now(), outTime: null };
+        else { ps.status = "out"; ps.outTime = Date.now(); }
+        localStorage.setItem(KEY, JSON.stringify(ps));
+        draw(); tick();
+    });
+
+    document.querySelectorAll(".att-day")[(now.getDay() + 6) % 7].classList.add("today");
+
+    draw(); tick();
+    setInterval(tick, 1000);
+})();
+</script>
+
+</body>
+</html>

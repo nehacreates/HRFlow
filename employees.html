@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HR Portal | Meet The Crew</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="dashboard.css">
+<link rel="stylesheet" href="employees.css">
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+<aside class="offcanvas-lg offcanvas-start sidebar d-flex flex-column" tabindex="-1" id="sidebar" aria-label="HR Sidebar">
+    <div class="sidebar-brand d-flex align-items-center justify-content-between">
+        <img src="assets/logo-white.png" alt="logo">
+        <button type="button" class="btn-close btn-close-white d-lg-none" data-bs-dismiss="offcanvas" data-bs-target="#sidebar" aria-label="Close"></button>
+    </div>
+    <nav class="sidebar-nav flex-grow-1">
+        <span class="nav-label">Main Menu</span>
+        <a href="dashboard.html" class="nav-link"><i class="fa-solid fa-gauge-high"></i><span>Dashboard</span></a>
+        <a href="employees.html" class="nav-link active"><i class="fa-solid fa-users"></i><span>Employees</span><span class="nav-badge ms-auto">248</span></a>
+        <a href="attendence.html" class="nav-link"><i class="fa-solid fa-calendar-check"></i><span>Attendance</span></a>
+        <a href="paroll.html" class="nav-link"><i class="fa-solid fa-money-bill-wave"></i><span>Payroll</span></a>
+        <a href="leave.html" class="nav-link"><i class="fa-solid fa-plane-departure"></i><span>Leave</span><span class="nav-badge warn ms-auto">5</span></a>
+        <a href="recruitment.html" class="nav-link"><i class="fa-solid fa-briefcase"></i><span>Recruitment</span></a>
+        <span class="nav-label">Management</span>
+        <a href="performance.html" class="nav-link"><i class="fa-solid fa-chart-line"></i><span>Performance</span></a>
+        <a href="holidays.html" class="nav-link"><i class="fa-solid fa-umbrella-beach"></i><span>Holidays</span></a>
+        <a href="inbox.html" class="nav-link"><i class="fa-solid fa-inbox"></i><span>Inbox</span><span class="nav-badge ms-auto">3</span></a>
+        <a href="assets.html" class="nav-link"><i class="fa-solid fa-laptop"></i><span>Assets</span><span class="nav-badge ms-auto">5</span></a>
+    </nav>
+</aside>
+
+<!-- MAIN -->
+<main class="main-area d-flex flex-column min-vh-100">
+
+    <!-- TOPBAR -->
+    <header class="topbar sticky-top d-flex align-items-center">
+        <button class="btn btn-link text-dark text-decoration-none fs-4 p-0 me-3 d-lg-none" type="button"
+                data-bs-toggle="offcanvas" data-bs-target="#sidebar" aria-controls="sidebar">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+        <h4 class="fw-bolder mb-0 page-title">Employees</h4>
+        <div class="topbar-search position-relative d-none d-md-block">
+            <i class="fa-solid fa-magnifying-glass position-absolute top-50 translate-middle-y"></i>
+            <input type="text" class="form-control rounded-pill" placeholder="Search employees, departments...">
+        </div>
+        <div class="d-flex align-items-center gap-3 ms-auto">
+            <div class="dropdown">
+                <button class="btn notif-btn rounded-circle position-relative" type="button"
+                        data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
+                    <i class="fa-regular fa-bell"></i>
+                    <span class="position-absolute badge rounded-pill bg-danger notif-badge">3</span>
+                </button>
+                <div class="dropdown-menu notif-menu">
+                    <div class="drop-head d-flex justify-content-between align-items-center">
+                        <span>Notifications</span>
+                        <button type="button" id="markRead">Mark all read</button>
+                    </div>
+                    <div class="drop-item unread">
+                        <i class="fa-solid fa-user-plus chip chip-blue"></i>
+                        <div><span>New registration request</span><small class="d-block">Ravi Kumar · 5m ago</small></div>
+                    </div>
+                    <div class="drop-item unread">
+                        <i class="fa-solid fa-plane-departure chip chip-amber"></i>
+                        <div><span>Leave request pending</span><small class="d-block">Emma Wilson · 1h ago</small></div>
+                    </div>
+                    <div class="drop-item unread">
+                        <i class="fa-solid fa-file-invoice-dollar chip chip-red"></i>
+                        <div><span>Payroll generated</span><small class="d-block">October payslips · 3h ago</small></div>
+                    </div>
+                </div>
+            </div>
+            <div class="dropdown">
+                <button class="btn profile-btn rounded-pill d-flex align-items-center gap-2" type="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                    <img id="topbarUserAvatar" src="" class="rounded-circle" width="34" height="34" alt="user">
+                    <span class="text-start d-none d-sm-block">
+                        <span class="d-block fw-bold small" id="topbarUserName"></span>
+                    </span>
+                    <i class="fa-solid fa-chevron-down text-muted small"></i>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end shadow border-0 p-2" style="min-width:230px;">
+                    <li class="d-flex align-items-center gap-2 p-2">
+                        <img id="profileMenuAvatar" src="" class="rounded-circle" width="42" height="42" alt="user">
+                        <div><strong class="d-block small" id="profileMenuName"></strong><small class="text-muted">HR Manager</small></div>
+                    </li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item rounded d-flex align-items-center gap-2 py-2" href="#"><i class="fa-regular fa-user text-primary" style="width:18px;"></i> My Profile</a></li>
+                    <li><a class="dropdown-item rounded d-flex align-items-center gap-2 py-2" href="#"><i class="fa-solid fa-gear text-primary" style="width:18px;"></i> Settings</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item text-danger rounded d-flex align-items-center gap-2 py-2 logout-link" href="index.html"><i class="fa-solid fa-arrow-right-from-bracket" style="width:18px;"></i> Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <!-- CREW -->
+    <section class="ex-wrap flex-grow-1">
+
+        <!-- ✍️ MASTHEAD -->
+        <div class="ex-mast ex-fade">
+            <div class="ex-mh-left">
+                <span class="ex-mh-kick"><span class="ex-kdot"></span>Crew Directory</span>
+                <h1 class="ex-mh-title">Meet the crew behind <span class="ex-accent">the magic.</span></h1>
+                <p class="ex-mh-sub">Real people, real moods, real work. Click any face to see their story — projects, streaks aur thodi si life.</p>
+            </div>
+            <div class="ex-cmdk">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="exSearch" placeholder="Search the crew...">
+                <kbd>CTRL K</kbd>
+            </div>
+        </div>
+
+        <!-- 🥇 PODIUM -->
+        <div class="ex-podium" id="exPodium"></div>
+
+        <!-- 🗂️ TABS -->
+        <div class="ex-tabs-bar" id="exTabs"></div>
+
+        <!-- 🔦 CREW GRID -->
+        <div class="ex-grid" id="exGrid"></div>
+
+        <!-- 📅 OUT THIS WEEK -->
+        <div class="ex-out-sec">
+            <div class="d-flex align-items-center gap-2 mb-3">
+                <h6 class="section-title mb-0" style="font-size:.95rem">Out This Week</h6>
+                <span class="flex-grow-1" style="height:1px;background:#e7eee1"></span>
+                <span class="badge rounded-pill" style="background:rgba(240,169,46,.13);color:#c07d12;font-weight:700;font-size:.56rem">4 away</span>
+            </div>
+            <div class="ex-out-grid">
+                <div class="ex-out">
+                    <span class="ex-oav">IS</span>
+                    <div><strong>Imran Sheikh</strong><small>Sick Leave</small></div>
+                    <span class="ex-odates">Mon–Wed</span>
+                </div>
+                <div class="ex-out">
+                    <span class="ex-oav">PS</span>
+                    <div><strong>Priya Sharma</strong><small>Personal</small></div>
+                    <span class="ex-odates">Tue</span>
+                </div>
+                <div class="ex-out">
+                    <span class="ex-oav">AN</span>
+                    <div><strong>Aliza Noor</strong><small>Casual</small></div>
+                    <span class="ex-odates">Thu–Fri</span>
+                </div>
+                <div class="ex-out">
+                    <span class="ex-oav">AT</span>
+                    <div><strong>Amelia Thompson</strong><small>Family Trip</small></div>
+                    <span class="ex-odates">Fri</span>
+                </div>
+            </div>
+        </div>
+
+        <!--  MILESTONES -->
+        <div class="ex-out-sec">
+            <div class="d-flex align-items-center gap-2 mb-3">
+                <h6 class="section-title mb-0" style="font-size:.95rem">Crew Milestones</h6>
+                <span class="flex-grow-1" style="height:1px;background:#e7eee1"></span>
+            </div>
+            <div class="ex-mil-grid">
+                <div class="ex-mil">
+                    <span class="ex-mic"><i class="fa-solid fa-cake-candles"></i></span>
+                    <div><strong>Zoya Fernandez — 4 Years</strong><small>Company anniversary this Friday 🎉</small></div>
+                </div>
+                <div class="ex-mil">
+                    <span class="ex-mic"><i class="fa-solid fa-trophy"></i></span>
+                    <div><strong>Aarya Sharma — 50th Project</strong><small>Milestone unlocked this week</small></div>
+                </div>
+                <div class="ex-mil">
+                    <span class="ex-mic"><i class="fa-solid fa-graduation-cap"></i></span>
+                    <div><strong>Kirti Patel — Certified</strong><small>Completed AWS certification</small></div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <!--  DRAWER -->
+    <div class="ex-backdrop" id="exBackdrop"></div>
+    <div class="ex-drawer" id="exDrawer">
+        <div class="ex-dcover">
+            <button class="ex-dclose" id="exDClose"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="ex-dbody">
+            <img id="dImg" src="" class="ex-dav" alt="">
+            <span class="ex-dbadge" id="dBadge"></span>
+            <div class="ex-dname" id="dName"></div>
+            <div class="ex-drole" id="dRole"></div>
+
+            <div class="ex-dstats">
+                <div class="ex-dstat"><b id="dProj">0</b><small id="dProjL">Projects</small></div>
+                <div class="ex-dstat"><b id="dAtt">0%</b><small>Attendance</small></div>
+                <div class="ex-dstat"><b id="dRate">0</b><small>Rating</small></div>
+            </div>
+
+            <div class="ex-dbars">
+                <div class="ex-dlbl"><span>Attendance</span><b id="dAttV">0%</b></div>
+                <div class="ex-dbar"><span class="b-green" id="dAttBar"></span></div>
+                <div class="ex-dlbl"><span>Performance</span><b id="dPerfV">0%</b></div>
+                <div class="ex-dbar"><span class="b-amber" id="dPerfBar"></span></div>
+            </div>
+
+            <div class="ex-dinfo">
+                <div class="ex-drow"><span><i class="fa-solid fa-envelope"></i>Email</span><b id="dEmail"></b></div>
+                <div class="ex-drow"><span><i class="fa-solid fa-location-dot"></i>Location</span><b id="dLoc"></b></div>
+                <div class="ex-drow"><span><i class="fa-solid fa-users"></i>Department</span><b id="dDept"></b></div>
+                <div class="ex-drow"><span><i class="fa-regular fa-calendar"></i>Joined</span><b id="dJoined"></b></div>
+            </div>
+
+            <div class="d-flex gap-2">
+                <button class="btn btn-primary btn-sm rounded-pill px-4 flex-fill" style="font-size:.74rem">
+                    <i class="fa-regular fa-message me-1"></i>Message
+                </button>
+                <button class="btn btn-light border btn-sm rounded-pill px-4 flex-fill" style="font-size:.74rem" id="exDClose2">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ADD MODAL -->
+    <div class="modal fade" id="addModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title fw-bold"><i class="fa-solid fa-user-plus me-2"></i>Add Crew Member</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">Full Name</label>
+                        <input type="text" class="form-control" id="mName" placeholder="e.g. Rohit Sharma">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Designation</label>
+                        <input type="text" class="form-control" id="mRole" placeholder="e.g. Frontend Developer">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Department</label>
+                        <select class="form-select" id="mDept"></select>
+                    </div>
+                    <div class="mb-1">
+                        <label class="form-label">Mood</label>
+                        <select class="form-select" id="mMood">
+                            <option value="ship">Shipping</option>
+                            <option value="focus">Focusing</option>
+                            <option value="ooo">Out of Office</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer border-0 pt-0">
+                    <button class="btn btn-light border" data-bs-dismiss="modal">Cancel</button>
+                    <button class="btn btn-primary rounded-pill px-3" id="mSave"><i class="fa-solid fa-check me-1"></i>Add</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOAST -->
+    <div class="toast-container position-fixed bottom-0 start-50 translate-middle-x p-3">
+        <div class="toast ex-toast border-0" id="appToast" data-bs-delay="2000" role="alert">
+            <div class="d-flex">
+                <div class="toast-body" id="toastMsg">Done</div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+            </div>
+        </div>
+    </div>
+
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+(function () {
+    "use strict";
+    var $  = function (s, c) { return (c || document).querySelector(s); };
+    var $$ = function (s, c) { return [].slice.call((c || document).querySelectorAll(s)); };
+
+    /* ---- auth ---- */
+    var user = (localStorage.getItem("loggedInUser") || "").trim();
+    if (!user) { location.href = "index.html"; return; }
+    var av = "https://ui-avatars.com/api/?name=" + encodeURIComponent(user) + "&background=7dc443&color=fff&bold=true";
+    ["topbarUserName", "profileMenuName"].forEach(function (i) { $("#" + i).textContent = user; });
+    ["topbarUserAvatar", "profileMenuAvatar"].forEach(function (i) { $("#" + i).src = av; });
+    $$(".logout-link").forEach(function (a) { a.onclick = function () { localStorage.removeItem("loggedInUser"); }; });
+    $("#markRead").onclick = function () {
+        $$(".drop-item.unread").forEach(function (d) { d.classList.remove("unread"); });
+        var b = $(".notif-badge"); if (b) b.classList.add("d-none");
+    };
+
+    var toast = new bootstrap.Toast($("#appToast"));
+    function notify(m) { $("#toastMsg").textContent = m; toast.show(); }
+
+    /*  DATA */
+    var DEPTS = {
+        web:     { label: "Web Designers", unit: "Projects" },
+        uiux:    { label: "UI/UX",         unit: "Projects" },
+        react:   { label: "React JS",      unit: "Projects" },
+        backend: { label: "Backend",       unit: "Projects" },
+        php:     { label: "PHP",           unit: "Projects" },
+        it:      { label: "IT Support",    unit: "Tickets" },
+        qa:      { label: "QA",            unit: "Bugs" },
+        hr:      { label: "HR Managers",   unit: "Hires" },
+        jhr:     { label: "Junior HR",     unit: "Hires" }
+    };
+
+    var crew = [
+        { n: "Aarya Sharma",   r: "Senior Web Designer", dept: "web",     img: 47, on: true,  mood: "ship",   rate: 4.8, proj: 12, att: 98, email: "aarya@demo.com",   loc: "Bangalore", joined: "12 Mar 2022",
+          quote: "\u201CDesign it like the client is watching. Because they are.\u201D" },
+        { n: "Devya Singh",    r: "Mid Web Designer",    dept: "web",     img: 44, on: true,  mood: "focus",  rate: 4.5, proj: 8,  att: 95, email: "devya@demo.com",   loc: "Delhi",     joined: "22 Aug 2022",
+          quote: "\u201CPixel by pixel, the magic happens.\u201D" },
+        { n: "Neha Kapoor",    r: "Mid Web Designer",    dept: "web",     img: 45, on: true,  mood: "ship",   rate: 4.6, proj: 10, att: 96, email: "neha@demo.com",    loc: "Mumbai",    joined: "14 Feb 2023",
+          quote: "\u201CWhitespace is not empty space. It is breathing room.\u201D" },
+        { n: "Imran Sheikh",   r: "Junior Web Designer", dept: "web",     img: 15, on: false, mood: "ooo",    rate: 4.1, proj: 4,  att: 91, email: "imran@demo.com",   loc: "Hyderabad", joined: "03 Mar 2024",
+          quote: "\u201CBack Monday. The internet can wait.\u201D" },
+        { n: "Zoya Fernandez", r: "Lead UI/UX Designer", dept: "uiux",    img: 41, on: true,  mood: "focus",  rate: 4.9, proj: 18, att: 99, email: "zoya@demo.com",    loc: "Goa",       joined: "05 Jan 2021",
+          quote: "\u201CUsers do not read. They scan. Design accordingly.\u201D" },
+        { n: "Harsh Vardhan",  r: "UX Designer",         dept: "uiux",    img: 38, on: true,  mood: "ship",   rate: 4.4, proj: 9,  att: 94, email: "harsh@demo.com",   loc: "Noida",     joined: "19 Sep 2022",
+          quote: "\u201CEmpathy first, wireframes second.\u201D" },
+        { n: "Aliza Noor",     r: "Junior UI Designer",  dept: "uiux",    img: 42, on: false, mood: "ooo",    rate: 4.2, proj: 5,  att: 92, email: "aliza@demo.com",   loc: "Noida",     joined: "10 Oct 2024",
+          quote: "\u201CLearning by breaking things gently.\u201D" },
+        { n: "Aditya Verma",   r: "React Lead",          dept: "react",   img: 12, on: true,  mood: "ship",   rate: 4.9, proj: 21, att: 97, email: "aditya@demo.com",  loc: "Bangalore", joined: "08 Jun 2021",
+          quote: "\u201CComponents are just functions with feelings.\u201D" },
+        { n: "Kirti Patel",    r: "React Developer",     dept: "react",   img: 22, on: true,  mood: "focus",  rate: 4.3, proj: 7,  att: 93, email: "kirti@demo.com",   loc: "Ahmedabad", joined: "17 Nov 2022",
+          quote: "\u201CHooks, not crutches.\u201D" },
+        { n: "Vikram Singh",   r: "Backend Lead",        dept: "backend", img: 54, on: true,  mood: "ship",   rate: 4.7, proj: 16, att: 96, email: "vikram@demo.com",  loc: "Gurugram",  joined: "02 Feb 2022",
+          quote: "\u201CIf it scales, ship it. If it does not, refactor.\u201D" },
+        { n: "Rohan Mehta",    r: "Backend Developer",   dept: "backend", img: 64, on: true,  mood: "focus",  rate: 4.4, proj: 6,  att: 94, email: "rohan@demo.com",   loc: "Indore",    joined: "11 Apr 2023",
+          quote: "\u201CDatabases forgive nothing. Neither do I.\u201D" },
+        { n: "Arjun Nair",     r: "PHP Lead",            dept: "php",     img: 71, on: true,  mood: "ship",   rate: 4.5, proj: 13, att: 95, email: "arjun@demo.com",   loc: "Kochi",     joined: "23 Jul 2022",
+          quote: "\u201COld but gold. Legacy pays bills.\u201D" },
+        { n: "Farhan Ali",     r: "PHP Developer",       dept: "php",     img: 72, on: true,  mood: "focus",  rate: 4.2, proj: 5,  att: 92, email: "farhan@demo.com",  loc: "Lucknow",   joined: "30 Jan 2024",
+          quote: "\u201CEvery bug is a lesson wearing a disguise.\u201D" },
+        { n: "Sameer Khan",    r: "IT Support Lead",     dept: "it",      img: 81, on: true,  mood: "ship",   rate: 4.6, proj: 210, att: 97, email: "sameer@demo.com", loc: "Mumbai",    joined: "15 Mar 2023",
+          quote: "\u201CHave you tried turning it off and on again?\u201D" },
+        { n: "Deepti Rao",     r: "System Admin",        dept: "it",      img: 82, on: true,  mood: "focus",  rate: 4.5, proj: 148, att: 98, email: "deepti@demo.com",  loc: "Bengaluru", joined: "09 Aug 2023",
+          quote: "\u201CBackups are a love letter to your future self.\u201D" },
+        { n: "Tara Bose",      r: "QA Lead",             dept: "qa",      img: 91, on: true,  mood: "ship",   rate: 4.6, proj: 240, att: 96, email: "tara@demo.com",    loc: "Kolkata",   joined: "21 Sep 2022",
+          quote: "\u201CIt works on my machine is not a status update.\u201D" },
+        { n: "Mohit Jain",     r: "QA Engineer",         dept: "qa",      img: 92, on: true,  mood: "focus",  rate: 4.3, proj: 165, att: 94, email: "mohit@demo.com",   loc: "Jaipur",    joined: "05 Feb 2024",
+          quote: "\u201CI break things so users never have to.\u201D" },
+        { n: "Emma Wilson",    r: "HR Executive",        dept: "hr",      img: 44, on: true,  mood: "ship",   rate: 4.8, proj: 32, att: 99, email: "emma@demo.com",    loc: "Delhi",     joined: "14 Jun 2022",
+          quote: "\u201CCulture is built one conversation at a time.\u201D" },
+        { n: "Nidhi Verma",    r: "Sr HR Manager",       dept: "hr",      img: 95, on: true,  mood: "ship",   rate: 4.7, proj: 58, att: 98, email: "nidhi@demo.com",   loc: "Delhi",     joined: "03 Jan 2021",
+          quote: "\u201CHire for attitude, train for skill.\u201D" },
+        { n: "Pooja Singh",    r: "Junior HR",           dept: "jhr",     img: 62, on: true,  mood: "focus",  rate: 4.3, proj: 9,  att: 96, email: "pooja@demo.com",   loc: "Delhi",     joined: "28 Oct 2024",
+          quote: "\u201CFirst job, hundred percent heart.\u201D" },
+        { n: "Aman Tiwari",    r: "Junior HR",           dept: "jhr",     img: 96, on: true,  mood: "ship",   rate: 4.2, proj: 6,  att: 95, email: "aman@demo.com",    loc: "Lucknow",   joined: "12 Nov 2024",
+          quote: "\u201CFresh eyes, fresh ideas.\u201D" }
+    ];
+
+    var MOOD = {
+        ship:  { cls: "md-ship",  lbl: "Shipping" },
+        focus: { cls: "md-focus", lbl: "Focusing" },
+        ooo:   { cls: "md-ooo",   lbl: "Out of Office" }
+    };
+
+    var curTab = "all", curQ = "";
+
+    function podium() {
+        var top = crew.slice().sort(function (a, b) { return b.rate - a.rate; }).slice(0, 3);
+        var medals = ["pm-1", "pm-2", "pm-3"];
+        var ics = ["fa-trophy", "fa-medal", "fa-award"];
+        $("#exPodium").innerHTML = top.map(function (m, i) {
+            var ini = m.n.split(" ").map(function (w) { return w[0]; }).join("").slice(0, 2).toUpperCase();
+            return "<div class='ex-pod'>" +
+                    "<span class='p-medal " + medals[i] + "'><i class='fa-solid " + ics[i] + "'></i></span>" +
+                    "<div><strong>" + m.n + "</strong><small>" + m.r + "</small></div>" +
+                    "<span class='p-rate'><i class='fa-solid fa-star me-1' style='font-size:.5rem'></i>" + m.rate + "</span>" +
+                   "</div>";
+        }).join("");
+    }
+
+    /* TABS */
+    function tabs() {
+        var h = "<button class='ex-tab" + (curTab === "all" ? " on" : "") + "' data-t='all'>All Crew" +
+                "<span class='ex-tc'>" + crew.length + "</span></button>";
+        Object.keys(DEPTS).forEach(function (k) {
+            var cnt = crew.filter(function (e) { return e.dept === k; }).length;
+            if (!cnt) return;
+            h += "<button class='ex-tab" + (curTab === k ? " on" : "") + "' data-t='" + k + "'>" +
+                 DEPTS[k].label + "<span class='ex-tc'>" + cnt + "</span></button>";
+        });
+        $("#exTabs").innerHTML = h;
+    }
+
+    /* CREW CARDS */
+    function grid() {
+        var h = "", v = 0;
+        crew.forEach(function (m, i) {
+            if (curTab !== "all" && m.dept !== curTab) return;
+            if (curQ && m.n.toLowerCase().indexOf(curQ) === -1) return;
+            v++;
+            var mo = MOOD[m.mood];
+            h += "<div class='ex-ccard' style='animation-delay:" + (v * .05) + "s' data-i='" + i + "'>" +
+                    "<span class='ex-mood " + mo.cls + "'><span class='ex-mdot'></span>" + mo.lbl + "</span>" +
+                    "<img class='ex-cavatar' src='https://i.pravatar.cc/140?u=" + m.img + "' alt=''>" +
+                    "<div class='ex-cname'>" + m.n + "</div>" +
+                    "<span class='ex-crole'>" + m.r + "</span>" +
+                    "<div class='ex-quote'>" + m.quote + "</div>" +
+                    "<div class='ex-cfoot'>" +
+                        "<span class='ex-cdept'>" + DEPTS[m.dept].label + "</span>" +
+                        "<span class='ex-crate'><i class='fa-solid fa-star me-1'></i>" + m.rate + "</span>" +
+                    "</div>" +
+                 "</div>";
+        });
+        $("#exGrid").innerHTML = h ||
+            "<div class='ex-none'><i class='fa-regular fa-face-frown'></i><small>No crew member matches your search.</small></div>";
+    }
+
+    /* DRAWER */
+    function openDrawer(i) {
+        var m = crew[i];
+        var d = DEPTS[m.dept];
+        $("#dImg").src = "https://i.pravatar.cc/300?u=" + m.img;
+        $("#dName").textContent = m.n;
+        $("#dRole").textContent = m.r + " · " + d.label;
+        var bd = $("#dBadge");
+        bd.className = "ex-dbadge " + (m.on ? "on" : "off");
+        bd.textContent = m.on ? "Active" : "On Leave";
+        $("#dProj").textContent = m.proj;
+        $("#dProjL").textContent = d.unit;
+        $("#dAtt").textContent = m.att + "%";
+        $("#dRate").textContent = m.rate;
+        $("#dAttBar").style.setProperty("--w", m.att + "%");
+        $("#dPerfBar").style.setProperty("--w", Math.round(m.rate / 5 * 100) + "%");
+        $("#dAttV").textContent = m.att + "%";
+        $("#dPerfV").textContent = Math.round(m.rate / 5 * 100) + "%";
+        $("#dEmail").textContent = m.email;
+        $("#dLoc").textContent = m.loc;
+        $("#dDept").textContent = d.label;
+        $("#dJoined").textContent = m.joined;
+        $("#exDrawer").classList.add("open");
+        $("#exBackdrop").classList.add("show");
+    }
+    function closeDrawer() {
+        $("#exDrawer").classList.remove("open");
+        $("#exBackdrop").classList.remove("show");
+    }
+    $("#exDClose").onclick = closeDrawer;
+    $("#exDClose2").onclick = closeDrawer;
+    $("#exBackdrop").onclick = closeDrawer;
+
+    /* FILTERS + SEARCH */
+    function apply() { tabs(); grid(); }
+    $("#exTabs").addEventListener("click", function (e) {
+        var b = e.target.closest(".ex-tab");
+        if (!b) return;
+        curTab = b.dataset.t;
+        apply();
+    });
+    $("#exSearch").oninput = function () {
+        curQ = this.value.toLowerCase();
+        grid();
+    };
+
+    /* ⌨️ Ctrl+K */
+    document.addEventListener("keydown", function (e) {
+        if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k") {
+            e.preventDefault();
+            $("#exSearch").focus();
+        }
+    });
+
+
+    $("#exGrid").addEventListener("click", function (e) {
+        var c = e.target.closest("[data-i]");
+        if (!c) return;
+        openDrawer(+c.dataset.i);
+    });
+
+
+    $("#mDept").innerHTML = Object.keys(DEPTS).map(function (k) {
+        return "<option value='" + k + "'>" + DEPTS[k].label + "</option>";
+    }).join("");
+
+    $("#mSave").onclick = function () {
+        var n = $("#mName").value.trim();
+        if (!n) return notify("Enter name");
+        crew.push({
+            n: n, r: $("#mRole").value.trim() || "Team Member", dept: $("#mDept").value,
+            img: Math.floor(Math.random() * 90) + 10, on: true,
+            mood: $("#mMood").value, rate: 0, proj: 0, att: 100,
+            email: "new@demo.com", loc: "Head Office", joined: "Today",
+            quote: "\u201CThe newest face on the crew!\u201D"
+        });
+        bootstrap.Modal.getOrCreateInstance($("#addModal")).hide();
+        $("#mName").value = ""; $("#mRole").value = "";
+        apply();
+        notify(n + " joined the crew");
+    };
+
+    podium(); apply();
+})();
+</script>
+
+</body>
+</html>
